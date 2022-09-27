@@ -52,22 +52,24 @@ public abstract class User {
             errMsg = "Email is a required field.";
         } else if (password.isEmpty()) {
             errMsg = "Password is a required field.";
-        } 
-        User user = null;
-        String [][] usersInfo = RecordReader.readFile("user.txt");
-        for (String[] userInfo : usersInfo) {
-            if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
-                String userIdPrefix = userInfo[0].substring(0, 3);
-                user = switch(userIdPrefix) {
-                    case "ctm" -> new Customer(userInfo);
-                    case "adm" -> new Admin(userInfo);
-                    default -> new Customer(userInfo);
-                };
-                user.viewMenu();
-                break;
+        } else {
+            // Check credentials.
+            User user = null;
+            String [][] usersInfo = RecordReader.readFile("user.txt");
+            for (String[] userInfo : usersInfo) {
+                if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
+                    String userIdPrefix = userInfo[0].substring(0, 3);
+                    user = switch(userIdPrefix) {
+                        case "ctm" -> new Customer(userInfo);
+                        case "adm" -> new Admin(userInfo);
+                        default -> new Customer(userInfo);
+                    };
+                    user.viewMenu();
+                    break;
+                }
             }
+            errMsg = null == user ? "Invalid credentials" : errMsg;
         }
-        errMsg = null == user ? "Invalid credentials" : errMsg;
         return errMsg;
     }
     
