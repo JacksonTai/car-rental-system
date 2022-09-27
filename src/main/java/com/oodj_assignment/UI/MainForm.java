@@ -158,19 +158,13 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
-        try {
-            String email = emailTf.getText().trim();
-            String password = passwordTf.getText().trim();
-            String errMsg = User.login(email, password);
-            if (null != errMsg) {
-                JOptionPane.showMessageDialog(this, errMsg);
-            } else {
-                dispose();
-            }
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "Empty Credentials", "Error Message", JOptionPane.ERROR_MESSAGE);
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error:" + e);
+        String email = emailTf.getText();
+        String password = passwordTf.getText();
+        String errMsg = User.login(email, password);
+        if (null == errMsg) {
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, errMsg);
         }
     }//GEN-LAST:event_signinBtnActionPerformed
 
