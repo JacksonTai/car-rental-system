@@ -1,0 +1,3 @@
+adm1|admin|-|-|admin
+ctm1|jackson@gmail.com|jackson|0166197213|Jackson123
+ctm2|kaijun@gmail.com|kai jun|0123456789|Kaijun123
