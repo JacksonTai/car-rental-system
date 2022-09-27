@@ -42,14 +42,33 @@ public abstract class User {
     
     public abstract void viewMenu();
     
-    public static String[] login(String email, String password){
-        String [][] users = RecordReader.readFile("user.txt");
-        for (String[] user : users) {
-            if (user[1].equals(email) && user[4].equals(password)) {
-                return user;
+    public static String login(String email, String password){
+        email = email.trim();
+        password = password.trim();
+        String errMsg = null;
+        if (email.isEmpty() && password.isEmpty()) {
+            errMsg = "Please fill in the credentials.";
+        } else if (email.isEmpty()) {
+            errMsg = "Email is a required field.";
+        } else if (password.isEmpty()) {
+            errMsg = "Password is a required field.";
+        } 
+        User user = null;
+        String [][] usersInfo = RecordReader.readFile("user.txt");
+        for (String[] userInfo : usersInfo) {
+            if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
+                String userIdPrefix = userInfo[0].substring(0, 3);
+                user = switch(userIdPrefix) {
+                    case "ctm" -> new Customer(userInfo);
+                    case "adm" -> new Admin(userInfo);
+                    default -> new Customer(userInfo);
+                };
+                user.viewMenu();
+                break;
             }
         }
-        return null;
+        errMsg = null == user ? "Invalid credentials" : errMsg;
+        return errMsg;
     }
     
 }
