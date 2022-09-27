@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Jackson
  */
 public class MainForm extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form MainPage
      */
@@ -161,30 +161,11 @@ public class MainForm extends javax.swing.JFrame {
         try {
             String email = emailTf.getText().trim();
             String password = passwordTf.getText().trim();
-            String errMsg = null;
-            if (email.isEmpty() && password.isEmpty()) {
-                errMsg = "Please fill in the credentials.";
-            } else if (email.isEmpty()) {
-                errMsg = "Email is a required field.";
-            } else if (password.isEmpty()) {
-                errMsg = "Password is a required field.";
-            } else {
-                String[] userInfo = User.login(email, password);
-                if (null != userInfo) {
-                    String userIdPrefix = userInfo[0].substring(0, 3);
-                    User user = switch(userIdPrefix) {
-                        case "ctm" -> new Customer(userInfo);
-                        case "adm" -> new Admin(userInfo);
-                        default -> new Customer(userInfo);
-                    };    
-                    dispose();
-                    user.viewMenu();
-                } else {
-                    errMsg = "Invalid Credentials.";
-                }
-            }
+            String errMsg = User.login(email, password);
             if (null != errMsg) {
                 JOptionPane.showMessageDialog(this, errMsg);
+            } else {
+                dispose();
             }
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(this, "Empty Credentials", "Error Message", JOptionPane.ERROR_MESSAGE);
