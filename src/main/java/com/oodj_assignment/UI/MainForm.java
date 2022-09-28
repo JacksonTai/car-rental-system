@@ -169,8 +169,8 @@ public class MainForm extends javax.swing.JFrame {
                 case "adm" -> new Admin(userInfo);
                 default -> new Customer(userInfo);
             };
-            user.viewMenu();
             dispose();
+            user.viewMenu();
         } else {
             String errMsg = loginInfo.get("errMsg");
             JOptionPane.showMessageDialog(this, errMsg);
