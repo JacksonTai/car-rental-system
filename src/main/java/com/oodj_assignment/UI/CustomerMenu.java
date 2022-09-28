@@ -123,7 +123,7 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         dispose();
-        new MainForm().show();
+        new MainMenu().show();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     public static void main(String args[]) {

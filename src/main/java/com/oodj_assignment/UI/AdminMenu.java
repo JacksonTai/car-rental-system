@@ -245,7 +245,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         dispose();
-        new MainForm().show();
+        new MainMenu().show();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed

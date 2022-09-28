@@ -1,6 +1,6 @@
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.MainForm;
+import com.oodj_assignment.UI.MainMenu;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,7 +14,7 @@ import com.oodj_assignment.UI.MainForm;
 public class Main {
  
     public static void main (String[]args) {
-        new MainForm().setVisible(true);
+        new MainMenu().setVisible(true);
     }
     
 }

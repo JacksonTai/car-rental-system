@@ -210,7 +210,7 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        new MainForm().show();
+        new MainMenu().show();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
