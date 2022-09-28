@@ -5,15 +5,19 @@ package com.oodj_assignment.UI;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-
-import com.oodj_assignment.UI.MainForm;
+import com.oodj_assignment.Customer;
+import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.helper.InfoContainer;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Jackson
  */
-public class SignupForm extends javax.swing.JFrame {
+public class SignupForm extends javax.swing.JFrame implements Validatable {
 
+    Customer newCustomer = new Customer(null);
+    
     /**
      * Creates new form MainPage
      */
@@ -39,10 +43,10 @@ public class SignupForm extends javax.swing.JFrame {
         usernameLabel = new javax.swing.JLabel();
         phoneNumLabel = new javax.swing.JLabel();
         phoneNumTf = new javax.swing.JTextField();
-        confirmPasswordTf = new javax.swing.JTextField();
         confirmPasswordLabel = new javax.swing.JLabel();
         backBtn = new javax.swing.JButton();
         signupBtn = new javax.swing.JButton();
+        confirmPasswordTf = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,11 +82,9 @@ public class SignupForm extends javax.swing.JFrame {
         usernameLabel.setText("Username");
 
         phoneNumLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        phoneNumLabel.setText("Phone number");
+        phoneNumLabel.setText("Phone number (+60)");
 
         phoneNumTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-
-        confirmPasswordTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         confirmPasswordLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         confirmPasswordLabel.setText("Confirm password");
@@ -108,6 +110,8 @@ public class SignupForm extends javax.swing.JFrame {
             }
         });
 
+        confirmPasswordTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -127,11 +131,11 @@ public class SignupForm extends javax.swing.JFrame {
                             .addComponent(usernameLabel)
                             .addComponent(usernameTf))
                         .addGap(59, 59, 59)
-                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(confirmPasswordTf)
                             .addComponent(passwordLabel)
-                            .addComponent(passwordTf, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(confirmPasswordLabel)
-                            .addComponent(confirmPasswordTf)))
+                            .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmPasswordLabel)))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,7 +214,25 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
- 
+        String email = emailTf.getText();
+        String username = usernameTf.getText();
+        String phoneNum = phoneNumTf.getText();
+        String password = passwordTf.getText();
+        String confirmPassword = confirmPasswordTf.getText();
+        String[] signupInput = {email, username, phoneNum, password, confirmPassword};
+        InfoContainer signupInfo = newCustomer.signup(signupInput);
+        String errMsg = signupInfo.get("errMsg");
+        if (null == errMsg) {
+            newCustomer.setUserID(signupInfo.get("newCustomerID"));
+            newCustomer.setEmail(signupInfo.get("newEmail"));
+            newCustomer.setUsername(signupInfo.get("newUsername"));
+            newCustomer.setPhoneNum(signupInfo.get("newPhoneNum"));
+            newCustomer.setPassword(signupInfo.get("newPassword"));
+            dispose();
+            newCustomer.viewMenu();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, errMsg);
+        }
     }//GEN-LAST:event_signupBtnActionPerformed
 
     /**
@@ -254,7 +276,7 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton clearBtn;
     private javax.swing.JLabel confirmPasswordLabel;
-    private javax.swing.JTextField confirmPasswordTf;
+    private javax.swing.JPasswordField confirmPasswordTf;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JTextField emailTf;
     private javax.swing.JLabel passwordLabel;
@@ -266,4 +288,5 @@ public class SignupForm extends javax.swing.JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTf;
     // End of variables declaration//GEN-END:variables
+
 }
