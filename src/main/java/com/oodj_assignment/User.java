@@ -4,6 +4,7 @@
  */
 package com.oodj_assignment;
 
+import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
 
 /**
@@ -42,10 +43,11 @@ public abstract class User {
     
     public abstract void viewMenu();
     
-    public static String login(String email, String password){
+    public static InfoContainer login(String email, String password){
         email = email.trim();
         password = password.trim();
-        String errMsg = null;
+        InfoContainer loginInfo = new InfoContainer();
+        String errMsg;
         if (email.isEmpty() && password.isEmpty()) {
             errMsg = "Please fill in the credentials.";
         } else if (email.isEmpty()) {
@@ -54,23 +56,17 @@ public abstract class User {
             errMsg = "Password is a required field.";
         } else {
             // Check credentials.
-            User user = null;
             String [][] usersInfo = RecordReader.readFile("user.txt");
             for (String[] userInfo : usersInfo) {
-                if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
-                    String userIdPrefix = userInfo[0].substring(0, 3);
-                    user = switch(userIdPrefix) {
-                        case "ctm" -> new Customer(userInfo);
-                        case "adm" -> new Admin(userInfo);
-                        default -> new Customer(userInfo);
-                    };
-                    user.viewMenu();
-                    break;
+                if (userInfo[1].equals(email) && userInfo[4].equals(password)) { 
+                    loginInfo.set("userInfo", userInfo);
+                    return loginInfo;
                 }
             }
-            errMsg = null == user ? "Invalid credentials" : errMsg;
+            errMsg = "Invalid credentials";
         }
-        return errMsg;
+        loginInfo.set("errMsg", errMsg);
+        return loginInfo;
     }
     
 }

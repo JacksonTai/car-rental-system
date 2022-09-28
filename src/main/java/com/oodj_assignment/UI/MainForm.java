@@ -4,10 +4,10 @@
  */
 package com.oodj_assignment.UI;
  
+import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.Admin;
 import com.oodj_assignment.Customer;
 import com.oodj_assignment.User;
-import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -160,10 +160,19 @@ public class MainForm extends javax.swing.JFrame {
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         String email = emailTf.getText();
         String password = passwordTf.getText();
-        String errMsg = User.login(email, password);
-        if (null == errMsg) {
+        InfoContainer loginInfo = User.login(email, password);
+        String[] userInfo = loginInfo.get("userInfo");
+        if (null != userInfo) {
+            String userIdPrefix = userInfo[0].substring(0, 3);
+            User user = switch(userIdPrefix) {
+                case "ctm" -> new Customer(userInfo);
+                case "adm" -> new Admin(userInfo);
+                default -> new Customer(userInfo);
+            };
+            user.viewMenu();
             dispose();
         } else {
+            String errMsg = loginInfo.get("errMsg");
             JOptionPane.showMessageDialog(this, errMsg);
         }
     }//GEN-LAST:event_signinBtnActionPerformed
