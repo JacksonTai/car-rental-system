@@ -7,8 +7,14 @@ import java.util.regex.Pattern;
  */
 public class RegexHelper {
 
-    public static boolean check (String string, String regexExpression){
-        return Pattern.compile(regexExpression)
+    /**
+    * Check if given string matches specified regex expression.
+    * @param string input of string
+    * @param regexExp regex expression format
+    * @return boolean - regex matching result
+    */
+    public static boolean check (String string, String regexExp){
+        return Pattern.compile(regexExp)
                 .matcher(string)
                 .matches();
     }

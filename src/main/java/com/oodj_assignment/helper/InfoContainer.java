@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class InfoContainer {
     
     private final HashMap responseInfo = new HashMap<>(); 
-    
+
     public <T> void set(String field, T info) {
          responseInfo.put(field, info);
     }
