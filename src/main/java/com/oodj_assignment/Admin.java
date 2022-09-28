@@ -26,14 +26,6 @@ public class Admin extends User {
         new AdminMenu(this).setVisible(true);
     }
     
-    @Override
-    public void viewCar() {
-        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day", "Status"};
-        String[][] carsInfo = RecordReader.readFile("car.txt");
-        JTable adminTable = AdminMenu.getTable();
-        TableInserter.insert(carFields, carsInfo, adminTable);
-    }
-    
     public void viewRecord(String type) {
         String[] fields = switch (type) {
             case "payment" -> new String[] {
@@ -45,6 +37,9 @@ public class Admin extends User {
             };
             case "customer" -> new String[] {
                 "Customer ID", "Email", "Username", "Phone Number"
+            };
+            case "car" -> new String[] {
+                "Plate Number", "Model", "Colour", "Price/Day", "Status"
             };
             default -> null;
         };

@@ -42,7 +42,6 @@ public abstract class User {
     }
     
     public abstract void viewMenu();
-    public abstract void viewCar();
     
     public static InfoContainer login(String email, String password){
         email = email.trim();

@@ -240,7 +240,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
         addBtn.setVisible(true);
         recordsComboBox.setVisible(false);
-        admin.viewCar();
+        admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
