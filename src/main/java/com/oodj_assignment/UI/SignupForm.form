@@ -67,11 +67,11 @@
                               <Component id="usernameTf" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="confirmPasswordTf" max="32767" attributes="0"/>
                               <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="passwordTf" pref="191" max="32767" attributes="0"/>
+                              <Component id="passwordTf" min="-2" pref="191" max="-2" attributes="0"/>
                               <Component id="confirmPasswordLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="confirmPasswordTf" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -214,17 +214,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Phone number"/>
+            <Property name="text" type="java.lang.String" value="Phone number (+60)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="phoneNumTf">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="16" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="confirmPasswordTf">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="0"/>
@@ -271,6 +264,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signupBtnActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="confirmPasswordTf">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="16" style="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
