@@ -18,6 +18,8 @@ public class RecordReader {
     
     /**
      * Read records in text file and return multidimensional array.
+     * @param fileName text file to read from.
+     * @return String[][] - records
      */
     public static String[][] readFile(String fileName) {
         try {

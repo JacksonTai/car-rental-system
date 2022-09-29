@@ -65,7 +65,7 @@ public class Customer extends User implements Validatable {
             errMsg = "Please enter your phone number.";
         } else if (newPassword.isEmpty()) {
             errMsg = "Please enter your password.";
-        } else if (confirmPassword.isEmpty()) {
+        } else if (confirmPassword.isEmpty()) { 
             errMsg = "Please confirm your password.";
         } else if (!confirmPassword.equals(newPassword)) {
             errMsg = "Password do not match.";
@@ -102,6 +102,10 @@ public class Customer extends User implements Validatable {
             signupInfo.set("errMsg", errMsg);
         }
         return signupInfo;
+    }
+
+    public void viewCar() {
+        
     }
     
 }
