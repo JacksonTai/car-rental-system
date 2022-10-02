@@ -7,14 +7,16 @@ package com.oodj_assignment;
 import com.oodj_assignment.UI.AdminMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.TableInserter;
+import com.oodj_assignment.validation.Validatable;
 import javax.swing.JTable;
 
 /**
  *
  * @author Jackson
  */
-public class Admin extends User {
+public class Admin extends User implements Validatable {
 
     public Admin(String[] adminInfo) {
         this.email = adminInfo[1];
@@ -58,6 +60,29 @@ public class Admin extends User {
             JTable adminTable = AdminMenu.getTable();
             TableInserter.insert(fields, records, adminTable);
         }    
+    }
+    
+    public String addCar(String[] carInput) {
+        String plateNum = carInput[0].trim();
+        String model = carInput[1].trim();
+        String colour = carInput[2].trim();
+        String pricePerDay = carInput[3].trim();
+        String errMsg = validatePlateNum(plateNum);
+        if (errMsg == null) {
+            errMsg = validateModel(model);
+        }
+        if (errMsg == null) {
+            errMsg = validateColour(colour);
+        }
+        if (errMsg == null) {
+            errMsg = validatePricePerDay(pricePerDay);
+        }
+        if (errMsg == null) {
+            RecordWriter.write(new String[] {
+                plateNum, model, colour, pricePerDay, "available"
+            }, "car.txt");
+        }
+        return errMsg;
     }
     
 }

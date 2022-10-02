@@ -62,4 +62,38 @@ public interface Validatable {
         return null;
     }
     
+    default String validatePlateNum(String plateNum) {
+        if (plateNum.isEmpty()) {
+            return "Please enter the car's plate number.";
+        } 
+        if (plateNum.contains(" ")) {
+            return "Plate number must not contain spaces, please retry.";
+        }
+        return null;
+    }
+    
+    default String validateModel(String model) {
+        if (model.isEmpty()) {
+            return "Please enter the car model.";
+        } 
+        if (model.contains(" ")) {
+            return "Model must not contain spaces, please retry.";
+        }
+        return null;
+    }
+    
+    default String validateColour(String colour) {
+        if (colour.isEmpty()) {
+            return "Please enter colour of the car.";
+        }
+        return null;
+    }
+    
+    default String validatePricePerDay(String pricePerDay) {
+        if (pricePerDay.isEmpty()) {
+            return  "Please enter price per day of the car.";
+        }
+        return null;
+    }
+    
 }

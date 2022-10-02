@@ -266,6 +266,8 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         recordsComboBox.setVisible(false);
+        dispose();
+        new AddCarForm(admin).setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void recordsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsComboBoxActionPerformed
