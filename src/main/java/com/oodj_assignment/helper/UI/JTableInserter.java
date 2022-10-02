@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.oodj_assignment.helper;
+package com.oodj_assignment.helper.UI;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 
 /**
- * Helper class for inserting column or row to specifed JTable.
+ * UI Helper class for inserting column or row to specifed JTable.
  */
-public class TableInserter {
+public class JTableInserter {
     
     /**
     * Insert columns and rows to specified JTable.
