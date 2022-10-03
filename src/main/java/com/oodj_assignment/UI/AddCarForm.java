@@ -214,11 +214,12 @@ public class AddCarForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        String plateNum = plateNumTf.getText();
-        String model = modelTf.getText();
-        String colour = colourTf.getText();
-        String pricePerDay = pricePerDayTf.getText();
-        String[] carInput = {plateNum, model, colour, pricePerDay}; 
+        String[] carInput = {
+            plateNumTf.getText(), 
+            modelTf.getText(), 
+            colourTf.getText(), 
+            pricePerDayTf.getText()
+        }; 
         String errMsg = admin.addCar(carInput);
         if (null != errMsg) {
             JOptionPane.showMessageDialog(rootPane, errMsg);

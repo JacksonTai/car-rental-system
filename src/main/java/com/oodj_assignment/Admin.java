@@ -10,14 +10,14 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
-import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.validation.CarValidator;
 import javax.swing.JTable;
 
 /**
  *
  * @author Jackson
  */
-public class Admin extends User implements Validatable {
+public class Admin extends User {
 
     public Admin(String[] adminInfo) {
         this.email = adminInfo[1];
@@ -68,15 +68,15 @@ public class Admin extends User implements Validatable {
         String model = carInput[1].trim();
         String colour = carInput[2].trim();
         String pricePerDay = carInput[3].trim();
-        String errMsg = validatePlateNum(plateNum);
+        String errMsg = CarValidator.validatePlateNum(plateNum);
         if (errMsg == null) {
-            errMsg = validateModel(model);
+            errMsg = CarValidator.validateModel(model);
         }
         if (errMsg == null) {
-            errMsg = validateColour(colour);
+            errMsg = CarValidator.validateColour(colour);
         }
         if (errMsg == null) {
-            errMsg = validatePricePerDay(pricePerDay);
+            errMsg = CarValidator.validatePricePerDay(pricePerDay);
         }
         if (errMsg == null) {
             RecordWriter.write(new String[] {
@@ -91,15 +91,15 @@ public class Admin extends User implements Validatable {
         String model = carInput[1].trim();
         String colour = carInput[2].trim();
         String pricePerDay = carInput[3].trim();
-        String errMsg = validatePlateNum(plateNum);
+        String errMsg = CarValidator.validatePlateNum(plateNum);
         if (errMsg == null) {
-            errMsg = validateModel(model);
+            errMsg = CarValidator.validateModel(model);
         }
         if (errMsg == null) {
-            errMsg = validateColour(colour);
+            errMsg = CarValidator.validateColour(colour);
         }
         if (errMsg == null) {
-            errMsg = validatePricePerDay(pricePerDay);
+            errMsg = CarValidator.validatePricePerDay(pricePerDay);
         }
         if (errMsg == null) {
             RecordUpdater.update(carInput, "car.txt");
