@@ -13,7 +13,14 @@ public class Car {
     private String plateNum;
     private String model;
     private String colour;
-    private int pricePerDay;
+    private float pricePerDay;
+
+    public Car(String plateNum, String model, String colour, float pricePerDay) {
+        this.plateNum = plateNum;
+        this.model = model;
+        this.colour = colour;
+        this.pricePerDay = pricePerDay;
+    }
     
     public void setPlateNum(String plateNum) {
         this.plateNum = plateNum;
@@ -43,7 +50,7 @@ public class Car {
         this.pricePerDay = pricePerDay;
     }
     
-    public int getPricePerDay() {
+    public float getPricePerDay() {
         return this.pricePerDay;
     }
     

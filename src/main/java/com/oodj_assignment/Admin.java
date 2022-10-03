@@ -7,8 +7,9 @@ package com.oodj_assignment;
 import com.oodj_assignment.UI.AdminMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
-import com.oodj_assignment.helper.TableInserter;
+import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.Validatable;
 import javax.swing.JTable;
 
@@ -58,7 +59,7 @@ public class Admin extends User implements Validatable {
         }
         if (null != fields && null != records) {
             JTable adminTable = AdminMenu.getTable();
-            TableInserter.insert(fields, records, adminTable);
+            JTableInserter.insert(fields, records, adminTable);
         }    
     }
     
@@ -83,6 +84,27 @@ public class Admin extends User implements Validatable {
             }, "car.txt");
         }
         return errMsg;
+    }
+    
+    public String editCar(String[] carInput) {
+        String plateNum = carInput[0].trim();
+        String model = carInput[1].trim();
+        String colour = carInput[2].trim();
+        String pricePerDay = carInput[3].trim();
+        String errMsg = validatePlateNum(plateNum);
+        if (errMsg == null) {
+            errMsg = validateModel(model);
+        }
+        if (errMsg == null) {
+            errMsg = validateColour(colour);
+        }
+        if (errMsg == null) {
+            errMsg = validatePricePerDay(pricePerDay);
+        }
+        if (errMsg == null) {
+            RecordUpdater.update(carInput, "car.txt");
+        }
+        return errMsg;        
     }
     
 }

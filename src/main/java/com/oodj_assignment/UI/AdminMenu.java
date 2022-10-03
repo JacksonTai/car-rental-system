@@ -1,8 +1,10 @@
 package com.oodj_assignment.UI;
  
 import com.oodj_assignment.Admin;
+import com.oodj_assignment.Car;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class AdminMenu extends javax.swing.JFrame {
@@ -319,7 +321,17 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_recordsComboBoxActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            Car editingCar = new Car(
+                table.getValueAt(table.getSelectedRow(), 0).toString(),
+                table.getValueAt(table.getSelectedRow(), 1).toString(),
+                table.getValueAt(table.getSelectedRow(), 2).toString(),
+                Float.parseFloat(table.getValueAt(table.getSelectedRow(), 3).toString())
+            );
+            new EditCarForm(admin, editingCar).setVisible(true);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to edit.");
+        }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
