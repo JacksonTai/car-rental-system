@@ -7,20 +7,21 @@ import javax.swing.JOptionPane;
 public class EditCarForm extends javax.swing.JFrame {
     
     Admin admin;
-    Car editingCar;
+    Car selectedCar;
     
     public EditCarForm(){
         initComponents();
     };
     
-    public EditCarForm(Admin admin, Car editingCar) {
+    public EditCarForm(Admin admin, Car selectedCar) {
         this();
         this.admin = admin;
-        this.editingCar = editingCar;
-        plateNumTf.setText(editingCar.getPlateNum());
-        modelTf.setText(editingCar.getModel());
-        colourTf.setText(editingCar.getColour());
-        pricePerDayTf.setText(Float.toString(editingCar.getPricePerDay()));
+        this.selectedCar = selectedCar;
+        plateNumTf.setText(selectedCar.getPlateNum());
+        modelTf.setText(selectedCar.getModel());
+        colourTf.setText(selectedCar.getColour());
+        pricePerDayTf.setText(Float.toString(selectedCar.getPricePerDay()));
+        statusComboBox.setSelectedItem(selectedCar.getStatus());
     }
 
     @SuppressWarnings("unchecked")
@@ -120,7 +121,7 @@ public class EditCarForm extends javax.swing.JFrame {
         });
 
         statusComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "available", "rented", "n/a" }));
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "N/A" }));
 
         statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         statusLabel.setText("Status");
@@ -231,19 +232,18 @@ public class EditCarForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        String plateNum = plateNumTf.getText();
-        String model = modelTf.getText();
-        String colour = colourTf.getText();
-        String pricePerDay = pricePerDayTf.getText();
-        String status = String.valueOf(statusComboBox.getSelectedItem());
-        String[] carInput = {plateNum, model, colour, pricePerDay, status}; 
-        String errMsg = admin.editCar(carInput);
-        if (null != errMsg) {
-            JOptionPane.showMessageDialog(rootPane, errMsg);
-        } else {
+        try {
+            selectedCar.setPlateNum(plateNumTf.getText());
+            selectedCar.setModel(modelTf.getText());
+            selectedCar.setColour(colourTf.getText());
+            selectedCar.setPricePerDay(pricePerDayTf.getText());
+            selectedCar.setStatus(String.valueOf(statusComboBox.getSelectedItem()));
+            admin.editCar(selectedCar);
             JOptionPane.showMessageDialog(rootPane, "Car edited successfully");
             dispose();
-            admin.viewMenu();
+            admin.viewMenu();  
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_confirmBtnActionPerformed
 

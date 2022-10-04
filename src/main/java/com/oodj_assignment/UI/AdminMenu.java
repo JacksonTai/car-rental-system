@@ -12,8 +12,12 @@ public class AdminMenu extends javax.swing.JFrame {
     Admin admin;
     JButtonActivator JBtnActivator;
     
-    public AdminMenu(Admin admin) {
+    public AdminMenu() {
         initComponents();
+    }
+    
+    public AdminMenu(Admin admin) {
+        this();
         this.admin = admin; 
         JBtnActivator = new JButtonActivator(new JButton [] {
             carManagementBtn, bookingManagementBtn, recordsBtn, companyReportBtn
@@ -23,6 +27,20 @@ public class AdminMenu extends javax.swing.JFrame {
     
     public static JTable getTable() {
         return table;
+    }
+    
+    private Car getSelectedCar() { 
+        try { 
+            return new Car(
+                table.getValueAt(table.getSelectedRow(), 0).toString(),
+                table.getValueAt(table.getSelectedRow(), 1).toString(),
+                table.getValueAt(table.getSelectedRow(), 2).toString(),
+                Float.parseFloat(table.getValueAt(table.getSelectedRow(), 3).toString()),
+                table.getValueAt(table.getSelectedRow(), 4).toString() 
+            ); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -281,63 +299,60 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
         JBtnActivator.activateBtn(carManagementBtn);
-        addBtn.setVisible(true);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(true);
         admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
 
-    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        dispose();
-        new MainMenu().show();
-    }//GEN-LAST:event_logoutBtnActionPerformed
-
     private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed
         JBtnActivator.activateBtn(bookingManagementBtn);
-        addBtn.setVisible(false);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(false);
     }//GEN-LAST:event_bookingManagementBtnActionPerformed
 
     private void recordsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsBtnActionPerformed
         JBtnActivator.activateBtn(recordsBtn);
-        addBtn.setVisible(false);
         recordsComboBox.setVisible(true);
-        admin.viewRecord((String) recordsComboBox.getSelectedItem());
+        addBtn.setVisible(false);
+        admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsBtnActionPerformed
 
     private void companyReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyReportBtnActionPerformed
         JBtnActivator.activateBtn(companyReportBtn);
-        addBtn.setVisible(false);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(false);
     }//GEN-LAST:event_companyReportBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        recordsComboBox.setVisible(false);
         dispose();
         new AddCarForm(admin).setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void recordsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsComboBoxActionPerformed
-        admin.viewRecord((String) recordsComboBox.getSelectedItem());
+        admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsComboBoxActionPerformed
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
-            Car editingCar = new Car(
-                table.getValueAt(table.getSelectedRow(), 0).toString(),
-                table.getValueAt(table.getSelectedRow(), 1).toString(),
-                table.getValueAt(table.getSelectedRow(), 2).toString(),
-                Float.parseFloat(table.getValueAt(table.getSelectedRow(), 3).toString())
-            );
-            new EditCarForm(admin, editingCar).setVisible(true);
-        } catch (ArrayIndexOutOfBoundsException e) {
+            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to edit.");
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to delete.");
+        }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        dispose();
+        new MainMenu().show();
+    }//GEN-LAST:event_logoutBtnActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -365,7 +380,7 @@ public class AdminMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMenu(null).setVisible(true);
+                new AdminMenu().setVisible(true);
             }
         });
     }

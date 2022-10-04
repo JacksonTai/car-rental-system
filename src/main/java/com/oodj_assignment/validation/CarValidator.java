@@ -1,44 +1,49 @@
 package com.oodj_assignment.validation;
 
-import com.oodj_assignment.helper.RegexHelper;
-
 public class CarValidator {
 
-    public static String validatePlateNum(String plateNum) {
+    public static void validatePlateNum(String plateNum) {
+        String errMsg = null;
         if (plateNum.isEmpty()) {
-            return "Please enter the car's plate number.";
-        } 
-        if (plateNum.contains(" ")) {
-            return "Plate number must not contain spaces, please retry.";
+            errMsg = "Please enter the car's plate number.";
+        } else if (plateNum.contains(" ")) {
+            errMsg = "Plate number must not contain spaces, please retry.";
         }
-        return null;
+        if (null != errMsg) {
+            throw new IllegalArgumentException(errMsg);
+        }
     }
     
-    public static String validateModel(String model) {
+    public static void validateModel(String model) {
+        String errMsg = null;
         if (model.isEmpty()) {
-            return "Please enter the car model.";
-        } 
-        if (model.contains(" ")) {
-            return "Model must not contain spaces, please retry.";
+            errMsg = "Please enter the car model.";
+        } else if (model.contains(" ")) {
+            errMsg = "Model must not contain spaces, please retry.";
         }
-        return null;
+        if (null != errMsg) {
+            throw new IllegalArgumentException(errMsg);
+        }
     }
     
-    public static String validateColour(String colour) {
+    public static void validateColour(String colour) {
+        String errMsg = null;
         if (colour.isEmpty()) {
-            return "Please enter colour of the car.";
+            errMsg = "Please enter colour of the car.";
+        } 
+        if (null != errMsg) {
+            throw new IllegalArgumentException(errMsg);
         }
-        return null;
     }
     
-    public static String validatePricePerDay(String pricePerDay) {
-        if (pricePerDay.isEmpty()) {
-            return  "Please enter price per day of the car.";
+    public static void validatePricePerDay(float pricePerDay) {
+        String errMsg = null;
+        if (pricePerDay < 0) {
+            errMsg = "Price cannot be a negative number.";
+        }  
+        if (null != errMsg) {
+            throw new IllegalArgumentException(errMsg);
         }
-        if (!RegexHelper.check(pricePerDay, "-?\\d+(\\.\\d+)?")) {
-            return "Invalid format of price.";
-        }
-        return null;
     }
     
 }

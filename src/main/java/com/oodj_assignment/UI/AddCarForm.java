@@ -1,14 +1,19 @@
 package com.oodj_assignment.UI;
 
 import com.oodj_assignment.Admin;
+import com.oodj_assignment.Car;
 import javax.swing.JOptionPane;
 
 public class AddCarForm extends javax.swing.JFrame {
     
     Admin admin;
     
-    public AddCarForm(Admin admin) {
+    public AddCarForm() {
         initComponents();
+    }
+    
+    public AddCarForm(Admin admin) {
+        this();
         this.admin = admin;
     }
 
@@ -66,11 +71,6 @@ public class AddCarForm extends javax.swing.JFrame {
         });
 
         plateNumTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        plateNumTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                plateNumTfActionPerformed(evt);
-            }
-        });
 
         plateNumLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         plateNumLabel.setText("Plate number");
@@ -214,20 +214,19 @@ public class AddCarForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        String[] carInput = {
-            plateNumTf.getText(), 
-            modelTf.getText(), 
-            colourTf.getText(), 
-            pricePerDayTf.getText()
-        }; 
-        String errMsg = admin.addCar(carInput);
-        if (null != errMsg) {
-            JOptionPane.showMessageDialog(rootPane, errMsg);
-        } else {
+        Car newCar = new Car();
+        try {
+            newCar.setPlateNum(plateNumTf.getText());
+            newCar.setModel(modelTf.getText());
+            newCar.setColour(colourTf.getText());
+            newCar.setPricePerDay(pricePerDayTf.getText());
+            admin.addCar(newCar);
             JOptionPane.showMessageDialog(rootPane, "Car added successfully");
             dispose();
             admin.viewMenu();
-        }
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        } 
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
@@ -236,10 +235,6 @@ public class AddCarForm extends javax.swing.JFrame {
         colourTf.setText("");
         pricePerDayTf.setText("");
     }//GEN-LAST:event_clearBtnActionPerformed
-
-    private void plateNumTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plateNumTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_plateNumTfActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -269,7 +264,7 @@ public class AddCarForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddCarForm(null).setVisible(true);
+                new AddCarForm().setVisible(true);
             }
         });
     }
