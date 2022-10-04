@@ -10,7 +10,6 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
-import com.oodj_assignment.validation.CarValidator;
 import javax.swing.JTable;
 
 /**
@@ -63,48 +62,24 @@ public class Admin extends User {
         }    
     }
     
-    public String addCar(String[] carInput) {
-        String plateNum = carInput[0].trim();
-        String model = carInput[1].trim();
-        String colour = carInput[2].trim();
-        String pricePerDay = carInput[3].trim();
-        String errMsg = CarValidator.validatePlateNum(plateNum);
-        if (errMsg == null) {
-            errMsg = CarValidator.validateModel(model);
-        }
-        if (errMsg == null) {
-            errMsg = CarValidator.validateColour(colour);
-        }
-        if (errMsg == null) {
-            errMsg = CarValidator.validatePricePerDay(pricePerDay);
-        }
-        if (errMsg == null) {
-            RecordWriter.write(new String[] {
-                plateNum, model, colour, pricePerDay, "available"
-            }, "car.txt");
-        }
-        return errMsg;
+    public void addCar(Car newCar) {
+        RecordWriter.write(new String[] {
+            newCar.getPlateNum(), 
+            newCar.getModel(), 
+            newCar.getColour(), 
+            String.valueOf(newCar.getPricePerDay()), 
+            newCar.getStatus()
+        }, "car.txt");
     }
-    
-    public String editCar(String[] carInput) {
-        String plateNum = carInput[0].trim();
-        String model = carInput[1].trim();
-        String colour = carInput[2].trim();
-        String pricePerDay = carInput[3].trim();
-        String errMsg = CarValidator.validatePlateNum(plateNum);
-        if (errMsg == null) {
-            errMsg = CarValidator.validateModel(model);
-        }
-        if (errMsg == null) {
-            errMsg = CarValidator.validateColour(colour);
-        }
-        if (errMsg == null) {
-            errMsg = CarValidator.validatePricePerDay(pricePerDay);
-        }
-        if (errMsg == null) {
-            RecordUpdater.update(carInput, "car.txt");
-        }
-        return errMsg;        
+
+    public void editCar(Car selectedCar) {
+        RecordUpdater.update(new String[] {
+            selectedCar.getPlateNum(), 
+            selectedCar.getModel(), 
+            selectedCar.getColour(), 
+            String.valueOf(selectedCar.getPricePerDay()), 
+            selectedCar.getStatus()
+        }, "car.txt");
     }
     
 }
