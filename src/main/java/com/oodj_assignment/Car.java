@@ -4,6 +4,8 @@
  */
 package com.oodj_assignment;
 
+import com.oodj_assignment.validation.CarValidator;
+
 /**
  *
  * @author Jackson
@@ -13,9 +15,39 @@ public class Car {
     private String plateNum;
     private String model;
     private String colour;
-    private int pricePerDay;
+    private float pricePerDay;
+    private String status; 
+
+    public Car() {
+        this.plateNum = "N/A";
+        this.model = "N/A";
+        this.colour = "N/A";
+        this.pricePerDay = 0;
+        this.status = "Available";
+    }
+    
+    public Car(String plateNum, String model, String colour, float pricePerDay, String status) {
+        try {
+            CarValidator.validatePlateNum(plateNum);
+            CarValidator.validateModel(model);
+            CarValidator.validateColour(colour);
+            CarValidator.validatePricePerDay(pricePerDay);
+        } catch (IllegalArgumentException e) {
+            throw e;  
+        }
+        this.plateNum = plateNum;
+        this.model = model;
+        this.colour = colour;
+        this.pricePerDay = pricePerDay;
+        this.status = status;
+    }
     
     public void setPlateNum(String plateNum) {
+        try {
+            CarValidator.validatePlateNum(plateNum);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.plateNum = plateNum;
     }
     
@@ -24,6 +56,11 @@ public class Car {
     }
     
     public void setModel(String model) {
+        try {
+            CarValidator.validateModel(model);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.model = model;
     }
     
@@ -32,6 +69,11 @@ public class Car {
     }
        
     public void setColour(String colour) {
+        try {
+            CarValidator.validateColour(colour);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.colour = colour;
     }
     
@@ -39,12 +81,36 @@ public class Car {
         return this.colour;
     }
     
-    public void setPricePerDay(int pricePerDay) {
+    public void setPricePerDay(float pricePerDay) {
+        try {
+            CarValidator.validatePricePerDay(pricePerDay);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.pricePerDay = pricePerDay;
     }
     
-    public int getPricePerDay() {
+    public void setPricePerDay(String pricePerDay) {
+        if (pricePerDay.trim().isEmpty()) {
+            throw new IllegalArgumentException("Please enter price of the car.");
+        }
+        try {
+            setPricePerDay(Float.parseFloat(pricePerDay));
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Invalid format of price.");
+        }
+    }
+    
+    public float getPricePerDay() {
         return this.pricePerDay;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    public String getStatus() {
+        return status;
     }
     
 }

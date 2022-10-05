@@ -1,2 +1,3 @@
-JI1230|Myvi|grey|203.50|avail
-WT1030|Jazz|white|256.30|avail
+JI1230|Myvi|grey|203.50|available|
+WE1231|BMW|blue|390.50|available|
+JU1231B|Axia|grey|145.67|available|

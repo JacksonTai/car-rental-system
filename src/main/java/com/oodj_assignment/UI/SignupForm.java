@@ -6,7 +6,6 @@ package com.oodj_assignment.UI;
  */
 
 import com.oodj_assignment.Customer;
-import com.oodj_assignment.validation.Validatable;
 import com.oodj_assignment.helper.InfoContainer;
 import javax.swing.JOptionPane;
 
@@ -14,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Jackson
  */
-public class SignupForm extends javax.swing.JFrame implements Validatable {
+public class SignupForm extends javax.swing.JFrame {
 
     Customer newCustomer = new Customer(null);
     
@@ -210,16 +209,17 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        new MainForm().show();
+        new MainMenu().show();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        String email = emailTf.getText();
-        String username = usernameTf.getText();
-        String phoneNum = phoneNumTf.getText();
-        String password = passwordTf.getText();
-        String confirmPassword = confirmPasswordTf.getText();
-        String[] signupInput = {email, username, phoneNum, password, confirmPassword};
+        String[] signupInput = {
+            emailTf.getText(), 
+            usernameTf.getText(),
+            phoneNumTf.getText(), 
+            passwordTf.getText(), 
+            confirmPasswordTf.getText()
+        };
         InfoContainer signupInfo = newCustomer.signup(signupInput);
         String errMsg = signupInfo.get("errMsg");
         if (null == errMsg) {

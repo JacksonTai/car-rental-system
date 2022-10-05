@@ -8,13 +8,13 @@ import com.oodj_assignment.UI.CustomerMenu;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordWriter;
-import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.validation.UserValidator;
 
 /**
  *
  * @author Jackson
  */
-public class Customer extends User implements Validatable {
+public class Customer extends User {
 
     private String username;
     private String phoneNum;
@@ -56,32 +56,22 @@ public class Customer extends User implements Validatable {
         String newPhoneNum = signupInput[2].trim();
         String newPassword = signupInput[3].trim();
         String confirmPassword = signupInput[4].trim();
-        String errMsg = null;
-        if (newEmail.isEmpty()) {
-            errMsg = "Please enter your email.";
-        } else if (newUsername.isEmpty()) {
-            errMsg = "Please enter your username.";
-        } else if (newPhoneNum.isEmpty()) {
-            errMsg = "Please enter your phone number.";
-        } else if (newPassword.isEmpty()) {
-            errMsg = "Please enter your password.";
-        } else if (confirmPassword.isEmpty()) { 
-            errMsg = "Please confirm your password.";
-        } else if (!confirmPassword.equals(newPassword)) {
-            errMsg = "Password do not match.";
-        } else {
-            if (null == errMsg) {
-                errMsg = validateEmail(newEmail);
-            }
-            if (null == errMsg) {
-                errMsg = validateUsername(newUsername);
-            }
-            if (null == errMsg) {
-                errMsg = validatePhoneNum(newPhoneNum);
-            }
-            if (null == errMsg) {
-                errMsg = validatePassword(newPassword);
-            }
+        String errMsg = UserValidator.validateEmail(newEmail);
+        if (null == errMsg) {
+            errMsg = UserValidator.validateUsername(newUsername);
+        }
+        if (null == errMsg) {
+            errMsg = UserValidator.validatePhoneNum(newPhoneNum);
+        }
+        if (null == errMsg) {
+            errMsg = UserValidator.validatePassword(newPassword);
+        }
+        if (null == errMsg) {
+            if (confirmPassword.isEmpty()) { 
+                errMsg = "Please confirm your password.";
+            } else if (!confirmPassword.equals(newPassword)) {
+                errMsg = "Password do not match.";
+            } 
         }
         InfoContainer signupInfo = new InfoContainer();
         if (null == errMsg) {
@@ -107,5 +97,5 @@ public class Customer extends User implements Validatable {
     public void viewCar() {
         
     }
-    
+ 
 }

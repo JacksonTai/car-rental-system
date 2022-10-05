@@ -7,7 +7,9 @@ package com.oodj_assignment;
 import com.oodj_assignment.UI.AdminMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.helper.TableInserter;
+import com.oodj_assignment.helper.RecordUpdater;
+import com.oodj_assignment.helper.RecordWriter;
+import com.oodj_assignment.helper.UI.JTableInserter;
 import javax.swing.JTable;
 
 /**
@@ -56,8 +58,28 @@ public class Admin extends User {
         }
         if (null != fields && null != records) {
             JTable adminTable = AdminMenu.getTable();
-            TableInserter.insert(fields, records, adminTable);
+            JTableInserter.insert(fields, records, adminTable);
         }    
+    }
+    
+    public void addCar(Car newCar) {
+        RecordWriter.write(new String[] {
+            newCar.getPlateNum(), 
+            newCar.getModel(), 
+            newCar.getColour(), 
+            String.valueOf(newCar.getPricePerDay()), 
+            newCar.getStatus()
+        }, "car.txt");
+    }
+
+    public void editCar(Car selectedCar) {
+        RecordUpdater.update(new String[] {
+            selectedCar.getPlateNum(), 
+            selectedCar.getModel(), 
+            selectedCar.getColour(), 
+            String.valueOf(selectedCar.getPricePerDay()), 
+            selectedCar.getStatus()
+        }, "car.txt");
     }
     
 }

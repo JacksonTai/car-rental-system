@@ -1,20 +1,46 @@
 package com.oodj_assignment.UI;
  
 import com.oodj_assignment.Admin;
+import com.oodj_assignment.Car;
+import com.oodj_assignment.helper.UI.JButtonActivator;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class AdminMenu extends javax.swing.JFrame {
 
     Admin admin;
-
-    public AdminMenu(Admin admin) {
+    JButtonActivator JBtnActivator;
+    
+    public AdminMenu() {
         initComponents();
+    }
+    
+    public AdminMenu(Admin admin) {
+        this();
         this.admin = admin; 
+        JBtnActivator = new JButtonActivator(new JButton [] {
+            carManagementBtn, bookingManagementBtn, recordsBtn, companyReportBtn
+        });
         recordsComboBox.setVisible(false);
     }
     
     public static JTable getTable() {
         return table;
+    }
+    
+    private Car getSelectedCar() { 
+        try { 
+            return new Car(
+                table.getValueAt(table.getSelectedRow(), 0).toString(),
+                table.getValueAt(table.getSelectedRow(), 1).toString(),
+                table.getValueAt(table.getSelectedRow(), 2).toString(),
+                Float.parseFloat(table.getValueAt(table.getSelectedRow(), 3).toString()),
+                table.getValueAt(table.getSelectedRow(), 4).toString() 
+            ); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +61,8 @@ public class AdminMenu extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
         recordsComboBox = new javax.swing.JComboBox<>();
+        editBtn = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(58, 63, 84));
 
@@ -158,7 +186,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
         addBtn.setBackground(new java.awt.Color(255, 255, 255));
         addBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addBtn.setText("Add ");
+        addBtn.setText("Add Car");
         addBtn.setFocusPainted(false);
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,25 +202,50 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
+        editBtn.setBackground(new java.awt.Color(255, 255, 255));
+        editBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        editBtn.setText("Edit");
+        editBtn.setFocusPainted(false);
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtnActionPerformed(evt);
+            }
+        });
+
+        deleteBtn.setBackground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        deleteBtn.setText("Delete");
+        deleteBtn.setFocusPainted(false);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(29, 29, 29)
-                            .addComponent(adminDashboardTitle))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(39, 39, 39)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addGap(29, 29, 29)
+                        .addComponent(adminDashboardTitle))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(46, 46, 46))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(329, 329, 329)
+                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,12 +253,19 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -238,40 +298,61 @@ public class AdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
-        addBtn.setVisible(true);
+        JBtnActivator.activateBtn(carManagementBtn);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(true);
         admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
 
-    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        dispose();
-        new MainForm().show();
-    }//GEN-LAST:event_logoutBtnActionPerformed
-
     private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed
-        addBtn.setVisible(false);
+        JBtnActivator.activateBtn(bookingManagementBtn);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(false);
     }//GEN-LAST:event_bookingManagementBtnActionPerformed
 
     private void recordsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsBtnActionPerformed
-        addBtn.setVisible(false);
+        JBtnActivator.activateBtn(recordsBtn);
         recordsComboBox.setVisible(true);
-        admin.viewRecord((String) recordsComboBox.getSelectedItem());
+        addBtn.setVisible(false);
+        admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsBtnActionPerformed
 
     private void companyReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyReportBtnActionPerformed
-        addBtn.setVisible(false);
+        JBtnActivator.activateBtn(companyReportBtn);
         recordsComboBox.setVisible(false);
+        addBtn.setVisible(false);
     }//GEN-LAST:event_companyReportBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        recordsComboBox.setVisible(false);
+        dispose();
+        new AddCarForm(admin).setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void recordsComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsComboBoxActionPerformed
-        admin.viewRecord((String) recordsComboBox.getSelectedItem());
+        admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsComboBoxActionPerformed
 
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        try {
+            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to edit.");
+        }
+    }//GEN-LAST:event_editBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        try {
+            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to delete.");
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        dispose();
+        new MainMenu().show();
+    }//GEN-LAST:event_logoutBtnActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -299,7 +380,7 @@ public class AdminMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMenu(null).setVisible(true);
+                new AdminMenu().setVisible(true);
             }
         });
     }
@@ -310,6 +391,8 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JButton bookingManagementBtn;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JButton companyReportBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
