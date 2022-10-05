@@ -8,6 +8,7 @@ import com.oodj_assignment.UI.Booking;
 import com.oodj_assignment.UI.CustomerMenu;
 import com.oodj_assignment.UI.Payment;
 import com.oodj_assignment.helper.IdGenerator;
+import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.validation.UserValidator;
 import javax.swing.JTable;
