@@ -171,7 +171,7 @@ public class MainMenu extends javax.swing.JFrame {
             };
             dispose();
             user.viewMenu();
-        } else {
+        } else {;
             String errMsg = loginInfo.get("errMsg");
             JOptionPane.showMessageDialog(this, errMsg);
         }
