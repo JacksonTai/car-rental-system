@@ -1,0 +1,2 @@
+JI1230|Myvi|grey|203.50|avail
+WT1030|Jazz|white|256.30|avail

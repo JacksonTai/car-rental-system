@@ -53,7 +53,6 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(240, 240, 240), 10, true));
 
-        clearBtn.setBackground(new java.awt.Color(255, 255, 255));
         clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         clearBtn.setText("Clear");
         clearBtn.setFocusPainted(false);
@@ -75,6 +74,11 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
         title.setText("Sign up ");
 
         emailTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        emailTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailTfActionPerformed(evt);
+            }
+        });
 
         usernameTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
@@ -89,7 +93,6 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
         confirmPasswordLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         confirmPasswordLabel.setText("Confirm password");
 
-        backBtn.setBackground(new java.awt.Color(255, 255, 255));
         backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         backBtn.setText("Back");
         backBtn.setBorder(null);
@@ -100,7 +103,6 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
             }
         });
 
-        signupBtn.setBackground(new java.awt.Color(255, 255, 255));
         signupBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         signupBtn.setText("Sign up");
         signupBtn.setFocusPainted(false);
@@ -234,6 +236,10 @@ public class SignupForm extends javax.swing.JFrame implements Validatable {
             JOptionPane.showMessageDialog(rootPane, errMsg);
         }
     }//GEN-LAST:event_signupBtnActionPerformed
+
+    private void emailTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailTfActionPerformed
 
     /**
      * @param args the command line arguments
