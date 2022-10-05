@@ -1,11 +1,7 @@
 package com.oodj_assignment.UI;
  
-import com.oodj_assignment.Admin;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
-import com.oodj_assignment.helper.UI.JButtonActivator;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class CustomerMenu extends javax.swing.JFrame {
@@ -15,6 +11,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     public CustomerMenu(Customer customer) {
         initComponents();
         this.customer = customer;
+
         adminDashboardTitle.setText("Welcome back, " + customer.getUsername() + "!");       
 
     }
@@ -29,9 +26,23 @@ public class CustomerMenu extends javax.swing.JFrame {
 //    }
     
     public static JTable getTable() {
-        return table;
+        return bookingtable;
     }
     
+        private Car getSelectedCar() { 
+        try { 
+            return new Car(
+                bookingtable.getValueAt(bookingtable.getSelectedRow(), 0).toString(),
+                bookingtable.getValueAt(bookingtable.getSelectedRow(), 1).toString(),
+                bookingtable.getValueAt(bookingtable.getSelectedRow(), 2).toString(),
+                Float.parseFloat(bookingtable.getValueAt(bookingtable.getSelectedRow(), 3).toString()),
+                "Available"
+            ); 
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
 //    private Car getSelectedCar() { 
 //        try { 
 //            return new Car(
@@ -59,8 +70,8 @@ public class CustomerMenu extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         adminDashboardTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
-        addBtn = new javax.swing.JButton();
+        bookingtable = new javax.swing.JTable();
+        nextBtn = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(58, 63, 84));
 
@@ -140,7 +151,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         adminDashboardTitle.setText("Welcome Back !");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        bookingtable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -150,15 +161,34 @@ public class CustomerMenu extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
-        jScrollPane1.setViewportView(table);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        addBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        addBtn.setText("Add Car");
-        addBtn.setFocusPainted(false);
-        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        bookingtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bookingtableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(bookingtable);
+        if (bookingtable.getColumnModel().getColumnCount() > 0) {
+            bookingtable.getColumnModel().getColumn(0).setResizable(false);
+            bookingtable.getColumnModel().getColumn(1).setResizable(false);
+            bookingtable.getColumnModel().getColumn(2).setResizable(false);
+            bookingtable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        nextBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        nextBtn.setText("Next");
+        nextBtn.setFocusPainted(false);
+        nextBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtnActionPerformed(evt);
+                nextBtnActionPerformed(evt);
             }
         });
 
@@ -172,24 +202,24 @@ public class CustomerMenu extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(adminDashboardTitle))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)))
-                .addGap(46, 46, 46))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(140, 140, 140)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(151, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(417, 417, 417))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -236,16 +266,26 @@ public class CustomerMenu extends javax.swing.JFrame {
         customer.viewbookingHistory();
     }//GEN-LAST:event_bookingManagementBtnActionPerformed
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        customer.makeBooking();
+    private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
+        Car selectedCar = getSelectedCar();
+//        System.out.println(selectedCar.getPlateNum());
+        customer.makeBooking(selectedCar);
         dispose();
 //        new AddCarForm(admin).setVisible(true);
-    }//GEN-LAST:event_addBtnActionPerformed
+    }//GEN-LAST:event_nextBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         dispose();
         new MainMenu().show();
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void bookingtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingtableMouseClicked
+        // TODO add your handling code here:
+        int i = bookingtable.getSelectedRow();
+//        CarPlate.setText
+//        table.getValueAt(table.getSelectedRow(), 0).toString(),
+
+    }//GEN-LAST:event_bookingtableMouseClicked
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -281,16 +321,16 @@ public class CustomerMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
     private javax.swing.JLabel adminDashboardTitle;
     private javax.swing.JButton bookingManagementBtn;
+    private static javax.swing.JTable bookingtable;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private static javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
-    private static javax.swing.JTable table;
+    private javax.swing.JButton nextBtn;
     // End of variables declaration//GEN-END:variables
 }

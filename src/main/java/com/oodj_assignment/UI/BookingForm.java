@@ -4,7 +4,9 @@
  */
 package com.oodj_assignment.UI;
 
+import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -13,19 +15,23 @@ import javax.swing.JOptionPane;
  *
  * @author KJ
  */
-public class Booking extends javax.swing.JFrame {
+public class BookingForm extends javax.swing.JFrame {
 
     Customer customer;
-    public Booking(Customer customer) {
+    Car selectedCar;
+    public BookingForm(){};
+    public BookingForm(Customer customer, Car selectedCar) {
         initComponents();
         this.customer = customer;
-        
+        this.selectedCar = selectedCar;
         Date dt = new Date();
         startDate.getJCalendar().setMinSelectableDate(dt);
         endDate.getJCalendar().setMinSelectableDate(dt);
 
     }
-
+    
+    private 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,28 +127,22 @@ public class Booking extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        customer.viewMenu();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void PaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentActionPerformed
         // TODO add your handling code here:
-//        startDate.setDateFormatString("dd-MM-yyy");
-//        endDate.setDateFormatString("dd-MM-yyy");
-
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-          SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try
         {
-//            System.out.println(startDate.getDateFormatString());
-//            sdf.format(startDate.getDate()).trim();
             sdf.parse(sdf.format(startDate.getDate()).trim());
             sdf.parse(sdf.format(endDate.getDate()).trim());
-
-            customer.makePayment();
+            customer.makePayment(customer,selectedCar);
             dispose();
 
-        }
-        catch (Exception er)
+        } 
+        catch (ParseException er)
         {
             JOptionPane.showMessageDialog(null,"Invalid Format of Date! Please input dd-MM-yyyy");
         }
@@ -166,20 +166,21 @@ public class Booking extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Booking.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Booking(null).setVisible(true);
+                new BookingForm().setVisible(true);
             }
         });
     }
