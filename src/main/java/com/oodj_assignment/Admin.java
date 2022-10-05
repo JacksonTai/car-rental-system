@@ -18,9 +18,14 @@ import javax.swing.JTable;
  */
 public class Admin extends User {
 
-    public Admin(String[] adminInfo) {
-        this.email = adminInfo[1];
-        this.password = adminInfo[4];
+    public Admin(){
+        super();
+    }
+    
+    public Admin(String email, String password) {
+        super();
+        this.email = email;
+        this.password = password;
     }
     
     @Override

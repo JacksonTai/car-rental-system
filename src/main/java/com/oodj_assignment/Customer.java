@@ -6,7 +6,6 @@ package com.oodj_assignment;
 
 import com.oodj_assignment.UI.CustomerMenu;
 import com.oodj_assignment.helper.IdGenerator;
-import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.validation.UserValidator;
 
@@ -19,17 +18,32 @@ public class Customer extends User {
     private String username;
     private String phoneNum;
     
-    public Customer(String[] customerInfo) {
-        if (null != customerInfo && customerInfo.length >= 5) {
-            this.userID = customerInfo[0];
-            this.email = customerInfo[1];
-            this.username = customerInfo[2];
-            this.phoneNum = customerInfo[3];
-            this.password = customerInfo[4];
+    public Customer() {
+        super();
+        this.username = null;
+        this.phoneNum = null;
+    }
+    
+    public Customer(String userID, String email, String username, String phoneNum, 
+            String password) throws Exception {
+        try {
+            UserValidator.validateCredential(email, password);
+        } catch (Exception e) {
+            throw e;
         }
+        this.userID = userID;
+        this.email = email;
+        this.username = username;
+        this.phoneNum = phoneNum;
+        this.password = password; 
     }
     
     public void setUsername(String username) {
+        try {
+            UserValidator.validateUsername(username.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.username = username;
     }
     
@@ -38,6 +52,11 @@ public class Customer extends User {
     }
     
     public void setPhoneNum(String phoneNum) {
+        try {
+            UserValidator.validatePhoneNum(phoneNum.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.phoneNum = phoneNum;
     }
     
@@ -50,48 +69,29 @@ public class Customer extends User {
         new CustomerMenu(this).setVisible(true);
     }
     
-    public InfoContainer signup(String [] signupInput) {
-        String newEmail = signupInput[0].trim();
-        String newUsername = signupInput[1].trim();
-        String newPhoneNum = signupInput[2].trim();
-        String newPassword = signupInput[3].trim();
-        String confirmPassword = signupInput[4].trim();
-        String errMsg = UserValidator.validateEmail(newEmail);
-        if (null == errMsg) {
-            errMsg = UserValidator.validateUsername(newUsername);
+    public void signup(String email, String username, String phoneNum, String password, 
+            String confirmPassword) throws Exception {
+        try {
+            UserValidator.validateEmail(email);
+            UserValidator.validateUsername(username);
+            UserValidator.validatePhoneNum(phoneNum);
+            UserValidator.validatePassword(password); 
+            if (null != userID) {
+                throw new Exception("Customer has been signed up");
+            } else if (confirmPassword.trim().isEmpty()) { 
+                throw new Exception("Please confirm your password.");
+            } else if (!confirmPassword.trim().equals(password.trim())) {
+                throw new Exception("Password do not match.");
+            }
+        } catch (Exception e) {
+            throw e;
         }
-        if (null == errMsg) {
-            errMsg = UserValidator.validatePhoneNum(newPhoneNum);
-        }
-        if (null == errMsg) {
-            errMsg = UserValidator.validatePassword(newPassword);
-        }
-        if (null == errMsg) {
-            if (confirmPassword.isEmpty()) { 
-                errMsg = "Please confirm your password.";
-            } else if (!confirmPassword.equals(newPassword)) {
-                errMsg = "Password do not match.";
-            } 
-        }
-        InfoContainer signupInfo = new InfoContainer();
-        if (null == errMsg) {
-            String newCustomerID = IdGenerator.generate("ctm-");
-            signupInfo.set("newCustomerID", newCustomerID);
-            signupInfo.set("newEmail", newEmail);
-            signupInfo.set("newUsername", newUsername);
-            signupInfo.set("newPhoneNum", newPhoneNum);
-            signupInfo.set("newPassword", newPassword);
-            RecordWriter.write(new String[] { 
-                signupInfo.get("newCustomerID"),
-                signupInfo.get("newEmail"),
-                signupInfo.get("newUsername"),
-                signupInfo.get("newPhoneNum"),
-                signupInfo.get("newPassword"),
-            }, "user.txt");
-        } else {
-            signupInfo.set("errMsg", errMsg);
-        }
-        return signupInfo;
+        this.userID = IdGenerator.generate("ctm-");
+        this.email = email;
+        this.username = username;
+        this.phoneNum = phoneNum;
+        this.password = password; 
+        RecordWriter.write(new String[] {userID, email, username, phoneNum, password,}, "user.txt");
     }
 
     public void viewCar() {

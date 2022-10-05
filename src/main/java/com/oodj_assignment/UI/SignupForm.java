@@ -6,7 +6,6 @@ package com.oodj_assignment.UI;
  */
 
 import com.oodj_assignment.Customer;
-import com.oodj_assignment.helper.InfoContainer;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class SignupForm extends javax.swing.JFrame {
 
-    Customer newCustomer = new Customer(null);
+    Customer newCustomer = new Customer();
     
     /**
      * Creates new form MainPage
@@ -200,11 +199,11 @@ public class SignupForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        this.emailTf.setText("");
-        this.usernameTf.setText("");
-        this.phoneNumTf.setText("");
-        this.passwordTf.setText("");
-        this.confirmPasswordTf.setText("");
+        emailTf.setText("");
+        usernameTf.setText("");
+        phoneNumTf.setText("");
+        passwordTf.setText("");
+        confirmPasswordTf.setText("");
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -213,26 +212,19 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        String[] signupInput = {
-            emailTf.getText(), 
-            usernameTf.getText(),
-            phoneNumTf.getText(), 
-            passwordTf.getText(), 
-            confirmPasswordTf.getText()
-        };
-        InfoContainer signupInfo = newCustomer.signup(signupInput);
-        String errMsg = signupInfo.get("errMsg");
-        if (null == errMsg) {
-            newCustomer.setUserID(signupInfo.get("newCustomerID"));
-            newCustomer.setEmail(signupInfo.get("newEmail"));
-            newCustomer.setUsername(signupInfo.get("newUsername"));
-            newCustomer.setPhoneNum(signupInfo.get("newPhoneNum"));
-            newCustomer.setPassword(signupInfo.get("newPassword"));
+        try { 
+            newCustomer.signup(
+                emailTf.getText(), 
+                usernameTf.getText(), 
+                phoneNumTf.getText(),
+                passwordTf.getText(),
+                confirmPasswordTf.getText()
+            );
             dispose();
             newCustomer.viewMenu();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, errMsg);
-        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        } 
     }//GEN-LAST:event_signupBtnActionPerformed
 
     /**

@@ -4,8 +4,7 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.helper.InfoContainer;
-import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.validation.UserValidator;
 
 /**
  *
@@ -17,7 +16,16 @@ public abstract class User {
     protected String email;
     protected String password;
     
+    public User() {
+        this.userID = null;
+        this.email = null;
+        this.password = null; 
+    }
+    
     public void setUserID(String userID) {
+        if (null != userID) {
+            throw new IllegalArgumentException("User ID has been set.");
+        }
         this.userID = userID;
     }
     
@@ -26,6 +34,11 @@ public abstract class User {
     }
         
     public void setEmail(String email) {
+        try {
+            UserValidator.validateEmail(email.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.email = email;
     }
     
@@ -34,6 +47,11 @@ public abstract class User {
     }
     
     public void setPassword(String password) {
+        try {
+            UserValidator.validatePassword(password.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.password = password;
     }
     
@@ -43,30 +61,25 @@ public abstract class User {
     
     public abstract void viewMenu();
     
-    public static InfoContainer login(String email, String password){
-        email = email.trim();
-        password = password.trim();
-        InfoContainer loginInfo = new InfoContainer();
-        String errMsg;
-        if (email.isEmpty() && password.isEmpty()) {
-            errMsg = "Please fill in the credentials.";
-        } else if (email.isEmpty()) {
-            errMsg = "Email is a required field.";
-        } else if (password.isEmpty()) {
-            errMsg = "Password is a required field.";
-        } else {
-            // Check credentials.
-            String [][] usersInfo = RecordReader.readFile("user.txt");
-            for (String[] userInfo : usersInfo) {
-                if (userInfo[1].equals(email) && userInfo[4].equals(password)) { 
-                    loginInfo.set("userInfo", userInfo);
-                    return loginInfo;
-                }
+    public static void login(String email, String password) throws Exception {
+        try {
+            String[] userInfo = UserValidator.validateCredential(email, password);
+            String userID = userInfo[0];
+            String username = userInfo[1];
+            String phoneNum = userInfo[2];
+            email = userInfo[3];
+            password = userInfo[4];
+            User user = switch(userID.substring(0, 3)) {
+                case "ctm" -> new Customer(userID, username, phoneNum, email, password);
+                case "adm" -> new Admin();
+                default -> null;
+            };
+            if (user != null) {
+                user.viewMenu();
             }
-            errMsg = "Invalid credentials";
+        } catch (Exception e) {
+            throw e;
         }
-        loginInfo.set("errMsg", errMsg);
-        return loginInfo;
     }
     
 }
