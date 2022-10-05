@@ -4,6 +4,7 @@
  */
 package com.oodj_assignment.UI;
 
+import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import com.oodj_assignment.helper.RecordWriter;
@@ -16,17 +17,19 @@ import javax.swing.JOptionPane;
 public class PaymentForm extends javax.swing.JFrame {
 
     Customer customer;
+    Booking bk;
     Car selectedCar;
     public PaymentForm(){};
-    public PaymentForm(Customer customer, Car selectedCar) {
+    public PaymentForm(Customer customer, Booking bk) {
         initComponents();
         this.customer = customer;
-        this.selectedCar = selectedCar;
-        System.out.println(selectedCar.getPlateNum());
+        this.bk = bk;
+        this.selectedCar = bk.getSelectedCar();
         carPlate.setText(selectedCar.getPlateNum());
         model.setText(selectedCar.getModel());
         dayprice.setText(Float.toString(selectedCar.getPricePerDay()));
-
+        startdate.setText(bk.getStartDate());
+        enddate.setText(bk.getEndDate());
     }
 
     /**
@@ -302,7 +305,7 @@ public class PaymentForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        customer.makeBooking(selectedCar);
+        customer.makeBooking(bk);
         dispose();  
     }//GEN-LAST:event_jButton2ActionPerformed
 

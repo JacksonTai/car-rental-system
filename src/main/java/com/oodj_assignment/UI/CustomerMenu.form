@@ -102,8 +102,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="carManagementBtn" max="32767" attributes="0"/>
-                          <Component id="bookingManagementBtn" max="32767" attributes="0"/>
+                          <Component id="bookCarBtn" max="32767" attributes="0"/>
+                          <Component id="bookHistoryBtn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="46" max="32767" attributes="0"/>
                   </Group>
@@ -113,9 +113,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
-                      <Component id="carManagementBtn" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="bookCarBtn" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="bookingManagementBtn" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="bookHistoryBtn" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="logoutBtn" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -124,16 +124,16 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="carManagementBtn">
+            <Component class="javax.swing.JButton" name="bookCarBtn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="16" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Car Management"/>
+                <Property name="text" type="java.lang.String" value="Book Car"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="carManagementBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookCarBtnActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="logoutBtn">
@@ -148,16 +148,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutBtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="bookingManagementBtn">
+            <Component class="javax.swing.JButton" name="bookHistoryBtn">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="16" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Booking Management"/>
+                <Property name="text" type="java.lang.String" value="Booking History"/>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookingManagementBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookHistoryBtnActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -186,7 +186,7 @@
                               <Component id="jScrollPane1" min="-2" pref="642" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <EmptySpace pref="193" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

@@ -13,7 +13,6 @@ import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.validation.UserValidator;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -133,14 +132,14 @@ public class Customer extends User {
         bookingtable.setModel(tableModel);
     }
     
-    public void makePayment(Customer customer, Car selectedCar)
+    public void makePayment(Customer customer, Booking bk)
     {
-        new PaymentForm(customer,selectedCar).setVisible(true);
+        new PaymentForm(customer,bk).setVisible(true);
     }
     
-    public void makeBooking(Car selectedCar)
+    public void makeBooking(Booking bk)
     {
-        new BookingForm(this,selectedCar).setVisible(true);
+        new BookingForm(this,bk).setVisible(true);
     }
     
     public static void readNumPlate (String[] payment)

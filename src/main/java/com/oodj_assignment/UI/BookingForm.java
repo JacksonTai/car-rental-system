@@ -4,6 +4,7 @@
  */
 package com.oodj_assignment.UI;
 
+import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import java.text.ParseException;
@@ -18,19 +19,18 @@ import javax.swing.JOptionPane;
 public class BookingForm extends javax.swing.JFrame {
 
     Customer customer;
-    Car selectedCar;
+    Booking bk;
     public BookingForm(){};
-    public BookingForm(Customer customer, Car selectedCar) {
+    public BookingForm(Customer customer, Booking bk) {
         initComponents();
         this.customer = customer;
-        this.selectedCar = selectedCar;
+        this.bk = bk;
         Date dt = new Date();
-        startDate.getJCalendar().setMinSelectableDate(dt);
-        endDate.getJCalendar().setMinSelectableDate(dt);
+        startDateChooser.getJCalendar().setMinSelectableDate(dt);
+        endDateChooser.getJCalendar().setMinSelectableDate(dt);
 
     }
     
-    private 
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,8 +46,8 @@ public class BookingForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         Payment = new javax.swing.JButton();
-        startDate = new com.toedter.calendar.JDateChooser();
-        endDate = new com.toedter.calendar.JDateChooser();
+        startDateChooser = new com.toedter.calendar.JDateChooser();
+        endDateChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,8 +85,8 @@ public class BookingForm extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                    .addComponent(endDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(startDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                    .addComponent(endDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(102, 102, 102))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,11 +110,11 @@ public class BookingForm extends javax.swing.JFrame {
                 .addGap(124, 124, 124)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
-                    .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(startDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(endDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(endDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(Payment, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -136,9 +136,12 @@ public class BookingForm extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try
         {
-            sdf.parse(sdf.format(startDate.getDate()).trim());
-            sdf.parse(sdf.format(endDate.getDate()).trim());
-            customer.makePayment(customer,selectedCar);
+            sdf.parse(sdf.format(startDateChooser.getDate()).trim());
+            sdf.parse(sdf.format(endDateChooser.getDate()).trim());
+            bk.setStartDate(sdf.format(startDateChooser.getDate()).trim());
+            bk.setEndDate(sdf.format(endDateChooser.getDate()).trim());
+//            System.out.println(sdf.format(endDate.getDate()).trim());
+            customer.makePayment(customer,bk);
             dispose();
 
         } 
@@ -187,11 +190,11 @@ public class BookingForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Payment;
-    private com.toedter.calendar.JDateChooser endDate;
+    private com.toedter.calendar.JDateChooser endDateChooser;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
-    private com.toedter.calendar.JDateChooser startDate;
+    private com.toedter.calendar.JDateChooser startDateChooser;
     // End of variables declaration//GEN-END:variables
 }

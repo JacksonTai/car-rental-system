@@ -31,8 +31,8 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="startDate" pref="524" max="32767" attributes="0"/>
-                  <Component id="endDate" max="32767" attributes="0"/>
+                  <Component id="startDateChooser" pref="524" max="32767" attributes="0"/>
+                  <Component id="endDateChooser" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
           </Group>
@@ -65,12 +65,12 @@
               <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                  <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                  <Component id="startDateChooser" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                  <Component id="endDate" min="-2" max="-2" attributes="0"/>
+                  <Component id="endDateChooser" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="165" max="32767" attributes="0"/>
               <Component id="Payment" min="-2" pref="39" max="-2" attributes="0"/>
@@ -122,9 +122,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PaymentActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="startDate">
+    <Component class="com.toedter.calendar.JDateChooser" name="startDateChooser">
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="endDate">
+    <Component class="com.toedter.calendar.JDateChooser" name="endDateChooser">
     </Component>
   </SubComponents>
 </Form>
