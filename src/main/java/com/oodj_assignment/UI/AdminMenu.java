@@ -22,7 +22,7 @@ public class AdminMenu extends javax.swing.JFrame {
         JBtnActivator = new JButtonActivator(new JButton [] {
             carManagementBtn, bookingManagementBtn, recordsBtn, companyReportBtn
         });
-        recordsComboBox.setVisible(false);
+        carManagementBtnActivated();
     }
     
     public static JTable getTable() {
@@ -298,12 +298,16 @@ public class AdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
+        carManagementBtnActivated();
+    }//GEN-LAST:event_carManagementBtnActionPerformed
+
+    private void carManagementBtnActivated() {
         JBtnActivator.activateBtn(carManagementBtn);
         recordsComboBox.setVisible(false);
         addBtn.setVisible(true);
         admin.viewRecord("car");
-    }//GEN-LAST:event_carManagementBtnActionPerformed
-
+    }
+    
     private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed
         JBtnActivator.activateBtn(bookingManagementBtn);
         recordsComboBox.setVisible(false);
@@ -342,7 +346,20 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
-            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+            Car selectedCar = getSelectedCar();
+            String confirmMsg = "Are you sure to delete car (" + getSelectedCar().getModel() + ")";
+            int response = JOptionPane.showConfirmDialog(
+                    rootPane, 
+                    confirmMsg, 
+                    "Confirm",
+                    JOptionPane.YES_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (response == JOptionPane.YES_OPTION) {
+                admin.deleteCar(selectedCar);
+                JOptionPane.showMessageDialog(rootPane, "Car deleted successfully.");
+                admin.viewRecord("car");
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to delete.");
         }

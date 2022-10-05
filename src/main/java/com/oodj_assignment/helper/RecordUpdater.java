@@ -1,7 +1,5 @@
 package com.oodj_assignment.helper;
 
-import java.util.Arrays;
-
 /**
  * Helper class for reading records from text file.
  */
@@ -21,7 +19,7 @@ public class RecordUpdater {
                 break;
             }
         }
-        RecordWriter.write(records, fileName);
+        RecordWriter.write(records, fileName, true);
     }
  
     /**

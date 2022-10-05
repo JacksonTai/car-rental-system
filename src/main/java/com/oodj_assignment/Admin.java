@@ -80,6 +80,17 @@ public class Admin extends User {
             String.valueOf(selectedCar.getPricePerDay()), 
             selectedCar.getStatus()
         }, "car.txt");
+        
+    }
+    
+    public void deleteCar(Car selectedCar) {
+        String[][] cars = RecordReader.readFile("car.txt");
+        for (String[] car : cars) {        
+           if (car[0].equals(selectedCar.getPlateNum())) {
+                cars = ArrayUtils.removeElement(cars, car);
+           }
+        } 
+        RecordWriter.write(cars, "car.txt", true);
     }
     
 }
