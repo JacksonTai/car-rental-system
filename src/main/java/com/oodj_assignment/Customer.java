@@ -11,8 +11,7 @@ import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordWriter;
-import com.oodj_assignment.validation.Validatable;
-import javax.swing.JPanel;
+import com.oodj_assignment.validation.UserValidator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
