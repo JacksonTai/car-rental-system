@@ -4,9 +4,10 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.Booking;
+import com.oodj_assignment.UI.BookingForm;
 import com.oodj_assignment.UI.CustomerMenu;
-import com.oodj_assignment.UI.Payment;
+//import com.oodj_assignment.UI.TestCustomerMenu;
+import com.oodj_assignment.UI.PaymentForm;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
@@ -101,31 +102,26 @@ public class Customer extends User {
     
     public void viewCar()
     {
-        JTable bookingTable = CustomerMenu.getTable();
-//        JPanel bookingPanel = CustomerMenu.getPanel();
-//        bookingPanel.setVisible(true);
+        JTable bookingtable = CustomerMenu.getTable();
         DefaultTableModel tableModel = new DefaultTableModel();
         
-        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day", "Status"};
+        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
         for (String carField : carFields) {
             tableModel.addColumn(carField);
         }
         String[][] carsInfo = RecordReader.readFile("car.txt");
         for (String[] carInfo : carsInfo) {
             tableModel.addRow(carInfo);
-//            System.out.println(Arrays.toString(carInfo));
         }
         
-        bookingTable.setModel(tableModel);
+        bookingtable.setModel(tableModel);
         
     }
     
     public void viewbookingHistory()
     {
-        JTable bookingTable = CustomerMenu.getTable();
-//        JPanel bookingPanel = CustomerMenu.getPanel();
-        
-//        bookingPanel.setVisible(true);
+        JTable bookingtable = CustomerMenu.getTable();
+
         DefaultTableModel tableModel = new DefaultTableModel();
         
         String[] carFields = {"CusID", "CarPlateNumber", "Start Date", "Return Date", "Duration", "Price/Day", "Total Price"};
@@ -133,17 +129,17 @@ public class Customer extends User {
             tableModel.addColumn(carField);
         }
         
-        bookingTable.setModel(tableModel);
+        bookingtable.setModel(tableModel);
     }
     
-    public void makePayment()
+    public void makePayment(Customer customer, Booking bk)
     {
-        new Payment(this).setVisible(true);
+        new PaymentForm(customer,bk).setVisible(true);
     }
     
-    public void makeBooking()
+    public void makeBooking(Booking bk)
     {
-        new Booking(this).setVisible(true);
+        new BookingForm(this,bk).setVisible(true);
     }
     
     public static void readNumPlate (String[] payment)
