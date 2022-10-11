@@ -8,6 +8,11 @@ import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import com.oodj_assignment.helper.RecordWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -57,7 +62,7 @@ public class PaymentForm extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         startdate = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        Total1 = new javax.swing.JTextField();
+        Total = new javax.swing.JTextField();
         enddate = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -132,11 +137,11 @@ public class PaymentForm extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Start Date:");
 
-        Total1.setEditable(false);
-        Total1.setText(" ");
-        Total1.addActionListener(new java.awt.event.ActionListener() {
+        Total.setEditable(false);
+        Total.setText(" ");
+        Total.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Total1ActionPerformed(evt);
+                TotalActionPerformed(evt);
             }
         });
 
@@ -234,7 +239,7 @@ public class PaymentForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(enddate, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Total1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(171, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -292,7 +297,7 @@ public class PaymentForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(Total1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -321,7 +326,30 @@ public class PaymentForm extends javax.swing.JFrame {
         String ic = IC.getText();
         String phone = Phone.getText();
         String email = Email.getText();
+        String carmodel = model.getText();
+        String dayPrice = dayprice.getText();
+        String datestart = startdate.getText();
+        String dateend = enddate.getText();
+        
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+        try {
+            Date d1 = sdf.parse(datestart);
+            Date d2 = sdf.parse(dateend);
+            long difference_In_Time = d2.getTime() - d1.getTime();
+            long difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
+            float dp = Float.parseFloat(dayPrice.trim());
+            float diff = dp * difference_In_Days;
+            Total.setText(Float.toString(diff));
+        } catch (ParseException ex) {
+            Logger.getLogger(PaymentForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String total = Total.getText();
+
+
+        
 //        String[] payment = {name,carplate,ic,phone,email};
         
         if (name.isEmpty() && ic.isEmpty() && phone.isEmpty() && email.isEmpty()) 
@@ -348,10 +376,11 @@ public class PaymentForm extends javax.swing.JFrame {
         {
             RecordWriter.write(new String []
             {
-                id,name,carplate,ic,phone,email //,startDate,endDate
+                id,name,carplate,ic,phone,email,carmodel,dayPrice,datestart,dateend,total
             }, "payment.txt");
             JOptionPane.showMessageDialog(null,"Payment successfull!");
             dispose();
+            customer.viewMenu();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -364,9 +393,9 @@ public class PaymentForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_startdateActionPerformed
 
-    private void Total1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Total1ActionPerformed
+    private void TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Total1ActionPerformed
+    }//GEN-LAST:event_TotalActionPerformed
 
     private void enddateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enddateActionPerformed
         // TODO add your handling code here:
@@ -421,7 +450,7 @@ public class PaymentForm extends javax.swing.JFrame {
     private javax.swing.JTextField Email;
     private javax.swing.JTextField IC;
     private javax.swing.JTextField Phone;
-    private javax.swing.JTextField Total1;
+    private javax.swing.JTextField Total;
     private javax.swing.JTextField carPlate;
     private javax.swing.JTextField dayprice;
     private javax.swing.JTextField enddate;

@@ -1,3 +1,5 @@
 pymt1|bk1|ctm1|302.20|
 pymt2|bk3|ctm2|287.29|
 pymt3|bk2|ctm3|332.62|
+ctm1|test|JI1230|test|test|test|Myvi|203.5|11-10-2022|13-10-2022|407.0|
+ctm1|test|JI1230|test|test|test|Myvi|203.5|11-10-2022|12-10-2022|203.5|
