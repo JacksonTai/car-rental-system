@@ -6,7 +6,6 @@ package com.oodj_assignment;
 
 import com.oodj_assignment.UI.BookingForm;
 import com.oodj_assignment.UI.CustomerMenu;
-//import com.oodj_assignment.UI.TestCustomerMenu;
 import com.oodj_assignment.UI.PaymentForm;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
@@ -142,8 +141,4 @@ public class Customer extends User {
         new BookingForm(this,bk).setVisible(true);
     }
     
-    public static void readNumPlate (String[] payment)
-    {
-        String numplate = payment[1].trim();
-    }
 }

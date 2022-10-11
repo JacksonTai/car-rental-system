@@ -140,7 +140,6 @@ public class BookingForm extends javax.swing.JFrame {
             sdf.parse(sdf.format(endDateChooser.getDate()).trim());
             bk.setStartDate(sdf.format(startDateChooser.getDate()).trim());
             bk.setEndDate(sdf.format(endDateChooser.getDate()).trim());
-//            System.out.println(sdf.format(endDate.getDate()).trim());
             customer.makePayment(customer,bk);
             dispose();
 
