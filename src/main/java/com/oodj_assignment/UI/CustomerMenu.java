@@ -1,42 +1,44 @@
 package com.oodj_assignment.UI;
  
-import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class CustomerMenu extends javax.swing.JFrame {
 
     Customer customer;
     
-    public CustomerMenu(Customer customer) {
+    public CustomerMenu() {
         initComponents();
+    }
+    
+    public CustomerMenu(Customer customer) {
+        this();
         this.customer = customer;
-
         adminDashboardTitle.setText("Welcome back, " + customer.getUsername() + "!");  
         customer.viewCar();
-
-
     }
     
     public static JTable getTable() {
         return bookingtable;
     }
     
-        private Car getSelectedCar() { 
+    private Car getSelectedCar() { 
         try { 
             return new Car(
                 bookingtable.getValueAt(bookingtable.getSelectedRow(), 0).toString(),
                 bookingtable.getValueAt(bookingtable.getSelectedRow(), 1).toString(),
                 bookingtable.getValueAt(bookingtable.getSelectedRow(), 2).toString(),
-                Float.parseFloat(bookingtable.getValueAt(bookingtable.getSelectedRow(), 3).toString()),
+                Float.parseFloat(
+                        bookingtable.getValueAt(bookingtable.getSelectedRow(), 3).toString()
+                ),
                 "Available"
             ); 
         } catch (ArrayIndexOutOfBoundsException e) {
             return null;
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -73,6 +75,7 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        bookCarBtn.setBackground(new java.awt.Color(255, 255, 255));
         bookCarBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         bookCarBtn.setText("Book Car");
         bookCarBtn.setFocusPainted(false);
@@ -82,6 +85,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
 
+        logoutBtn.setBackground(new java.awt.Color(255, 255, 255));
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         logoutBtn.setText("Log out");
         logoutBtn.setFocusPainted(false);
@@ -91,6 +95,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
 
+        bookHistoryBtn.setBackground(new java.awt.Color(255, 255, 255));
         bookHistoryBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         bookHistoryBtn.setText("Booking History");
         bookHistoryBtn.setFocusPainted(false);
@@ -105,15 +110,15 @@ public class CustomerMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bookCarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bookHistoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +129,7 @@ public class CustomerMenu extends javax.swing.JFrame {
                 .addComponent(bookHistoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addGap(49, 49, 49))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -151,11 +156,6 @@ public class CustomerMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        bookingtable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                bookingtableMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(bookingtable);
         if (bookingtable.getColumnModel().getColumnCount() > 0) {
             bookingtable.getColumnModel().getColumn(0).setResizable(false);
@@ -164,6 +164,7 @@ public class CustomerMenu extends javax.swing.JFrame {
             bookingtable.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        nextBtn.setBackground(new java.awt.Color(255, 255, 255));
         nextBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         nextBtn.setText("Next");
         nextBtn.setFocusPainted(false);
@@ -183,24 +184,24 @@ public class CustomerMenu extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(adminDashboardTitle))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(193, Short.MAX_VALUE))
+                        .addGap(307, 307, 307)
+                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(417, 417, 417))
+                .addGap(0, 37, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(46, 46, 46)
                 .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -226,41 +227,35 @@ public class CustomerMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bookCarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookCarBtnActionPerformed
-    customer.viewCar();
-
+        customer.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
     
-    
-    
     private void bookHistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookHistoryBtnActionPerformed
-
         customer.viewbookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
-        Car selectedCar = getSelectedCar();
-        Booking bk = new Booking();
-        bk.setSelectedCar(selectedCar);
-        customer.makeBooking(bk);
-        dispose();
+        try { 
+            customer.makeBooking(getSelectedCar());
+            dispose();
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
+        }
     }//GEN-LAST:event_nextBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         dispose();
         new MainMenu().show();
     }//GEN-LAST:event_logoutBtnActionPerformed
-
-    private void bookingtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bookingtableMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_bookingtableMouseClicked
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -290,7 +285,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerMenu(null).setVisible(true);
+                new CustomerMenu().setVisible(true);
             }
         });
     }

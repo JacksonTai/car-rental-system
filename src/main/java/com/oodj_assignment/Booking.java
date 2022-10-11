@@ -4,44 +4,55 @@
  */
 package com.oodj_assignment;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author KJ
  */
 public class Booking 
 {
-    private String startdate; 
-    private String enddate;
+    private String pickupDate; 
+    private String returnDate;
     private Car selectedCar;
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-    public Car getSelectedCar() 
-    {
-        return selectedCar;
-    }
-
-    public void setSelectedCar(Car selectedCar) 
-    {
+    public void setSelectedCar(Car selectedCar) {
+        if (selectedCar == null) {
+            throw new NullPointerException("Car cannot be null.");
+        }
         this.selectedCar = selectedCar;
     }
     
-    public String getStartDate()
-    {
-        return startdate;
+    public Car getSelectedCar() {
+        return this.selectedCar;
     }
     
-    public String getEndDate()
-    {
-        return enddate;
+    public void setPickupDate(String pickupDate) throws ParseException {
+        try {
+            simpleDateFormat.parse(pickupDate);
+        } catch (ParseException e) {
+            throw e;
+        }
+        this.pickupDate = pickupDate;
     }
     
-    public void setStartDate(String startDate)
-    {
-        this.startdate = startDate;
+    public String getPickupDate() {
+        return pickupDate;
     }
     
-    public void setEndDate(String endDate)
-    {
-        this.enddate = endDate;
+    public void setReturnDate(String returnDate) throws ParseException {
+        try {
+            simpleDateFormat.parse(returnDate);
+        } catch (ParseException e) {
+            throw e;
+        }
+        this.returnDate = returnDate;
+    }
+    
+    public String getReturnDate() {
+        return returnDate;
     }
     
 }

@@ -11,9 +11,9 @@ import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordWriter;
+import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.UserValidator;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -51,7 +51,7 @@ public class Customer extends User {
     }
 
     @Override
-    public void viewMenu() {
+        public void viewMenu() {
         new CustomerMenu(this).setVisible(true);
     }
     
@@ -99,46 +99,32 @@ public class Customer extends User {
         return signupInfo;
     }
     
-    public void viewCar()
-    {
-        JTable bookingtable = CustomerMenu.getTable();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
+    public void viewCar() {
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
-        for (String carField : carFields) {
-            tableModel.addColumn(carField);
-        }
         String[][] carsInfo = RecordReader.readFile("car.txt");
-        for (String[] carInfo : carsInfo) {
-            tableModel.addRow(carInfo);
-        }
-        
-        bookingtable.setModel(tableModel);
-        
-    }
-    
-    public void viewbookingHistory()
-    {
         JTable bookingtable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, bookingtable);
+    }
+    
+    public void viewbookingHistory() {
+        String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
+            "Duration", "Price/Day", "Total Price"};
+        /*
+        Jackson: "try to populate booking history records and put it in booking history 2d array."
+        */
+        String[][] bookingHistory = new String[0][];
+        JTable bookingtable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, bookingHistory, bookingtable); 
+    }
+    
+    public void makeBooking(Car selectedCar) {
+        Booking booking = new Booking();
+        booking.setSelectedCar(selectedCar);
+        new BookingForm(this, booking).setVisible(true);
+    }
+    
+    public void makePayment(Booking booking) {
+        new PaymentForm(this, booking).setVisible(true);
+    }
 
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
-        String[] carFields = {"CusID", "CarPlateNumber", "Start Date", "Return Date", "Duration", "Price/Day", "Total Price"};
-        for (String carField : carFields) {
-            tableModel.addColumn(carField);
-        }
-        
-        bookingtable.setModel(tableModel);
-    }
-    
-    public void makePayment(Customer customer, Booking bk)
-    {
-        new PaymentForm(customer,bk).setVisible(true);
-    }
-    
-    public void makeBooking(Booking bk)
-    {
-        new BookingForm(this,bk).setVisible(true);
-    }
-    
 }
