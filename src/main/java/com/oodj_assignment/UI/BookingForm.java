@@ -9,11 +9,7 @@ import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import com.toedter.calendar.IDateEditor;
 import com.toedter.calendar.JDateChooser;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -46,7 +42,7 @@ public class BookingForm extends javax.swing.JFrame {
         carPlateNumTf.setText(selectedCar.getPlateNum());
         modelTf.setText(selectedCar.getModel());
         colourTf.setText(selectedCar.getColour());
-        pricePerDayTf.setText(Float.toString(selectedCar.getPricePerDay()));
+        pricePerDayTf.setText("RM" + Float.toString(selectedCar.getPricePerDay()));
     }
     
     private String jDateChooserToString(JDateChooser jDateChooser) {
@@ -158,7 +154,7 @@ public class BookingForm extends javax.swing.JFrame {
         jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel18.setText("Price/Day (RM):");
+        jLabel18.setText("Price/Day:");
 
         pricePerDayTf.setEditable(false);
         pricePerDayTf.setBackground(new java.awt.Color(255, 255, 255));
@@ -208,8 +204,7 @@ public class BookingForm extends javax.swing.JFrame {
                                             .addGap(79, 79, 79))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(2, 2, 2)
-                                            .addComponent(pickupDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGap(18, 18, 18)))
+                                            .addComponent(pickupDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGap(10, 10, 10)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11)
@@ -292,7 +287,6 @@ public class BookingForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
-        String errMsg = null;
         try {
             String pickupDate = jDateChooserToString(pickupDateChooser);
             String returnDate = jDateChooserToString(returnDateChooser);
@@ -300,18 +294,13 @@ public class BookingForm extends javax.swing.JFrame {
                 throw new NullPointerException("Pick-up date is a required field");
             } else if (returnDate.isEmpty()) {
                 throw new NullPointerException("Return date is a required field");
-            } else if (null == pickupDateChooser.getDate() || null == returnDateChooser.getDate()) {
-                throw new Exception("Invalid Format of Date! Please input dd-mm-yyyy");
             }
-            booking.setPickupDate(pickupDateChooser.getDate());
-            booking.setReturnDate(returnDateChooser.getDate());
-            customer.makePayment(booking);
+            booking.setPickupDate(pickupDate);
+            booking.setReturnDate(returnDate);
+            new PaymentForm(customer, booking).setVisible(true);
             dispose();
-        } catch (Exception e) { 
-            errMsg = e.getMessage();
-        }
-        if (null != errMsg) {
-            JOptionPane.showMessageDialog(rootPane, errMsg);
+        } catch (Exception e) {   
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_nextBtnActionPerformed
 

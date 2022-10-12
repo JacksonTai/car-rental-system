@@ -10,7 +10,7 @@ import com.oodj_assignment.validation.CarValidator;
  *
  * @author Jackson
  */
-public class Car {
+public class Car implements CarValidator {
     
     private String plateNum;
     private String model;
@@ -28,10 +28,10 @@ public class Car {
     
     public Car(String plateNum, String model, String colour, float pricePerDay, String status) {
         try {
-            CarValidator.validatePlateNum(plateNum);
-            CarValidator.validateModel(model);
-            CarValidator.validateColour(colour);
-            CarValidator.validatePricePerDay(pricePerDay);
+            validatePlateNum(plateNum);
+            validateModel(model);
+            validateColour(colour);
+            validatePricePerDay(pricePerDay);
         } catch (IllegalArgumentException e) {
             throw e;  
         }
@@ -44,7 +44,7 @@ public class Car {
     
     public void setPlateNum(String plateNum) {
         try {
-            CarValidator.validatePlateNum(plateNum);
+            validatePlateNum(plateNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -56,8 +56,8 @@ public class Car {
     }
     
     public void setModel(String model) {
-        try {
-            CarValidator.validateModel(model);
+        try { 
+            validateModel(model);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -70,7 +70,7 @@ public class Car {
        
     public void setColour(String colour) {
         try {
-            CarValidator.validateColour(colour);
+            validateColour(colour);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -83,7 +83,7 @@ public class Car {
     
     public void setPricePerDay(float pricePerDay) {
         try {
-            CarValidator.validatePricePerDay(pricePerDay);
+            validatePricePerDay(pricePerDay);
         } catch (IllegalArgumentException e) {
             throw e;
         }

@@ -4,9 +4,10 @@
  */
 package com.oodj_assignment;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.oodj_assignment.helper.IdGenerator;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -14,11 +15,20 @@ import java.util.Date;
  */
 public class Booking 
 {
-    private Date pickupDate; 
-    private Date returnDate;
+    private final String bookingID;
+    private LocalDate pickupDate; 
+    private LocalDate returnDate;
     private Car selectedCar;
-    private final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
-
+    private final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    
+    public Booking() {
+        this.bookingID = IdGenerator.generate("bkg");
+    }
+    
+    public String getBookingID() {
+        return this.bookingID;
+    }
+    
     public void setSelectedCar(Car selectedCar) {
         if (selectedCar == null) {
             throw new NullPointerException("Car cannot be null.");
@@ -30,30 +40,38 @@ public class Booking
         return this.selectedCar;
     }
     
-    public void setPickupDate(Date pickupDate) throws ParseException {
+    public void setPickupDate(String pickupDate) throws Exception { 
         try {
-            SDF.parse(SDF.format(pickupDate));
-        } catch (ParseException e) {
-            throw e;
+            this.pickupDate = LocalDate.parse(pickupDate, DTF);
+        } catch (Exception e) {
+            throw new Exception("Invalid format of pick-up date."); 
         }
-        this.pickupDate = pickupDate;
+        if (ChronoUnit.DAYS.between(LocalDate.now(), this.pickupDate) < 0) {
+            throw new Exception("Pick-up date must be no earlier than today.");
+        }
     }
     
-    public Date getPickupDate() {
+    public LocalDate getPickupDate() {
         return pickupDate;
     }
     
-    public void setReturnDate(Date returnDate) throws ParseException {
+    public void setReturnDate(String returnDate) throws Exception {
         try {
-           SDF.parse(SDF.format(returnDate));
-        } catch (ParseException e) {
-            throw e;
+            this.returnDate = LocalDate.parse(returnDate, DTF);
+        } catch (Exception e) {
+             throw new Exception("Invalid format of return date.");
         }
-        this.returnDate = returnDate;
+        if (getRentDuration() < 0) {
+            throw new Exception("Return date must be no earlier than pick-up date.");
+        }
     }
     
-    public Date getReturnDate() {
+    public LocalDate getReturnDate() {
         return returnDate;
+    }
+    
+    public int getRentDuration() {
+        return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
     }
     
 }

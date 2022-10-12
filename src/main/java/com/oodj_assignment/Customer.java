@@ -4,9 +4,8 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.BookingForm;
 import com.oodj_assignment.UI.CustomerMenu;
-import com.oodj_assignment.UI.PaymentForm;
+import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
@@ -109,22 +108,24 @@ public class Customer extends User {
     public void viewbookingHistory() {
         String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
             "Duration", "Price/Day", "Total Price"};
-        /*
-        Jackson: "try to populate booking history records and put it in booking history 2d array."
-        */
-        String[][] bookingHistory = new String[0][];
+        String[][] bookingHistories = RecordReader.readFile("booking.txt");
+        for (String[] bookingHistory : bookingHistories) {
+            if (!bookingHistory[0].equals(userID)) {
+                bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory);
+            }
+        }
         JTable bookingtable = CustomerMenu.getTable();
-        JTableInserter.insert(carFields, bookingHistory, bookingtable); 
+        JTableInserter.insert(carFields, bookingHistories, bookingtable); 
     }
     
-    public void makeBooking(Car selectedCar) {
+    public Booking makeBooking(Car selectedCar) {
         Booking booking = new Booking();
         booking.setSelectedCar(selectedCar);
-        new BookingForm(this, booking).setVisible(true);
+        return booking;
     }
     
     public void makePayment(Booking booking) {
-        new PaymentForm(this, booking).setVisible(true);
+         
     }
 
 }

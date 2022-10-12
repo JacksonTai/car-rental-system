@@ -1,5 +1,6 @@
 package com.oodj_assignment.UI;
  
+import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import javax.swing.JOptionPane;
@@ -245,8 +246,9 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
         try { 
-            customer.makeBooking(getSelectedCar());
+            Booking newBooking = customer.makeBooking(getSelectedCar());
             dispose();
+            new BookingForm(customer, newBooking).setVisible(true);
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
         }
