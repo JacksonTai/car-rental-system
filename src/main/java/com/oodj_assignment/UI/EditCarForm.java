@@ -82,22 +82,22 @@ public class EditCarForm extends javax.swing.JFrame {
         plateNumTf.setEditable(false);
         plateNumTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        plateNumLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        plateNumLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         plateNumLabel.setText("Plate number");
 
-        modelLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        modelLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         modelLabel.setText("Model");
 
         modelTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         colourTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        colourLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        colourLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         colourLabel.setText("Colour");
 
         pricePerDayTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        pricePerDayLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pricePerDayLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pricePerDayLabel.setText("Price/Day (RM)");
 
         confirmBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -123,7 +123,7 @@ public class EditCarForm extends javax.swing.JFrame {
         statusComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "N/A" }));
 
-        statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         statusLabel.setText("Status");
 
         javax.swing.GroupLayout addCarPanelLayout = new javax.swing.GroupLayout(addCarPanel);

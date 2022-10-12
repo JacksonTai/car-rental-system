@@ -4,15 +4,16 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.Booking;
 import com.oodj_assignment.UI.CustomerMenu;
-import com.oodj_assignment.UI.Payment;
+import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
+import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.UserValidator;
+import java.time.LocalDate;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -70,7 +71,7 @@ public class Customer extends User {
     }
 
     @Override
-    public void viewMenu() {
+        public void viewMenu() {
         new CustomerMenu(this).setVisible(true);
     }
     
@@ -99,55 +100,57 @@ public class Customer extends User {
         RecordWriter.write(new String[] {userID, email, username, phoneNum, password,}, "user.txt");
     }
     
-    public void viewCar()
-    {
-        JTable bookingTable = CustomerMenu.getTable();
-//        JPanel bookingPanel = CustomerMenu.getPanel();
-//        bookingPanel.setVisible(true);
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
-        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day", "Status"};
-        for (String carField : carFields) {
-            tableModel.addColumn(carField);
-        }
+    public void viewCar() {
+        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
         String[][] carsInfo = RecordReader.readFile("car.txt");
         for (String[] carInfo : carsInfo) {
-            tableModel.addRow(carInfo);
-//            System.out.println(Arrays.toString(carInfo));
+            if (carInfo[4].equals("N/A")) {
+                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
+            }
         }
-        
-        bookingTable.setModel(tableModel);
-        
+        JTable bookingtable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, bookingtable);
     }
     
-    public void viewbookingHistory()
-    {
-        JTable bookingTable = CustomerMenu.getTable();
-//        JPanel bookingPanel = CustomerMenu.getPanel();
-        
-//        bookingPanel.setVisible(true);
-        DefaultTableModel tableModel = new DefaultTableModel();
-        
-        String[] carFields = {"CusID", "CarPlateNumber", "Start Date", "Return Date", "Duration", "Price/Day", "Total Price"};
-        for (String carField : carFields) {
-            tableModel.addColumn(carField);
+    public void viewbookingHistory() {
+        String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
+            "Duration", "Price/Day", "Total Price"};
+        String[][] bookingHistories = RecordReader.readFile("booking.txt");
+        for (String[] bookingHistory : bookingHistories) {
+            if (!bookingHistory[0].equals(userID)) {
+                bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory); 
+            }
         }
+        for (int i = 0; i < bookingHistories.length; i++) {
+            bookingHistories[i] = ArrayUtils.removeElement( bookingHistories[i], userID);
+        }
+        JTable bookingtable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, bookingHistories, bookingtable); 
+    }
+    
+    public Booking makeBooking(Car selectedCar) {
+        Booking booking = new Booking();
+        booking.setSelectedCar(selectedCar);
+        return booking;
+    }
+    
+    public void makePayment(Booking booking) {
+        Car selectedCar = booking.getSelectedCar();
         
-        bookingTable.setModel(tableModel);
+        // Update car status to N/A.
+        selectedCar.setStatus("N/A");
+        RecordUpdater.update(selectedCar.toArray(), "car.txt");
+        
+        String bID = booking.getBookingID();
+        String plateNum = selectedCar.getPlateNum();
+        String startDate = booking.getPickupDate().toString();
+        String endDate = booking.getReturnDate().toString();
+        String duration = String.valueOf(booking.getRentDuration());
+        String pricePerDay = String.valueOf(booking.getSelectedCar().getPricePerDay());
+        String total = String.valueOf(booking.getTotalPrice());
+        RecordWriter.write(new String[]{
+            userID,bID,plateNum,startDate,endDate,duration,pricePerDay,total
+        }, "booking.txt");
     }
-    
-    public void makePayment()
-    {
-        new Payment(this).setVisible(true);
-    }
-    
-    public void makeBooking()
-    {
-        new Booking(this).setVisible(true);
-    }
-    
-    public static void readNumPlate (String[] payment)
-    {
-        String numplate = payment[1].trim();
-    }
+
 }

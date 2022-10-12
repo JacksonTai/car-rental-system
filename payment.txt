@@ -1,3 +1,0 @@
-pymt1|bk1|ctm1|302.20|
-pymt2|bk3|ctm2|287.29|
-pymt3|bk2|ctm3|332.62|
