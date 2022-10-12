@@ -6,6 +6,7 @@ package com.oodj_assignment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -13,10 +14,10 @@ import java.text.SimpleDateFormat;
  */
 public class Booking 
 {
-    private String pickupDate; 
-    private String returnDate;
+    private Date pickupDate; 
+    private Date returnDate;
     private Car selectedCar;
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
 
     public void setSelectedCar(Car selectedCar) {
         if (selectedCar == null) {
@@ -29,29 +30,29 @@ public class Booking
         return this.selectedCar;
     }
     
-    public void setPickupDate(String pickupDate) throws ParseException {
+    public void setPickupDate(Date pickupDate) throws ParseException {
         try {
-            simpleDateFormat.parse(pickupDate);
+            SDF.parse(SDF.format(pickupDate));
         } catch (ParseException e) {
             throw e;
         }
         this.pickupDate = pickupDate;
     }
     
-    public String getPickupDate() {
+    public Date getPickupDate() {
         return pickupDate;
     }
     
-    public void setReturnDate(String returnDate) throws ParseException {
+    public void setReturnDate(Date returnDate) throws ParseException {
         try {
-            simpleDateFormat.parse(returnDate);
+           SDF.parse(SDF.format(returnDate));
         } catch (ParseException e) {
             throw e;
         }
         this.returnDate = returnDate;
     }
     
-    public String getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
     }
     
