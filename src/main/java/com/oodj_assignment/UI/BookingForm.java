@@ -45,17 +45,16 @@ public class BookingForm extends javax.swing.JFrame {
         modelTf.setText(selectedCar.getModel());
         colourTf.setText(selectedCar.getColour());
         pricePerDayTf.setText("RM" + Float.toString(selectedCar.getPricePerDay()));
-        if (booking.getPickupDate() == null) {
-            
+        if (booking.getPickupDate() != null) {
+            LocalDate pickupDate = booking.getPickupDate();
+            LocalDate returnDate = booking.getReturnDate();
+            pickupDateChooser.setDate(
+                    Date.from(pickupDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
+            );  
+            returnDateChooser.setDate(
+                    Date.from(returnDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
+            );  
         }
-        
-//        try {
-//            LocalDate pickupDate = booking.getPickupDate();
-//            pickupDateChooser.setDate(Date.from(pickupDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));  
-//        } catch (Exception e) {
-//            throw e;
-//        }
-
     }
     
     private String jDateChooserToString(JDateChooser jDateChooser) {

@@ -61,7 +61,7 @@ public class Booking
         } catch (Exception e) {
              throw new Exception("Invalid format of return date.");
         }
-        if (getRentDuration() < 0) {
+        if (getRentDuration() < 1) {
             throw new Exception("Return date must be no earlier than pick-up date.");
         }
     }

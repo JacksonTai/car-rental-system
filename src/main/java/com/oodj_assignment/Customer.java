@@ -110,11 +110,8 @@ public class Customer extends User {
         String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
             "Duration", "Price/Day", "Total Price"};
         String[][] bookingHistories = RecordReader.readFile("booking.txt");
-
         for (String[] bookingHistory : bookingHistories) {
-
             if (!bookingHistory[0].equals(userID)) {
-
                 bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory); 
             }
         }
@@ -139,13 +136,9 @@ public class Customer extends User {
         String duration = String.valueOf(booking.getRentDuration());
         String pricePerDay = String.valueOf(booking.getSelectedCar().getPricePerDay());
         String total = String.valueOf(booking.getTotalPrice());
-        
-        
         RecordWriter.write(new String[]{
             userID,bID,plateNum,startDate,endDate,duration,pricePerDay,total
         }, "booking.txt");
-        
-        
     }
 
 }
