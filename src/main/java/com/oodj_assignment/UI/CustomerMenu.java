@@ -238,7 +238,6 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void bookCarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookCarBtnActionPerformed
         nextBtn.setVisible(true);
-
         customer.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
     

@@ -113,4 +113,10 @@ public class Car implements CarValidator {
         return status;
     }
     
+    public String[] toArray() {
+        return new String[] {
+            plateNum, model, colour, String.valueOf(pricePerDay), status
+        };
+    }
+    
 }

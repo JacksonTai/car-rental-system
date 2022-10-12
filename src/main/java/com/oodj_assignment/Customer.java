@@ -9,6 +9,7 @@ import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.UserValidator;
@@ -102,6 +103,11 @@ public class Customer extends User {
     public void viewCar() {
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
         String[][] carsInfo = RecordReader.readFile("car.txt");
+        for (String[] carInfo : carsInfo) {
+            if (carInfo[4].equals("N/A")) {
+                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
+            }
+        }
         JTable bookingtable = CustomerMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, bookingtable);
     }
@@ -129,8 +135,14 @@ public class Customer extends User {
     }
     
     public void makePayment(Booking booking) {
+        Car selectedCar = booking.getSelectedCar();
+        
+        // Update car status to N/A.
+        selectedCar.setStatus("N/A");
+        RecordUpdater.update(selectedCar.toArray(), "car.txt");
+        
         String bID = booking.getBookingID();
-        String plateNum = booking.getSelectedCar().getPlateNum();
+        String plateNum = selectedCar.getPlateNum();
         String startDate = booking.getPickupDate().toString();
         String endDate = booking.getReturnDate().toString();
         String duration = String.valueOf(booking.getRentDuration());
