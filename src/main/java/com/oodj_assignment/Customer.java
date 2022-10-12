@@ -12,6 +12,7 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.UserValidator;
+import java.time.LocalDate;
 import javax.swing.JTable;
 
 /**
@@ -109,11 +110,19 @@ public class Customer extends User {
         String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
             "Duration", "Price/Day", "Total Price"};
         String[][] bookingHistories = RecordReader.readFile("booking.txt");
+
         for (String[] bookingHistory : bookingHistories) {
+
             if (!bookingHistory[0].equals(userID)) {
-                bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory);
+
+                bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory); 
             }
         }
+        
+        for (int i = 0; i < bookingHistories.length; i++) {
+            bookingHistories[i] = ArrayUtils.removeElement( bookingHistories[i], userID);
+        }
+        
         JTable bookingtable = CustomerMenu.getTable();
         JTableInserter.insert(carFields, bookingHistories, bookingtable); 
     }
@@ -125,7 +134,20 @@ public class Customer extends User {
     }
     
     public void makePayment(Booking booking) {
-         
+        String bID = booking.getBookingID();
+        String plateNum = booking.getSelectedCar().getPlateNum();
+        String startDate = booking.getPickupDate().toString();
+        String endDate = booking.getReturnDate().toString();
+        String duration = String.valueOf(booking.getRentDuration());
+        String pricePerDay = String.valueOf(booking.getSelectedCar().getPricePerDay());
+        String total = String.valueOf(booking.getTotalPrice());
+        
+        
+        RecordWriter.write(new String[]{
+            userID,bID,plateNum,startDate,endDate,duration,pricePerDay,total
+        }, "booking.txt");
+        
+        
     }
 
 }

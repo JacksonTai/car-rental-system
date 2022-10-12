@@ -237,10 +237,13 @@ public class CustomerMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bookCarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookCarBtnActionPerformed
+        nextBtn.setVisible(true);
+
         customer.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
     
     private void bookHistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookHistoryBtnActionPerformed
+        nextBtn.setVisible(false);
         customer.viewbookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
 

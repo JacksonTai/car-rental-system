@@ -22,7 +22,7 @@ public class Booking
     private final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy");
     
     public Booking() {
-        this.bookingID = IdGenerator.generate("bkg");
+        this.bookingID = IdGenerator.generate("bkg-");
     }
     
     public String getBookingID() {
@@ -74,4 +74,7 @@ public class Booking
         return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
     }
     
+    public float getTotalPrice(){
+        return selectedCar.getPricePerDay() * getRentDuration();
+    }
 }

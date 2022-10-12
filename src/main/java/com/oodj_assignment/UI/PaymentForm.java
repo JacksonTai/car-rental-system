@@ -9,6 +9,7 @@ import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -61,9 +62,8 @@ public class PaymentForm extends javax.swing.JFrame {
     private void previewPaymentDetails() {
         float pricePerDay = selectedCar.getPricePerDay();
         pricePerDayTf.setText("RM" + String.valueOf(pricePerDay));
-        int rentDuration = booking.getRentDuration();
-        dayRentingTf.setText(String.valueOf(rentDuration));
-        totalPrice = pricePerDay * rentDuration;
+        dayRentingTf.setText(String.valueOf(booking.getRentDuration()));
+        totalPrice = booking.getTotalPrice();
         totalPriceTf.setText("RM" + totalPrice);
     }
 
@@ -115,7 +115,6 @@ public class PaymentForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Payment");
 
-        payBtn.setBackground(new java.awt.Color(255, 255, 255));
         payBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         payBtn.setText("Pay");
         payBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +123,6 @@ public class PaymentForm extends javax.swing.JFrame {
             }
         });
 
-        backBtn.setBackground(new java.awt.Color(255, 255, 255));
         backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         backBtn.setText("Back");
         backBtn.setBorder(null);
@@ -325,7 +323,7 @@ public class PaymentForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -451,6 +449,9 @@ public class PaymentForm extends javax.swing.JFrame {
 
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         customer.makePayment(booking);
+        JOptionPane.showMessageDialog(rootPane, "Booking Successfull!");
+        dispose();
+        customer.viewMenu();
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
