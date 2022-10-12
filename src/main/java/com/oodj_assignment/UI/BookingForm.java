@@ -9,6 +9,8 @@ import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import com.toedter.calendar.IDateEditor;
 import com.toedter.calendar.JDateChooser;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -43,6 +45,17 @@ public class BookingForm extends javax.swing.JFrame {
         modelTf.setText(selectedCar.getModel());
         colourTf.setText(selectedCar.getColour());
         pricePerDayTf.setText("RM" + Float.toString(selectedCar.getPricePerDay()));
+        if (booking.getPickupDate() == null) {
+            
+        }
+        
+//        try {
+//            LocalDate pickupDate = booking.getPickupDate();
+//            pickupDateChooser.setDate(Date.from(pickupDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));  
+//        } catch (Exception e) {
+//            throw e;
+//        }
+
     }
     
     private String jDateChooserToString(JDateChooser jDateChooser) {

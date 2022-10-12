@@ -455,7 +455,7 @@ public class PaymentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        customer.makeBooking(selectedCar);
+        new BookingForm(customer, booking).setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 

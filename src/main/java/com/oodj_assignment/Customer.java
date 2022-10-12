@@ -118,11 +118,9 @@ public class Customer extends User {
                 bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory); 
             }
         }
-        
         for (int i = 0; i < bookingHistories.length; i++) {
             bookingHistories[i] = ArrayUtils.removeElement( bookingHistories[i], userID);
         }
-        
         JTable bookingtable = CustomerMenu.getTable();
         JTableInserter.insert(carFields, bookingHistories, bookingtable); 
     }

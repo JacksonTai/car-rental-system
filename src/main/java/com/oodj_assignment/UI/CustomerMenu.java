@@ -250,8 +250,8 @@ public class CustomerMenu extends javax.swing.JFrame {
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
         try { 
             Booking newBooking = customer.makeBooking(getSelectedCar());
-            dispose();
             new BookingForm(customer, newBooking).setVisible(true);
+            dispose();
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
         }
