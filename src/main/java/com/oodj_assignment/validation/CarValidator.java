@@ -1,48 +1,32 @@
 package com.oodj_assignment.validation;
 
-public class CarValidator {
-
-    public static void validatePlateNum(String plateNum) {
-        String errMsg = null;
+public interface CarValidator extends Validator  {
+    
+    default void validatePlateNum(String plateNum) {
         if (plateNum.isEmpty()) {
-            errMsg = "Please enter the car's plate number.";
+            throwErr("Please enter the car's plate number.");
         } else if (plateNum.contains(" ")) {
-            errMsg = "Plate number must not contain spaces, please retry.";
-        }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Plate number must not contain spaces, please retry.");
         }
     }
     
-    public static void validateModel(String model) {
-        String errMsg = null;
+    default void validateModel(String model) {
         if (model.isEmpty()) {
-            errMsg = "Please enter the car model.";
+            throwErr("Please enter the car model.");
         } else if (model.contains(" ")) {
-            errMsg = "Model must not contain spaces, please retry.";
-        }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Model must not contain spaces, please retry.");
         }
     }
     
-    public static void validateColour(String colour) {
-        String errMsg = null;
+    default void validateColour(String colour) {
         if (colour.isEmpty()) {
-            errMsg = "Please enter colour of the car.";
+            throwErr("Please enter colour of the car.");
         } 
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
-        }
     }
     
-    public static void validatePricePerDay(float pricePerDay) {
-        String errMsg = null;
+    default void validatePricePerDay(float pricePerDay) {
         if (pricePerDay < 0) {
-            errMsg = "Price cannot be a negative number.";
-        }  
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Price cannot be a negative number.");
         }
     }
     
