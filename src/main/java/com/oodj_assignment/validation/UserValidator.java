@@ -3,10 +3,10 @@ package com.oodj_assignment.validation;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RegexHelper;
 
-public class UserValidator  {
+public interface UserValidator extends Validator {
     
     // Check if the given input is an existing userID.
-    public static void validateUserID(String userID) {
+    default void validateUserID(String userID) {
         userID = userID.trim();
         String[][] users = RecordReader.readFile("user.txt");
         for (String[] user : users) {
@@ -14,84 +14,68 @@ public class UserValidator  {
                 return;
             }
         }
-        throw new IllegalArgumentException("User ID not found.");
+        throwErr("User ID not found.");
     }
     
-    public static void validateEmail(String email) {
-        String errMsg = null;
+    default void validateEmail(String email) {
         email = email.trim();
         if (email.isEmpty()) {
-            errMsg = "Please enter your email.";
+            throwErr("Please enter your email.");
         } else if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
             // Regex source: https://www.baeldung.com/java-email-validation-regex
-            errMsg = "Invalid format of email.";
+            throwErr("Invalid format of email."); 
         } else {
             String[][] users = RecordReader.readFile("user.txt");
             for (String[] user : users) {
                 if (user[1].equals(email)) {
-                    errMsg = "Email has been taken, please try another one.";
+                    throwErr("Email has been taken, please try another one."); 
                 }
             }   
         }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
-        }
     }
     
-    public static void validatePhoneNum (String phoneNum) {
-        String errMsg = null;
+    default void validatePhoneNum (String phoneNum) {
         phoneNum = phoneNum.trim();
         if (phoneNum.isEmpty()) {
-            errMsg = "Please enter your phone number.";
+            throwErr("Please enter your phone number.");
         } else if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
             phoneNum.contains(" ")) {
             // Regex source: https://stackoverflow.com/a/45406682/13367914
-            errMsg = "Invalid phone number.";
-        } 
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Invalid phone number.");
         }
     }
     
-    public static void validateUsername(String username) {
-        String errMsg = null;
+    default void validateUsername(String username) {
         username = username.trim();
         if (username.isEmpty()) {
-            errMsg = "Please enter your username.";
+            throwErr("Please enter your username.");
         } else if (username.length() < 6 || username.length() > 20) {
-            errMsg = "Username must contain 6 to 20 characters, please retry.";
+            throwErr("Username must contain 6 to 20 characters, please retry.");
         } else if (username.contains(" ")) {
-            errMsg = "Username must not contain spaces, please retry.";
+            throwErr("Username must not contain spaces, please retry.");
         } else {
             String[][] users = RecordReader.readFile("user.txt");
             for (String[] user : users) {
                 if (user[2].equals(username)) {
-                    errMsg = "Username has been taken, please try another one.";
+                    throwErr("Username has been taken, please try another one.");
                 }
             }   
         }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
-        }
     }
     
-    public static void validatePassword(String password) {
-        String errMsg = null;
+    default void validatePassword(String password) {
         password = password.trim();
         if (password.isEmpty()) {
-            errMsg = "Please enter your password.";
+            throwErr("Please enter your password.");
         } else if (password.length() < 8 || password.length() > 64) {
-            errMsg = "Password must contain 8 to 64 characters, please retry.";
+            throwErr("Password must contain 8 to 64 characters, please retry.");
         } else if (password.contains(" ")) {
-            errMsg = "Password must not contain spaces, please retry.";
-        }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Password must not contain spaces, please retry.");
         }
     }
 
     public static String[] validateCredential(String email, String password) throws Exception {
-        String errMsg;  
+        String errMsg;
         email = email.trim();
         password = password.trim();
         if (email.isEmpty() && password.isEmpty()) {
@@ -101,7 +85,6 @@ public class UserValidator  {
         } else if (password.isEmpty()) {
             errMsg = "Password is a required field.";
         } else {
-            // Check credentials.
             String [][] usersInfo = RecordReader.readFile("user.txt");
             for (String[] userInfo : usersInfo) {
                 if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
@@ -110,7 +93,7 @@ public class UserValidator  {
             }
             errMsg = "Invalid credentials";
         }
-        throw new Exception(errMsg);
+        throw new Exception(errMsg); 
     }
 
 }

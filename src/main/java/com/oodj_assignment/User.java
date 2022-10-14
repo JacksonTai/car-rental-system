@@ -10,7 +10,7 @@ import com.oodj_assignment.validation.UserValidator;
  *
  * @author Jackson
  */
-public abstract class User {
+public abstract class User implements UserValidator {
     
     protected String userID;
     protected String email;
@@ -35,7 +35,7 @@ public abstract class User {
         
     public void setEmail(String email) {
         try {
-            UserValidator.validateEmail(email.trim());
+            validateEmail(email.trim());
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -48,7 +48,7 @@ public abstract class User {
     
     public void setPassword(String password) {
         try {
-            UserValidator.validatePassword(password.trim());
+            validatePassword(password.trim());
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -61,7 +61,7 @@ public abstract class User {
     
     public abstract void viewMenu();
     
-    public static void login(String email, String password) throws Exception {
+    public static User login(String email, String password) throws Exception {
         try {
             String[] userInfo = UserValidator.validateCredential(email, password);
             String userID = userInfo[0];
@@ -69,14 +69,11 @@ public abstract class User {
             String phoneNum = userInfo[2];
             email = userInfo[3];
             password = userInfo[4];
-            User user = switch(userID.substring(0, 3)) {
+            return switch(userID.substring(0, 3)) {
                 case "ctm" -> new Customer(userID, username, phoneNum, email, password);
                 case "adm" -> new Admin();
                 default -> null;
             };
-            if (user != null) {
-                user.viewMenu();
-            }
         } catch (Exception e) {
             throw e;
         }

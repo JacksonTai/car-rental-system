@@ -12,7 +12,6 @@ import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
 import com.oodj_assignment.validation.UserValidator;
-import java.time.LocalDate;
 import javax.swing.JTable;
 
 /**
@@ -46,7 +45,7 @@ public class Customer extends User {
     
     public void setUsername(String username) {
         try {
-            UserValidator.validateUsername(username.trim());
+            validateUsername(username.trim());
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -59,7 +58,7 @@ public class Customer extends User {
     
     public void setPhoneNum(String phoneNum) {
         try {
-            UserValidator.validatePhoneNum(phoneNum.trim());
+            validatePhoneNum(phoneNum.trim());
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -78,10 +77,10 @@ public class Customer extends User {
     public void signup(String email, String username, String phoneNum, String password, 
             String confirmPassword) throws Exception {
         try {
-            UserValidator.validateEmail(email);
-            UserValidator.validateUsername(username);
-            UserValidator.validatePhoneNum(phoneNum);
-            UserValidator.validatePassword(password); 
+            validateEmail(email);
+            validateUsername(username);
+            validatePhoneNum(phoneNum);
+            validatePassword(password); 
             if (null != userID) {
                 throw new Exception("Customer has been signed up");
             } else if (confirmPassword.trim().isEmpty()) { 
@@ -135,22 +134,20 @@ public class Customer extends User {
     }
     
     public void makePayment(Booking booking) {
-        Car selectedCar = booking.getSelectedCar();
-        
-        // Update car status to N/A.
-        selectedCar.setStatus("N/A");
-        RecordUpdater.update(selectedCar.toArray(), "car.txt");
-        
-        String bID = booking.getBookingID();
+        Car selectedCar = booking.getSelectedCar();        
+        String bookingID = booking.getBookingID();
         String plateNum = selectedCar.getPlateNum();
-        String startDate = booking.getPickupDate().toString();
-        String endDate = booking.getReturnDate().toString();
+        String pickupDate = booking.getPickupDate().toString();
+        String returnDate = booking.getReturnDate().toString();
         String duration = String.valueOf(booking.getRentDuration());
         String pricePerDay = String.valueOf(booking.getSelectedCar().getPricePerDay());
-        String total = String.valueOf(booking.getTotalPrice());
+        String totalPrice = String.valueOf(booking.getTotalPrice());
         RecordWriter.write(new String[]{
-            userID,bID,plateNum,startDate,endDate,duration,pricePerDay,total
+            userID, bookingID, plateNum, pickupDate, returnDate, duration, pricePerDay, totalPrice
         }, "booking.txt");
+        // Update car status.
+        selectedCar.setStatus("N/A");
+        RecordUpdater.update(selectedCar.toArray(), "car.txt");
     }
 
 }

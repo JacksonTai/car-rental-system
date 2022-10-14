@@ -158,7 +158,8 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
         try {
-            User.login(emailTf.getText(), passwordTf.getText());
+            User user = User.login(emailTf.getText(), passwordTf.getText());
+            user.viewMenu();
             dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane ,e.getMessage());
