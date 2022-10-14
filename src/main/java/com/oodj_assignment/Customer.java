@@ -53,7 +53,7 @@ public class Customer extends User {
     }
     
     public String getUsername() {
-        return this.username;
+        return username;
     }
     
     public void setPhoneNum(String phoneNum) {
@@ -66,7 +66,7 @@ public class Customer extends User {
     }
     
     public String getPhoneNum() {
-        return this.phoneNum;
+        return phoneNum;
     }
 
     @Override
@@ -107,8 +107,8 @@ public class Customer extends User {
                 carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
             }
         }
-        JTable bookingtable = CustomerMenu.getTable();
-        JTableInserter.insert(carFields, carsInfo, bookingtable);
+        JTable customerTable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, customerTable);
     }
     
     public void viewbookingHistory() {
@@ -123,31 +123,30 @@ public class Customer extends User {
         for (int i = 0; i < bookingHistories.length; i++) {
             bookingHistories[i] = ArrayUtils.removeElement( bookingHistories[i], userID);
         }
-        JTable bookingtable = CustomerMenu.getTable();
-        JTableInserter.insert(carFields, bookingHistories, bookingtable); 
+        JTable customerTable = CustomerMenu.getTable();
+        JTableInserter.insert(carFields, bookingHistories, customerTable); 
     }
     
-    public Booking makeBooking(Car selectedCar) {
-        Booking booking = new Booking();
-        booking.setSelectedCar(selectedCar);
-        return booking;
-    }
-    
-    public void makePayment(Booking booking) {
+    public void makeBooking(Booking booking) {
         Car selectedCar = booking.getSelectedCar();        
         String bookingID = booking.getBookingID();
         String plateNum = selectedCar.getPlateNum();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
-        String duration = String.valueOf(booking.getRentDuration());
-        String pricePerDay = String.valueOf(booking.getSelectedCar().getPricePerDay());
-        String totalPrice = String.valueOf(booking.getTotalPrice());
-        RecordWriter.write(new String[]{
-            userID, bookingID, plateNum, pickupDate, returnDate, duration, pricePerDay, totalPrice
-        }, "booking.txt");
+        RecordWriter.write(new String[]{bookingID, userID, plateNum, pickupDate, returnDate}, 
+                "booking.txt");
+        
         // Update car status.
         selectedCar.setStatus("N/A");
         RecordUpdater.update(selectedCar.toArray(), "car.txt");
+    }
+    
+    public void makePayment(Payment payment) {
+        String paymentID = payment.getPaymentID();
+        String customerID = payment.getCustomer().getUserID();
+        String bookingID = payment.getBooking().getBookingID();
+        String totalPrice = String.valueOf(payment.getTotalPrice());
+        RecordWriter.write(new String[]{paymentID, bookingID, customerID, totalPrice}, "payment.txt");
     }
 
 }

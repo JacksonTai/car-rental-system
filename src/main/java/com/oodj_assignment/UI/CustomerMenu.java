@@ -3,12 +3,15 @@ package com.oodj_assignment.UI;
 import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
+import com.oodj_assignment.helper.UI.JButtonActivator;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class CustomerMenu extends javax.swing.JFrame {
 
     Customer customer;
+    JButtonActivator JBtnActivator;
     
     public CustomerMenu() {
         initComponents();
@@ -17,22 +20,24 @@ public class CustomerMenu extends javax.swing.JFrame {
     public CustomerMenu(Customer customer) {
         this();
         this.customer = customer;
-        adminDashboardTitle.setText("Welcome back, " + customer.getUsername() + "!");  
+        adminDashboardTitle.setText("Welcome " + customer.getUsername() + "!");  
+        JBtnActivator = new JButtonActivator(new JButton[] {bookCarBtn, bookHistoryBtn});
+        JBtnActivator.activateBtn(bookCarBtn);
         customer.viewCar();
     }
     
     public static JTable getTable() {
-        return bookingtable;
+        return customerTable;
     }
     
     private Car getSelectedCar() { 
-        try { 
+        try {
             return new Car(
-                bookingtable.getValueAt(bookingtable.getSelectedRow(), 0).toString(),
-                bookingtable.getValueAt(bookingtable.getSelectedRow(), 1).toString(),
-                bookingtable.getValueAt(bookingtable.getSelectedRow(), 2).toString(),
+                customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString(),
+                customerTable.getValueAt(customerTable.getSelectedRow(), 1).toString(),
+                customerTable.getValueAt(customerTable.getSelectedRow(), 2).toString(),
                 Float.parseFloat(
-                        bookingtable.getValueAt(bookingtable.getSelectedRow(), 3).toString()
+                        customerTable.getValueAt(customerTable.getSelectedRow(), 3).toString()
                 ),
                 "Available"
             ); 
@@ -51,11 +56,12 @@ public class CustomerMenu extends javax.swing.JFrame {
         bookCarBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         bookHistoryBtn = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        adminDashboardTitle = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        bookingtable = new javax.swing.JTable();
+        customerTable = new javax.swing.JTable();
+        adminDashboardTitle = new javax.swing.JLabel();
         nextBtn = new javax.swing.JButton();
+        bookCarHintLabel = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(58, 63, 84));
 
@@ -128,17 +134,14 @@ public class CustomerMenu extends javax.swing.JFrame {
                 .addComponent(bookCarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookHistoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(64, 64, 64))
         );
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        adminDashboardTitle.setText("Welcome Back !");
-
-        bookingtable.setModel(new javax.swing.table.DefaultTableModel(
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -157,13 +160,16 @@ public class CustomerMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(bookingtable);
-        if (bookingtable.getColumnModel().getColumnCount() > 0) {
-            bookingtable.getColumnModel().getColumn(0).setResizable(false);
-            bookingtable.getColumnModel().getColumn(1).setResizable(false);
-            bookingtable.getColumnModel().getColumn(2).setResizable(false);
-            bookingtable.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(customerTable);
+        if (customerTable.getColumnModel().getColumnCount() > 0) {
+            customerTable.getColumnModel().getColumn(0).setResizable(false);
+            customerTable.getColumnModel().getColumn(1).setResizable(false);
+            customerTable.getColumnModel().getColumn(2).setResizable(false);
+            customerTable.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        adminDashboardTitle.setText("Welcome Back !");
 
         nextBtn.setBackground(new java.awt.Color(255, 255, 255));
         nextBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -175,34 +181,41 @@ public class CustomerMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(adminDashboardTitle))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(307, 307, 307)
+        bookCarHintLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        bookCarHintLabel.setText("# Click the one of the row in the table to select your desired car  : ) ");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addComponent(adminDashboardTitle)
+                .addGap(385, 385, 385))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                            .addComponent(bookCarHintLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(299, 299, 299)
                         .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 37, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 642, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
+                .addComponent(bookCarHintLabel)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -211,45 +224,50 @@ public class CustomerMenu extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bookCarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookCarBtnActionPerformed
+        JBtnActivator.activateBtn(bookCarBtn);
+        bookCarHintLabel.setVisible(true);
         nextBtn.setVisible(true);
         customer.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
     
     private void bookHistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookHistoryBtnActionPerformed
+        JBtnActivator.activateBtn(bookHistoryBtn);
+        bookCarHintLabel.setVisible(false);
         nextBtn.setVisible(false);
         customer.viewbookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
-        try { 
-            Booking newBooking = customer.makeBooking(getSelectedCar());
-            new BookingForm(customer, newBooking).setVisible(true);
+        try {
+            new BookingForm(customer, getSelectedCar()).setVisible(true);
             dispose();
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
@@ -297,12 +315,13 @@ public class CustomerMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adminDashboardTitle;
     private javax.swing.JButton bookCarBtn;
+    private javax.swing.JLabel bookCarHintLabel;
     private javax.swing.JButton bookHistoryBtn;
-    private static javax.swing.JTable bookingtable;
+    private static javax.swing.JTable customerTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private static javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton nextBtn;

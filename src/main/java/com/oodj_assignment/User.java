@@ -30,7 +30,7 @@ public abstract class User implements UserValidator {
     }
     
     public String getUserID() {
-        return this.userID;
+        return userID;
     }
         
     public void setEmail(String email) {
@@ -43,7 +43,7 @@ public abstract class User implements UserValidator {
     }
     
     public String getEmail() {
-        return this.email;
+        return email;
     }
     
     public void setPassword(String password) {
@@ -56,7 +56,7 @@ public abstract class User implements UserValidator {
     }
     
     public String getPassword() {
-        return this.password;
+        return password;
     }
     
     public abstract void viewMenu();

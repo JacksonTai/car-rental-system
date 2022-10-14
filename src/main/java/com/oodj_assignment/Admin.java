@@ -36,11 +36,10 @@ public class Admin extends User {
     public void viewRecord(String type) {
         String[] fields = switch (type) {
             case "payment" -> new String[] {
-                "Payment ID", "Booking ID", "Customer ID", "Paid"
+                "Payment ID", "Booking ID", "Customer ID", "Total Paid"
             };
             case "booking" -> new String[] {
-                "Booking ID", "Customer ID", "Car number", "Start date", "Return date", "Duration",
-                "Price/day", "Total price"
+                "Booking ID", "Customer ID", "Plate number", "Pick-up date", "Return date",
             };
             case "customer" -> new String[] {
                 "Customer ID", "Email", "Username", "Phone Number"

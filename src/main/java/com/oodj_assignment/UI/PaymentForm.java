@@ -7,6 +7,7 @@ package com.oodj_assignment.UI;
 import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
+import com.oodj_assignment.Payment;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -19,9 +20,10 @@ public class PaymentForm extends javax.swing.JFrame {
 
     Customer customer;
     Booking booking;
+    Payment payment;
     Car selectedCar;
-    
-    float totalPrice;
+    LocalDate pickupDate;
+    LocalDate returnDate;
     
     public PaymentForm(){
         initComponents();
@@ -31,7 +33,10 @@ public class PaymentForm extends javax.swing.JFrame {
         this();
         this.customer = customer;
         this.booking = booking;
+        this.payment = new Payment(booking);
         this.selectedCar = booking.getSelectedCar();
+        this.pickupDate = booking.getPickupDate();
+        this.returnDate = booking.getReturnDate();
         previewUserDetails();
         previewCarDetails();
         previewBookingDetails();
@@ -51,8 +56,6 @@ public class PaymentForm extends javax.swing.JFrame {
     }
     
     private void previewBookingDetails() {
-        LocalDate pickupDate = booking.getPickupDate();
-        LocalDate returnDate = booking.getReturnDate();
         String datePattern = "dd MMM yyyy";
         pickupDateTf.setText(pickupDate.format(DateTimeFormatter.ofPattern(datePattern)));
         returnDateTf.setText(returnDate.format(DateTimeFormatter.ofPattern(datePattern)));
@@ -63,7 +66,7 @@ public class PaymentForm extends javax.swing.JFrame {
         float pricePerDay = selectedCar.getPricePerDay();
         pricePerDayTf.setText("RM" + String.valueOf(pricePerDay));
         dayRentingTf.setText(String.valueOf(booking.getRentDuration()));
-        totalPrice = booking.getTotalPrice();
+        float totalPrice = payment.getTotalPrice();
         totalPriceTf.setText("RM" + totalPrice);
     }
 
@@ -115,6 +118,7 @@ public class PaymentForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Payment");
 
+        payBtn.setBackground(new java.awt.Color(255, 255, 255));
         payBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         payBtn.setText("Pay");
         payBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -448,14 +452,15 @@ public class PaymentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
-        customer.makePayment(booking);
-        JOptionPane.showMessageDialog(rootPane, "Booking Successfull!");
+        customer.makeBooking(booking);
+        customer.makePayment(payment);
+        JOptionPane.showMessageDialog(rootPane, "Booking Successfull!\nEnjoy your driving :)");
         dispose();
         customer.viewMenu();
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        new BookingForm(customer, booking).setVisible(true);
+        new BookingForm(customer, selectedCar, pickupDate, returnDate).setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 

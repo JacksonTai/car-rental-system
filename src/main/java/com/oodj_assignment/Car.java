@@ -52,7 +52,7 @@ public class Car implements CarValidator {
     }
     
     public String getPlateNum() {
-        return this.plateNum;
+        return plateNum;
     }
     
     public void setModel(String model) {
@@ -65,7 +65,7 @@ public class Car implements CarValidator {
     }
     
     public String getModel() {
-        return this.model;
+        return model;
     }
        
     public void setColour(String colour) {
@@ -78,7 +78,7 @@ public class Car implements CarValidator {
     }
     
     public String getColour() {
-        return this.colour;
+        return colour;
     }
     
     public void setPricePerDay(float pricePerDay) {
@@ -102,7 +102,7 @@ public class Car implements CarValidator {
     }
     
     public float getPricePerDay() {
-        return this.pricePerDay;
+        return pricePerDay;
     }
 
     public void setStatus(String status) {

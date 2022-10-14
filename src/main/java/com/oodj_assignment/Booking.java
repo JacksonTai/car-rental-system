@@ -15,20 +15,27 @@ import java.time.temporal.ChronoUnit;
  */
 public class Booking 
 {
-    private final String bookingID;
+    private String bookingID;
+    private Customer customer;
+    private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
-    private Car selectedCar;
+    
     private final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy");
     
-    public Booking() {
+    public Booking(Customer customer) {
         this.bookingID = IdGenerator.generate("bkg-");
+        this.customer = customer;
     }
     
     public String getBookingID() {
-        return this.bookingID;
+        return bookingID;
     }
     
+    public Customer getCustomer() {
+        return customer;
+    }
+        
     public void setSelectedCar(Car selectedCar) {
         if (selectedCar == null) {
             throw new NullPointerException("Car cannot be null.");
@@ -37,7 +44,7 @@ public class Booking
     }
     
     public Car getSelectedCar() {
-        return this.selectedCar;
+        return selectedCar;
     }
     
     public void setPickupDate(String pickupDate) throws Exception { 
@@ -74,7 +81,5 @@ public class Booking
         return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
     }
     
-    public float getTotalPrice(){
-        return selectedCar.getPricePerDay() * getRentDuration();
-    }
+ 
 }
