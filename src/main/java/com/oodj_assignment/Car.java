@@ -4,13 +4,14 @@
  */
 package com.oodj_assignment;
 
+import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.validation.CarValidator;
 
 /**
  *
  * @author Jackson
  */
-public class Car {
+public class Car implements CarValidator {
     
     private String plateNum;
     private String model;
@@ -26,25 +27,23 @@ public class Car {
         this.status = "Available";
     }
     
-    public Car(String plateNum, String model, String colour, float pricePerDay, String status) {
-        try {
-            CarValidator.validatePlateNum(plateNum);
-            CarValidator.validateModel(model);
-            CarValidator.validateColour(colour);
-            CarValidator.validatePricePerDay(pricePerDay);
-        } catch (IllegalArgumentException e) {
-            throw e;  
+    public Car(String plateNum) {
+        String[][] cars = RecordReader.readFile("car.txt");
+        for (String[] car : cars) {
+            if (plateNum.equals(car[0])) {
+                this.plateNum = car[0];
+                this.model = car[1];
+                this.colour = car[2];
+                this.pricePerDay = Float.parseFloat(car[3]);
+                this.status = car[4];
+                break;
+            }
         }
-        this.plateNum = plateNum;
-        this.model = model;
-        this.colour = colour;
-        this.pricePerDay = pricePerDay;
-        this.status = status;
     }
     
     public void setPlateNum(String plateNum) {
         try {
-            CarValidator.validatePlateNum(plateNum);
+            validatePlateNum(plateNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -52,12 +51,12 @@ public class Car {
     }
     
     public String getPlateNum() {
-        return this.plateNum;
+        return plateNum;
     }
     
     public void setModel(String model) {
-        try {
-            CarValidator.validateModel(model);
+        try { 
+            validateModel(model);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -65,12 +64,12 @@ public class Car {
     }
     
     public String getModel() {
-        return this.model;
+        return model;
     }
        
     public void setColour(String colour) {
         try {
-            CarValidator.validateColour(colour);
+            validateColour(colour);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -78,31 +77,19 @@ public class Car {
     }
     
     public String getColour() {
-        return this.colour;
-    }
-    
-    public void setPricePerDay(float pricePerDay) {
-        try {
-            CarValidator.validatePricePerDay(pricePerDay);
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
-        this.pricePerDay = pricePerDay;
+        return colour;
     }
     
     public void setPricePerDay(String pricePerDay) {
-        if (pricePerDay.trim().isEmpty()) {
-            throw new IllegalArgumentException("Please enter price of the car.");
-        }
         try {
-            setPricePerDay(Float.parseFloat(pricePerDay));
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Invalid format of price.");
+            this.pricePerDay = validatePricePerDay(pricePerDay);
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
     
     public float getPricePerDay() {
-        return this.pricePerDay;
+        return pricePerDay;
     }
 
     public void setStatus(String status) {
@@ -111,6 +98,6 @@ public class Car {
     
     public String getStatus() {
         return status;
-    }
+    } 
     
 }

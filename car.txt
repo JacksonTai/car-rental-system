@@ -1,3 +1,3 @@
-JI1230|Myvi|grey|203.50|available|
-WE1231|BMW|blue|390.50|available|
-JU1231B|Axia|grey|145.67|available|
+JI1230|Myvi|grey|203.5|N/A|
+WE1231|BMW|blue|342.0|N/A|
+JU1231B|Axia|yellow|145.67|Available|

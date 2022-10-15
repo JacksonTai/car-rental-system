@@ -18,9 +18,14 @@ import javax.swing.JTable;
  */
 public class Admin extends User {
 
-    public Admin(String[] adminInfo) {
-        this.email = adminInfo[1];
-        this.password = adminInfo[4];
+    public Admin(){
+        super();
+    }
+    
+    public Admin(String email, String password) {
+        super();
+        this.email = email;
+        this.password = password;
     }
     
     @Override
@@ -31,17 +36,16 @@ public class Admin extends User {
     public void viewRecord(String type) {
         String[] fields = switch (type) {
             case "payment" -> new String[] {
-                "Payment ID", "Booking ID", "Customer ID", "Paid"
+                "Payment ID", "Booking ID", "Payment date", "Total paid (RM)"
             };
             case "booking" -> new String[] {
-                "Booking ID", "Customer ID", "Car number", "Start date", "Return date", "Duration",
-                "Price/day", "Total price"
+                "Booking ID", "Customer ID", "Plate number", "Pick-up date", "Return date",
             };
             case "customer" -> new String[] {
-                "Customer ID", "Email", "Username", "Phone Number"
+                "Customer ID", "Email", "Username", "Phone number"
             };
             case "car" -> new String[] {
-                "Plate Number", "Model", "Colour", "Price/Day", "Status"
+                "Plate number", "Model", "Colour", "Price/Day", "Status"
             };
             default -> null;
         };

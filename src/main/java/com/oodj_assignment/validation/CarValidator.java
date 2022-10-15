@@ -1,49 +1,40 @@
 package com.oodj_assignment.validation;
 
-public class CarValidator {
-
-    public static void validatePlateNum(String plateNum) {
-        String errMsg = null;
-        if (plateNum.isEmpty()) {
-            errMsg = "Please enter the car's plate number.";
+public interface CarValidator extends Validator  {
+    
+    default void validatePlateNum(String plateNum) {
+        if (plateNum.trim().isEmpty()) {
+            throwErr("Please enter the car's plate number.");
         } else if (plateNum.contains(" ")) {
-            errMsg = "Plate number must not contain spaces, please retry.";
-        }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+            throwErr("Plate number must not contain spaces, please retry.");
         }
     }
     
-    public static void validateModel(String model) {
-        String errMsg = null;
-        if (model.isEmpty()) {
-            errMsg = "Please enter the car model.";
-        } else if (model.contains(" ")) {
-            errMsg = "Model must not contain spaces, please retry.";
-        }
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+    default void validateModel(String model) {
+        if (model.trim().isEmpty()) {
+            throwErr("Please enter the car model.");
         }
     }
     
-    public static void validateColour(String colour) {
-        String errMsg = null;
-        if (colour.isEmpty()) {
-            errMsg = "Please enter colour of the car.";
+    default void validateColour(String colour) {
+        if (colour.trim().isEmpty()) {
+            throwErr("Please enter colour of the car.");
         } 
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
-        }
     }
     
-    public static void validatePricePerDay(float pricePerDay) {
-        String errMsg = null;
-        if (pricePerDay < 0) {
-            errMsg = "Price cannot be a negative number.";
-        }  
-        if (null != errMsg) {
-            throw new IllegalArgumentException(errMsg);
+    default Float validatePricePerDay(String pricePerDay) {
+        if (pricePerDay.trim().isEmpty()) {
+            throwErr("Please enter price of the car.");
         }
+        try {
+            if (Float.parseFloat(pricePerDay) < 0) {
+                throwErr("Price cannot be a negative number.");
+            }
+            return Float.parseFloat(pricePerDay);
+        } catch (NumberFormatException e) {
+            throwErr("Invalid format of price.");
+        } 
+        return null;
     }
     
 }

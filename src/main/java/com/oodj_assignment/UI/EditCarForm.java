@@ -82,22 +82,22 @@ public class EditCarForm extends javax.swing.JFrame {
         plateNumTf.setEditable(false);
         plateNumTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        plateNumLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        plateNumLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         plateNumLabel.setText("Plate number");
 
-        modelLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        modelLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         modelLabel.setText("Model");
 
         modelTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         colourTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        colourLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        colourLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         colourLabel.setText("Colour");
 
         pricePerDayTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        pricePerDayLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        pricePerDayLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pricePerDayLabel.setText("Price/Day (RM)");
 
         confirmBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -123,7 +123,7 @@ public class EditCarForm extends javax.swing.JFrame {
         statusComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "N/A" }));
 
-        statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         statusLabel.setText("Status");
 
         javax.swing.GroupLayout addCarPanelLayout = new javax.swing.GroupLayout(addCarPanel);
@@ -228,7 +228,7 @@ public class EditCarForm extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        admin.viewMenu();
+        new AdminMenu(admin).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -241,7 +241,7 @@ public class EditCarForm extends javax.swing.JFrame {
             admin.editCar(selectedCar);
             JOptionPane.showMessageDialog(rootPane, "Car edited successfully");
             dispose();
-            admin.viewMenu();  
+            new AdminMenu(admin).setVisible(true);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -277,9 +277,7 @@ public class EditCarForm extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+ 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

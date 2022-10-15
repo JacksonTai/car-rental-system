@@ -6,7 +6,6 @@ package com.oodj_assignment.UI;
  */
 
 import com.oodj_assignment.Customer;
-import com.oodj_assignment.helper.InfoContainer;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class SignupForm extends javax.swing.JFrame {
 
-    Customer newCustomer = new Customer(null);
+    Customer newCustomer = new Customer();
     
     /**
      * Creates new form MainPage
@@ -52,6 +51,7 @@ public class SignupForm extends javax.swing.JFrame {
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(240, 240, 240), 10, true));
 
+        clearBtn.setBackground(new java.awt.Color(255, 255, 255));
         clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         clearBtn.setText("Clear");
         clearBtn.setFocusPainted(false);
@@ -63,10 +63,10 @@ public class SignupForm extends javax.swing.JFrame {
 
         passwordTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        passwordLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         passwordLabel.setText("Password");
 
-        emailLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        emailLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         emailLabel.setText("Email");
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -81,17 +81,18 @@ public class SignupForm extends javax.swing.JFrame {
 
         usernameTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        usernameLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         usernameLabel.setText("Username");
 
-        phoneNumLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        phoneNumLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         phoneNumLabel.setText("Phone number (+60)");
 
         phoneNumTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        confirmPasswordLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        confirmPasswordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         confirmPasswordLabel.setText("Confirm password");
 
+        backBtn.setBackground(new java.awt.Color(255, 255, 255));
         backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         backBtn.setText("Back");
         backBtn.setBorder(null);
@@ -102,6 +103,7 @@ public class SignupForm extends javax.swing.JFrame {
             }
         });
 
+        signupBtn.setBackground(new java.awt.Color(255, 255, 255));
         signupBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         signupBtn.setText("Sign up");
         signupBtn.setFocusPainted(false);
@@ -118,72 +120,82 @@ public class SignupForm extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(331, 331, 331)
-                        .addComponent(title))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(167, 167, 167)
-                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(phoneNumTf, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(emailLabel)
-                            .addComponent(emailTf)
-                            .addComponent(phoneNumLabel)
-                            .addComponent(usernameLabel)
-                            .addComponent(usernameTf))
-                        .addGap(59, 59, 59)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(confirmPasswordTf)
-                            .addComponent(passwordLabel)
-                            .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(confirmPasswordLabel)))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(179, 179, 179)
-                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(signupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(227, Short.MAX_VALUE))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(emailLabel)))
+                        .addGap(406, 406, 406))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(emailTf, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, backgroundLayout.createSequentialGroup()
+                            .addGap(147, 147, 147)
+                            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(phoneNumTf)
+                                    .addComponent(phoneNumLabel)
+                                    .addComponent(usernameLabel)
+                                    .addComponent(usernameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(backgroundLayout.createSequentialGroup()
+                                    .addGap(47, 47, 47)
+                                    .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(confirmPasswordLabel)
+                                        .addComponent(confirmPasswordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passwordLabel)
+                                        .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(backgroundLayout.createSequentialGroup()
+                                    .addGap(38, 38, 38)
+                                    .addComponent(signupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(148, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(title)
+                .addGap(301, 301, 301))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(emailLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(emailTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(passwordLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addComponent(emailLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(usernameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(usernameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(confirmPasswordLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(confirmPasswordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(emailTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(phoneNumLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(phoneNumTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(usernameLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(usernameTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(phoneNumLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(phoneNumTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(passwordLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(confirmPasswordLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(confirmPasswordTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(signupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(signupBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -191,7 +203,7 @@ public class SignupForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,11 +214,11 @@ public class SignupForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        this.emailTf.setText("");
-        this.usernameTf.setText("");
-        this.phoneNumTf.setText("");
-        this.passwordTf.setText("");
-        this.confirmPasswordTf.setText("");
+        emailTf.setText("");
+        usernameTf.setText("");
+        phoneNumTf.setText("");
+        passwordTf.setText("");
+        confirmPasswordTf.setText("");
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -215,26 +227,19 @@ public class SignupForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        String[] signupInput = {
-            emailTf.getText(), 
-            usernameTf.getText(),
-            phoneNumTf.getText(), 
-            passwordTf.getText(), 
-            confirmPasswordTf.getText()
-        };
-        InfoContainer signupInfo = newCustomer.signup(signupInput);
-        String errMsg = signupInfo.get("errMsg");
-        if (null == errMsg) {
-            newCustomer.setUserID(signupInfo.get("newCustomerID"));
-            newCustomer.setEmail(signupInfo.get("newEmail"));
-            newCustomer.setUsername(signupInfo.get("newUsername"));
-            newCustomer.setPhoneNum(signupInfo.get("newPhoneNum"));
-            newCustomer.setPassword(signupInfo.get("newPassword"));
+        try { 
+            newCustomer.signup(
+                emailTf.getText(), 
+                usernameTf.getText(), 
+                phoneNumTf.getText(),
+                passwordTf.getText(),
+                confirmPasswordTf.getText()
+            );
             dispose();
             newCustomer.viewMenu();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, errMsg);
-        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        } 
     }//GEN-LAST:event_signupBtnActionPerformed
 
     private void emailTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTfActionPerformed
