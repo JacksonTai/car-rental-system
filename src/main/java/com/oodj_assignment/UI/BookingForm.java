@@ -315,8 +315,8 @@ public class BookingForm extends javax.swing.JFrame {
 
     private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         try {
-            String pickupDate = jDateChooserToString(pickupDateChooser);
-            String returnDate = jDateChooserToString(returnDateChooser);
+            String pickupDate = jDateChooserToString(pickupDateChooser).trim();
+            String returnDate = jDateChooserToString(returnDateChooser).trim();
             if (pickupDate.isEmpty()) {
                 throw new NullPointerException("Pick-up date is a required field");
             } else if (returnDate.isEmpty()) {
