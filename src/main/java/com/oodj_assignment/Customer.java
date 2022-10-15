@@ -36,10 +36,10 @@ public class Customer extends User {
         for (String[] user : users) {
             if (userID.equals(user[0])) {
                 this.userID = userID;
-                this.email = user[0];
-                this.username = user[1];
-                this.phoneNum = user[2];
-                this.password = user[3]; 
+                this.email = user[1];
+                this.username = user[2];
+                this.phoneNum = user[3];
+                this.password = user[4]; 
                 break;
             }
         }
