@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -11,7 +11,9 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
-import com.oodj_assignment.validation.UserValidator;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 
 /**
@@ -29,18 +31,18 @@ public class Customer extends User {
         this.phoneNum = null;
     }
     
-    public Customer(String userID, String email, String username, String phoneNum, 
-            String password) throws Exception {
-        try {
-            UserValidator.validateCredential(email, password);
-        } catch (Exception e) {
-            throw e;
+    public Customer(String userID)   {
+        String[][] users = RecordReader.readFile("user.txt");
+        for (String[] user : users) {
+            if (userID.equals(user[0])) {
+                this.userID = userID;
+                this.email = user[0];
+                this.username = user[1];
+                this.phoneNum = user[2];
+                this.password = user[3]; 
+                break;
+            }
         }
-        this.userID = userID;
-        this.email = email;
-        this.username = username;
-        this.phoneNum = phoneNum;
-        this.password = password; 
     }
     
     public void setUsername(String username) {
@@ -112,19 +114,31 @@ public class Customer extends User {
     }
     
     public void viewbookingHistory() {
-        String[] carFields = {"Booking ID", "Plate Number", "Pick-up Date", "Return Date", 
-            "Duration", "Price/Day", "Total Price"};
-        String[][] bookingHistories = RecordReader.readFile("booking.txt");
-        for (String[] bookingHistory : bookingHistories) {
-            if (!bookingHistory[0].equals(userID)) {
-                bookingHistories = ArrayUtils.removeElement(bookingHistories, bookingHistory); 
-            }
-        }
-        for (int i = 0; i < bookingHistories.length; i++) {
-            bookingHistories[i] = ArrayUtils.removeElement( bookingHistories[i], userID);
+        String[] bookingHistoryField = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
+            "Duration(Day)", "Price/Day", "Total price"};
+        String[][] bookingRecords = RecordReader.readFile("booking.txt");
+        String[][] paymentRecords = RecordReader.readFile("payment.txt");
+        List<String[]> bookingHistories = new ArrayList();
+        if (bookingRecords.length > 0) {
+            for (int i = 0; i < bookingRecords.length; i++) {
+            if (bookingRecords[i][1].equals(userID)) {
+                Booking booking = new Booking(bookingRecords[i][0]);
+                Payment payment = new Payment(paymentRecords[i][0]);
+                bookingHistories.add(new String[]{
+                    booking.getBookingID(),
+                    booking.getSelectedCar().getPlateNum(),
+                    booking.getPickupDate().toString(),
+                    booking.getReturnDate().toString(),
+                    String.valueOf(booking.getRentDuration()),
+                    String.valueOf(booking.getSelectedCar().getPricePerDay()),
+                    String.valueOf(payment.getTotalPrice())
+                    });
+                }
+            }    
         }
         JTable customerTable = CustomerMenu.getTable();
-        JTableInserter.insert(carFields, bookingHistories, customerTable); 
+        JTableInserter.insert(bookingHistoryField, bookingHistories.toArray(new String[0][]),
+                customerTable); 
     }
     
     public void makeBooking(Booking booking) {
@@ -133,20 +147,26 @@ public class Customer extends User {
         String plateNum = selectedCar.getPlateNum();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
-        RecordWriter.write(new String[]{bookingID, userID, plateNum, pickupDate, returnDate}, 
-                "booking.txt");
+        String[] bookingRecord = new String[]{bookingID, userID, plateNum, pickupDate, returnDate};
+        RecordWriter.write(bookingRecord, "booking.txt");
         
         // Update car status.
         selectedCar.setStatus("N/A");
-        RecordUpdater.update(selectedCar.toArray(), "car.txt");
+        String model = selectedCar.getModel();
+        String colour = selectedCar.getColour();
+        String pricePerDay = String.valueOf(selectedCar.getPricePerDay());
+        String status = selectedCar.getStatus();
+        String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, status};
+        RecordUpdater.update(carRecord, "car.txt");
     }
     
     public void makePayment(Payment payment) {
         String paymentID = payment.getPaymentID();
-        String customerID = payment.getCustomer().getUserID();
         String bookingID = payment.getBooking().getBookingID();
+        String paymentDate = LocalDate.now().toString();
         String totalPrice = String.valueOf(payment.getTotalPrice());
-        RecordWriter.write(new String[]{paymentID, bookingID, customerID, totalPrice}, "payment.txt");
+        String[] paymentRecord = new String[]{paymentID, bookingID, paymentDate, totalPrice};
+        RecordWriter.write(paymentRecord, "payment.txt");
     }
 
 }

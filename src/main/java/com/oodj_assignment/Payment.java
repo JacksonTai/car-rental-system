@@ -1,10 +1,11 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.helper.IdGenerator;
+import com.oodj_assignment.helper.RecordReader;
 
 public class Payment {
 
-    private String paymentID; 
+    private String paymentID;
     private Booking booking;
 
     public Payment(Booking booking) {
@@ -12,6 +13,17 @@ public class Payment {
         this.booking = booking;
     }
 
+    public Payment(String paymentID) {
+        String[][] payments = RecordReader.readFile("payment.txt");
+        for (String[] payment : payments) {
+            if (paymentID.equals(payment[0])) {
+                this.paymentID = payment[0];
+                booking = new Booking(payment[1]);
+                break;
+            }
+        }
+    }
+    
     public String getPaymentID() {
         return paymentID;
     }

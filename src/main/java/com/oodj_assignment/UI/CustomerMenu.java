@@ -1,9 +1,9 @@
 package com.oodj_assignment.UI;
  
-import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.Customer;
 import com.oodj_assignment.helper.UI.JButtonActivator;
+import com.oodj_assignment.helper.UI.JTableSelector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -28,22 +28,6 @@ public class CustomerMenu extends javax.swing.JFrame {
     
     public static JTable getTable() {
         return customerTable;
-    }
-    
-    private Car getSelectedCar() { 
-        try {
-            return new Car(
-                customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString(),
-                customerTable.getValueAt(customerTable.getSelectedRow(), 1).toString(),
-                customerTable.getValueAt(customerTable.getSelectedRow(), 2).toString(),
-                Float.parseFloat(
-                        customerTable.getValueAt(customerTable.getSelectedRow(), 3).toString()
-                ),
-                "Available"
-            ); 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -267,9 +251,10 @@ public class CustomerMenu extends javax.swing.JFrame {
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
         try {
-            new BookingForm(customer, getSelectedCar()).setVisible(true);
+            String[] carRecord = JTableSelector.selectRow(customerTable);
+            new BookingForm(customer, new Car(carRecord[0])).setVisible(true);
             dispose();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
         }
     }//GEN-LAST:event_nextBtnActionPerformed

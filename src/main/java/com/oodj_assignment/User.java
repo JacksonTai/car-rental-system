@@ -65,12 +65,8 @@ public abstract class User implements UserValidator {
         try {
             String[] userInfo = UserValidator.validateCredential(email, password);
             String userID = userInfo[0];
-            String username = userInfo[1];
-            String phoneNum = userInfo[2];
-            email = userInfo[3];
-            password = userInfo[4];
             return switch(userID.substring(0, 3)) {
-                case "ctm" -> new Customer(userID, username, phoneNum, email, password);
+                case "ctm" -> new Customer(userID);
                 case "adm" -> new Admin();
                 default -> null;
             };

@@ -3,6 +3,7 @@ package com.oodj_assignment.UI;
 import com.oodj_assignment.Admin;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.helper.UI.JButtonActivator;
+import com.oodj_assignment.helper.UI.JTableSelector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,31 +19,15 @@ public class AdminMenu extends javax.swing.JFrame {
     
     public AdminMenu(Admin admin) {
         this();
-        this.admin = admin; 
-        JBtnActivator = new JButtonActivator(new JButton [] {
-            carManagementBtn, recordsBtn, companyReportBtn
-        });
+        this.admin = admin;
         recordsComboBox.setVisible(false);
+        JBtnActivator = new JButtonActivator(new JButton [] {carManagementBtn, recordsBtn,});
         JBtnActivator.activateBtn(carManagementBtn);
         admin.viewRecord("car");
     }
     
     public static JTable getTable() {
         return adminTable;
-    }
-    
-    private Car getSelectedCar() { 
-        try { 
-            return new Car(
-                adminTable.getValueAt(adminTable.getSelectedRow(), 0).toString(),
-                adminTable.getValueAt(adminTable.getSelectedRow(), 1).toString(),
-                adminTable.getValueAt(adminTable.getSelectedRow(), 2).toString(),
-                Float.parseFloat(adminTable.getValueAt(adminTable.getSelectedRow(), 3).toString()),
-                adminTable.getValueAt(adminTable.getSelectedRow(), 4).toString() 
-            ); 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -304,7 +289,6 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_recordsBtnActionPerformed
 
     private void companyReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyReportBtnActionPerformed
-        JBtnActivator.activateBtn(companyReportBtn);
         recordsComboBox.setVisible(false);
         addBtn.setVisible(false);
         editBtn.setVisible(false);
@@ -322,16 +306,17 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
-            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+            String[] carRecord = JTableSelector.selectRow(adminTable);
+            new EditCarForm(admin, new Car(carRecord[0])).setVisible(true);
             dispose();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to edit.");
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
-            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+            // will be done in next merge. 
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to delete.");
         }

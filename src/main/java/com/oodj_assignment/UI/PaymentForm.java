@@ -59,7 +59,9 @@ public class PaymentForm extends javax.swing.JFrame {
         String datePattern = "dd MMM yyyy";
         pickupDateTf.setText(pickupDate.format(DateTimeFormatter.ofPattern(datePattern)));
         returnDateTf.setText(returnDate.format(DateTimeFormatter.ofPattern(datePattern)));
-        rentDurationTf.setText(String.valueOf(booking.getRentDuration()));
+        int rentDuration = booking.getRentDuration();
+        String rentDay = rentDuration > 1 ? " Days" : " Day";
+        rentDurationTf.setText(String.valueOf(rentDuration) + rentDay);
     }
     
     private void previewPaymentDetails() {
