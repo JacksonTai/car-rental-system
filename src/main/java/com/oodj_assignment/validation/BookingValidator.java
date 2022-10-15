@@ -14,14 +14,14 @@ import java.time.temporal.ChronoUnit;
  */
 public interface BookingValidator extends Validator {
     
-    DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    DateTimeFormatter DTF = DateTimeFormatter.ofPattern("d MMM yyyy");
     
     default LocalDate validatePickupDate(String pickupDate) {
         LocalDate pickupDateObj = null;
         try {
-            pickupDateObj = LocalDate.parse(pickupDate.trim(), DTF);
+            pickupDateObj = LocalDate.parse(pickupDate, DTF);
         } catch (Exception e) {
-            throwErr("Invalid format of return date.");
+            throwErr("Invalid format of pick-up date.");
         }
         if (ChronoUnit.DAYS.between(LocalDate.now(), pickupDateObj) < 0) {
             throwErr("Pick-up date must be no earlier than today.");

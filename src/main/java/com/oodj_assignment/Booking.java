@@ -71,6 +71,7 @@ public class Booking implements BookingValidator
     
     public void setReturnDate(String returnDate) {
         try {
+            
             this.returnDate = validateReturnDate(returnDate, pickupDate);
         } catch (IllegalArgumentException e) {
             throw e;
