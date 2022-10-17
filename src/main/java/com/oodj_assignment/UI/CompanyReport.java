@@ -24,7 +24,7 @@ public class CompanyReport extends javax.swing.JFrame {
         this();
         this.admin = admin;
         previewCarDetails();
-        previewUserDetails();
+        previewCustomerDetails();
         previewRevenueDetails();
     }
     
@@ -43,9 +43,9 @@ public class CompanyReport extends javax.swing.JFrame {
         carAvailableTf.setText(String.valueOf(carAvailable));
     }
     
-    private void previewUserDetails(){
+    private void previewCustomerDetails(){
         String[][] users = RecordReader.readFile("user.txt");
-        totalUserTf.setText(String.valueOf(users.length - 1));
+        totalCustomerTf.setText(String.valueOf(users.length - 1));
     }
 
     private void previewRevenueDetails(){
@@ -77,7 +77,7 @@ public class CompanyReport extends javax.swing.JFrame {
         totalCarTf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        totalUserTf = new javax.swing.JTextField();
+        totalCustomerTf = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         totalBookingTf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -132,17 +132,17 @@ public class CompanyReport extends javax.swing.JFrame {
         totalCarTf.setBorder(null);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("User details");
+        jLabel7.setText("Customer details");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel17.setText("Total Users:");
+        jLabel17.setText("Total Customer:");
 
-        totalUserTf.setEditable(false);
-        totalUserTf.setBackground(new java.awt.Color(255, 255, 255));
-        totalUserTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        totalUserTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        totalUserTf.setText("100");
-        totalUserTf.setBorder(null);
+        totalCustomerTf.setEditable(false);
+        totalCustomerTf.setBackground(new java.awt.Color(255, 255, 255));
+        totalCustomerTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        totalCustomerTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        totalCustomerTf.setText("100");
+        totalCustomerTf.setBorder(null);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setText("Total Booking:");
@@ -210,7 +210,7 @@ public class CompanyReport extends javax.swing.JFrame {
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(totalUserTf)
+                            .addComponent(totalCustomerTf)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(carRentedOutTf, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(totalCarTf, javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +265,7 @@ public class CompanyReport extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalUserTf)
+                    .addComponent(totalCustomerTf)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,8 +371,8 @@ public class CompanyReport extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField totalBookingTf;
     private javax.swing.JTextField totalCarTf;
+    private javax.swing.JTextField totalCustomerTf;
     private javax.swing.JTextField totalProfitTf;
-    private javax.swing.JTextField totalUserTf;
     // End of variables declaration//GEN-END:variables
 
 }
