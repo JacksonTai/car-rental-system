@@ -5,7 +5,7 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.UI.AdminMenu;
-import com.oodj_assignment.UI.CompanyReportForm;
+import com.oodj_assignment.UI.CompanyReport;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
@@ -68,7 +68,7 @@ public class Admin extends User {
     }
     
     public void viewCompanyReport(){
-        new CompanyReportForm().setVisible(true);
+        new CompanyReport(this).setVisible(true);
     }
     
     public void addCar(Car newCar) {
