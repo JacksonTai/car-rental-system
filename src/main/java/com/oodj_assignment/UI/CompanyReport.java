@@ -5,27 +5,32 @@
 
 package com.oodj_assignment.UI;
 
+import com.oodj_assignment.Admin;
 import com.oodj_assignment.helper.RecordReader;
 
 /**
  *
  * @author Jackson
  */
-public class CompanyReportForm extends javax.swing.JFrame {
-
-    /** Creates new form CompanyReportForm */
-    public CompanyReportForm() {
+public class CompanyReport extends javax.swing.JFrame {
+    
+    Admin admin;
+    
+    public CompanyReport() {
         initComponents();
+    }
+    
+    public CompanyReport(Admin admin) {
+        this();
+        this.admin = admin;
         previewCarDetails();
-        previewUserDetails();
+        previewCustomerDetails();
         previewRevenueDetails();
     }
     
     private void previewCarDetails() {
         String[][] cars = RecordReader.readFile("car.txt");
-        int totalCar = 0;
-        int carRentedOut = 0;
-        int carAvailable = 0;
+        int totalCar = 0, carRentedOut = 0, carAvailable = 0;
         for (String[] car : cars) {
             switch(car[4]) {
                 case "N/A" -> carRentedOut++;
@@ -38,9 +43,9 @@ public class CompanyReportForm extends javax.swing.JFrame {
         carAvailableTf.setText(String.valueOf(carAvailable));
     }
     
-    private void previewUserDetails(){
+    private void previewCustomerDetails(){
         String[][] users = RecordReader.readFile("user.txt");
-        totalUserTf.setText(String.valueOf(users.length - 1));
+        totalCustomerTf.setText(String.valueOf(users.length - 1));
     }
 
     private void previewRevenueDetails(){
@@ -53,8 +58,7 @@ public class CompanyReportForm extends javax.swing.JFrame {
             totalProfit += Float.parseFloat(payment[3]);
         }
         totalProfitTf.setText("RM" + String.valueOf(totalProfit));
-        float averageProfit = totalProfit/totalBooking;
-        averageProfitTf.setText("RM" + String.valueOf(averageProfit));
+        averageProfitTf.setText("RM" + String.valueOf(totalProfit / totalBooking));
     }
     
     @SuppressWarnings("unchecked")
@@ -73,7 +77,7 @@ public class CompanyReportForm extends javax.swing.JFrame {
         totalCarTf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        totalUserTf = new javax.swing.JTextField();
+        totalCustomerTf = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         totalBookingTf = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -83,6 +87,7 @@ public class CompanyReportForm extends javax.swing.JFrame {
         averageProfitTf = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,11 +116,6 @@ public class CompanyReportForm extends javax.swing.JFrame {
         carAvailableTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         carAvailableTf.setText("50");
         carAvailableTf.setBorder(null);
-        carAvailableTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                carAvailableTfActionPerformed(evt);
-            }
-        });
 
         carRentedOutTf.setEditable(false);
         carRentedOutTf.setBackground(new java.awt.Color(255, 255, 255));
@@ -130,29 +130,19 @@ public class CompanyReportForm extends javax.swing.JFrame {
         totalCarTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         totalCarTf.setText("100");
         totalCarTf.setBorder(null);
-        totalCarTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalCarTfActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("User details");
+        jLabel7.setText("Customer details");
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel17.setText("Total Users:");
+        jLabel17.setText("Total Customer:");
 
-        totalUserTf.setEditable(false);
-        totalUserTf.setBackground(new java.awt.Color(255, 255, 255));
-        totalUserTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        totalUserTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        totalUserTf.setText("100");
-        totalUserTf.setBorder(null);
-        totalUserTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalUserTfActionPerformed(evt);
-            }
-        });
+        totalCustomerTf.setEditable(false);
+        totalCustomerTf.setBackground(new java.awt.Color(255, 255, 255));
+        totalCustomerTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        totalCustomerTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        totalCustomerTf.setText("100");
+        totalCustomerTf.setBorder(null);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setText("Total Booking:");
@@ -163,11 +153,6 @@ public class CompanyReportForm extends javax.swing.JFrame {
         totalBookingTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         totalBookingTf.setText("75");
         totalBookingTf.setBorder(null);
-        totalBookingTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalBookingTfActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Revenue");
@@ -181,11 +166,6 @@ public class CompanyReportForm extends javax.swing.JFrame {
         totalProfitTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         totalProfitTf.setText("RM100");
         totalProfitTf.setBorder(null);
-        totalProfitTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalProfitTfActionPerformed(evt);
-            }
-        });
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel20.setText("Average profit/booking:");
@@ -196,22 +176,28 @@ public class CompanyReportForm extends javax.swing.JFrame {
         averageProfitTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         averageProfitTf.setText("RM1.30");
         averageProfitTf.setBorder(null);
-        averageProfitTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                averageProfitTfActionPerformed(evt);
-            }
-        });
 
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+
+        backBtn.setBackground(new java.awt.Color(255, 255, 255));
+        backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        backBtn.setText("Back");
+        backBtn.setBorder(null);
+        backBtn.setFocusPainted(false);
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(125, 125, 125)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -224,7 +210,7 @@ public class CompanyReportForm extends javax.swing.JFrame {
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(totalUserTf)
+                            .addComponent(totalCustomerTf)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(carRentedOutTf, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(totalCarTf, javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,8 +229,13 @@ public class CompanyReportForm extends javax.swing.JFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(242, 242, 242)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(362, 362, 362)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -274,7 +265,7 @@ public class CompanyReportForm extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalUserTf)
+                    .addComponent(totalCustomerTf)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -292,7 +283,9 @@ public class CompanyReportForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(averageProfitTf)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
+                .addGap(18, 18, 18)
+                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,36 +301,17 @@ public class CompanyReportForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void totalCarTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalCarTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalCarTfActionPerformed
-
-    private void carAvailableTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carAvailableTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_carAvailableTfActionPerformed
-
-    private void totalUserTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalUserTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalUserTfActionPerformed
-
-    private void totalBookingTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalBookingTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalBookingTfActionPerformed
-
-    private void totalProfitTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalProfitTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalProfitTfActionPerformed
-
-    private void averageProfitTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_averageProfitTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_averageProfitTfActionPerformed
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        dispose();
+        admin.viewMenu();
+    }//GEN-LAST:event_backBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,26 +330,28 @@ public class CompanyReportForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CompanyReportForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CompanyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CompanyReportForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CompanyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CompanyReportForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CompanyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CompanyReportForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CompanyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CompanyReportForm().setVisible(true);
+                new CompanyReport().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField averageProfitTf;
+    private javax.swing.JButton backBtn;
     private javax.swing.JTextField carAvailableTf;
     private javax.swing.JTextField carRentedOutTf;
     private javax.swing.JLabel jLabel1;
@@ -395,8 +371,8 @@ public class CompanyReportForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField totalBookingTf;
     private javax.swing.JTextField totalCarTf;
+    private javax.swing.JTextField totalCustomerTf;
     private javax.swing.JTextField totalProfitTf;
-    private javax.swing.JTextField totalUserTf;
     // End of variables declaration//GEN-END:variables
 
 }
