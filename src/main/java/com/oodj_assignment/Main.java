@@ -14,7 +14,7 @@ import com.oodj_assignment.UI.MainMenu;
 public class Main {
  
     public static void main (String[]args) {
-        new MainMenu().setVisible(true);
+        new MainMenu().setVisible(true);        
     }
     
 }

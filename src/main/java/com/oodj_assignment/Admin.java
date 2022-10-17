@@ -5,6 +5,7 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.UI.AdminMenu;
+import com.oodj_assignment.UI.CompanyReportForm;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
@@ -64,6 +65,10 @@ public class Admin extends User {
             JTable adminTable = AdminMenu.getTable();
             JTableInserter.insert(fields, records, adminTable);
         }    
+    }
+    
+    public void viewCompanyReport(){
+        new CompanyReportForm().setVisible(true);
     }
     
     public void addCar(Car newCar) {

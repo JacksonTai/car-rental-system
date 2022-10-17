@@ -272,7 +272,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
         carManagementBtnActivated();
-    }//GEN-LAST:event_carManagementBtnActionPerformed
+    }                                                
 
     private void carManagementBtnActivated() {
         JBtnActivator.activateBtn(carManagementBtn);
@@ -297,6 +297,8 @@ public class AdminMenu extends javax.swing.JFrame {
         addBtn.setVisible(false);
         editBtn.setVisible(false);
         deleteBtn.setVisible(false);
+        dispose();
+        admin.viewCompanyReport();
     }//GEN-LAST:event_companyReportBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -320,8 +322,8 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
-            Car selectedCar = getSelectedCar();
-            String confirmMsg = "Are you sure to delete car (" + getSelectedCar().getModel() + ")";
+            String plateNum = JTableSelector.selectRow(adminTable)[0];
+            String confirmMsg = "Are you sure to delete car (" + plateNum + ")";
             int response = JOptionPane.showConfirmDialog(
                     rootPane, 
                     confirmMsg, 
@@ -330,7 +332,7 @@ public class AdminMenu extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE
             );
             if (response == JOptionPane.YES_OPTION) {
-                admin.deleteCar(selectedCar);
+                admin.deleteCar(new Car(plateNum));
                 JOptionPane.showMessageDialog(rootPane, "Car deleted successfully.");
                 admin.viewRecord("car");
             }
