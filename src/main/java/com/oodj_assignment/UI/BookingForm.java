@@ -22,8 +22,9 @@ import javax.swing.JTextField;
 public class BookingForm extends javax.swing.JFrame {
 
     Customer customer;
-    Booking booking;
     Car selectedCar;
+    LocalDate prevPickupDate = null;
+    LocalDate prevReturnDate = null;
     
     public BookingForm(){
         initComponents();
@@ -32,11 +33,21 @@ public class BookingForm extends javax.swing.JFrame {
         returnDateChooser.getJCalendar().setMinSelectableDate(date);
     };
     
-    public BookingForm(Customer customer, Booking booking) {
+    public BookingForm(Customer customer, Car selectedCar) {
         this();
         this.customer = customer;
-        this.booking = booking;
-        this.selectedCar = booking.getSelectedCar(); 
+        this.selectedCar = selectedCar;
+        previewBookingDetails();
+    }
+    
+    public BookingForm(Customer customer, Car selectedCar, LocalDate prevPickupDate, 
+        LocalDate prevReturnDate) {
+        this(customer, selectedCar);
+        if (customer == null || selectedCar == null) {
+            throw new NullPointerException();
+        }
+        this.prevPickupDate = prevPickupDate;
+        this.prevReturnDate = prevReturnDate;
         previewBookingDetails();
     }
     
@@ -45,18 +56,19 @@ public class BookingForm extends javax.swing.JFrame {
         modelTf.setText(selectedCar.getModel());
         colourTf.setText(selectedCar.getColour());
         pricePerDayTf.setText("RM" + Float.toString(selectedCar.getPricePerDay()));
-        if (booking.getPickupDate() != null) {
-            LocalDate pickupDate = booking.getPickupDate();
-            LocalDate returnDate = booking.getReturnDate();
+        
+        // Get previously chose pickup date and return date when navigate back from payment form.
+        if (prevPickupDate != null && prevReturnDate != null) {
             pickupDateChooser.setDate(
-                    Date.from(pickupDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
+                    Date.from(prevPickupDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
             );  
             returnDateChooser.setDate(
-                    Date.from(returnDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
+                    Date.from(prevReturnDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
             );  
         }
     }
     
+    // Helper function for conveting jDateChooser to String object.
     private String jDateChooserToString(JDateChooser jDateChooser) {
         IDateEditor dateEditor = jDateChooser.getDateEditor();
         JTextField jTextField = (JTextField) dateEditor.getUiComponent();
@@ -74,7 +86,7 @@ public class BookingForm extends javax.swing.JFrame {
         pickupDateChooser = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        nextBtn = new javax.swing.JButton();
+        bookBtn = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         colourTf = new javax.swing.JTextField();
         modelTf = new javax.swing.JTextField();
@@ -116,12 +128,12 @@ public class BookingForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Book Car");
 
-        nextBtn.setBackground(new java.awt.Color(255, 255, 255));
-        nextBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        nextBtn.setText("Next");
-        nextBtn.addActionListener(new java.awt.event.ActionListener() {
+        bookBtn.setBackground(new java.awt.Color(255, 255, 255));
+        bookBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        bookBtn.setText("Book");
+        bookBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextBtnActionPerformed(evt);
+                bookBtnActionPerformed(evt);
             }
         });
 
@@ -141,6 +153,11 @@ public class BookingForm extends javax.swing.JFrame {
         modelTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         modelTf.setText("carmodel1234");
         modelTf.setBorder(null);
+        modelTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modelTfActionPerformed(evt);
+            }
+        });
 
         carPlateNumTf.setEditable(false);
         carPlateNumTf.setBackground(new java.awt.Color(255, 255, 255));
@@ -189,7 +206,7 @@ public class BookingForm extends javax.swing.JFrame {
                             .addGap(35, 35, 35)
                             .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(378, 378, 378)
-                            .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGap(19, 19, 19)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,14 +227,12 @@ public class BookingForm extends javax.swing.JFrame {
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel17)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel8)
-                                            .addGap(79, 79, 79))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(2, 2, 2)
-                                            .addComponent(pickupDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGap(10, 10, 10)
+                                            .addComponent(pickupDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(35, 35, 35)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel11)
                                         .addComponent(returnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
@@ -269,7 +284,7 @@ public class BookingForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(109, 109, 109))))
         );
 
@@ -298,15 +313,16 @@ public class BookingForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
+    private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
         try {
-            String pickupDate = jDateChooserToString(pickupDateChooser);
-            String returnDate = jDateChooserToString(returnDateChooser);
+            String pickupDate = jDateChooserToString(pickupDateChooser).trim();
+            String returnDate = jDateChooserToString(returnDateChooser).trim();
             if (pickupDate.isEmpty()) {
                 throw new NullPointerException("Pick-up date is a required field");
             } else if (returnDate.isEmpty()) {
                 throw new NullPointerException("Return date is a required field");
             }
+            Booking booking = new Booking(customer, selectedCar);
             booking.setPickupDate(pickupDate);
             booking.setReturnDate(returnDate);
             new PaymentForm(customer, booking).setVisible(true);
@@ -314,7 +330,11 @@ public class BookingForm extends javax.swing.JFrame {
         } catch (Exception e) {   
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-    }//GEN-LAST:event_nextBtnActionPerformed
+    }//GEN-LAST:event_bookBtnActionPerformed
+
+    private void modelTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modelTfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,6 +374,7 @@ public class BookingForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JButton bookBtn;
     private javax.swing.JTextField carPlateNumTf;
     private javax.swing.JTextField colourTf;
     private javax.swing.JLabel jLabel1;
@@ -369,7 +390,6 @@ public class BookingForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField modelTf;
-    private javax.swing.JButton nextBtn;
     private com.toedter.calendar.JDateChooser pickupDateChooser;
     private javax.swing.JTextField pricePerDayTf;
     private com.toedter.calendar.JDateChooser returnDateChooser;

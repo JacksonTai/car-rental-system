@@ -48,7 +48,7 @@ public class RecordWriter {
      */
     public static void write(String[][] records, String fileName, boolean overwrite) {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, !overwrite));
             for (String [] record : records) {
                 for (String field : record) {
                     bw.write(field + "|");

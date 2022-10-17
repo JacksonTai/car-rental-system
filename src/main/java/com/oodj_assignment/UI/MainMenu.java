@@ -4,7 +4,6 @@
  */
 package com.oodj_assignment.UI;
  
-import com.oodj_assignment.helper.InfoContainer;
 import com.oodj_assignment.Admin;
 import com.oodj_assignment.Customer;
 import com.oodj_assignment.User;
@@ -158,23 +157,13 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_clearBtnActionPerformed
 
     private void signinBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinBtnActionPerformed
-        String email = emailTf.getText();
-        String password = passwordTf.getText();
-        InfoContainer loginInfo = User.login(email, password);
-        String[] userInfo = loginInfo.get("userInfo");
-        if (null != userInfo) {
-            String userIdPrefix = userInfo[0].substring(0, 3);
-            User user = switch(userIdPrefix) {
-                case "ctm" -> new Customer(userInfo);
-                case "adm" -> new Admin(userInfo);
-                default -> new Customer(userInfo);
-            };
-            dispose();
+        try {
+            User user = User.login(emailTf.getText(), passwordTf.getText());
             user.viewMenu();
-        } else {;
-            String errMsg = loginInfo.get("errMsg");
-            JOptionPane.showMessageDialog(this, errMsg);
-        }
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane ,e.getMessage());
+        } 
     }//GEN-LAST:event_signinBtnActionPerformed
 
     private void createAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountBtnActionPerformed

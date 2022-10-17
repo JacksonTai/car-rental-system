@@ -3,6 +3,7 @@ package com.oodj_assignment.UI;
 import com.oodj_assignment.Admin;
 import com.oodj_assignment.Car;
 import com.oodj_assignment.helper.UI.JButtonActivator;
+import com.oodj_assignment.helper.UI.JTableSelector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -18,29 +19,15 @@ public class AdminMenu extends javax.swing.JFrame {
     
     public AdminMenu(Admin admin) {
         this();
-        this.admin = admin; 
-        JBtnActivator = new JButtonActivator(new JButton [] {
-            carManagementBtn, bookingManagementBtn, recordsBtn, companyReportBtn
-        });
+        this.admin = admin;
         recordsComboBox.setVisible(false);
+        JBtnActivator = new JButtonActivator(new JButton [] {carManagementBtn, recordsBtn,});
+        JBtnActivator.activateBtn(carManagementBtn);
+        admin.viewRecord("car");
     }
     
     public static JTable getTable() {
-        return table;
-    }
-    
-    private Car getSelectedCar() { 
-        try { 
-            return new Car(
-                table.getValueAt(table.getSelectedRow(), 0).toString(),
-                table.getValueAt(table.getSelectedRow(), 1).toString(),
-                table.getValueAt(table.getSelectedRow(), 2).toString(),
-                Float.parseFloat(table.getValueAt(table.getSelectedRow(), 3).toString()),
-                table.getValueAt(table.getSelectedRow(), 4).toString() 
-            ); 
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
+        return adminTable;
     }
 
     @SuppressWarnings("unchecked")
@@ -52,13 +39,12 @@ public class AdminMenu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         carManagementBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
-        bookingManagementBtn = new javax.swing.JButton();
         recordsBtn = new javax.swing.JButton();
         companyReportBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         adminDashboardTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        adminTable = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
         recordsComboBox = new javax.swing.JComboBox<>();
         editBtn = new javax.swing.JButton();
@@ -103,16 +89,6 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
-        bookingManagementBtn.setBackground(new java.awt.Color(255, 255, 255));
-        bookingManagementBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        bookingManagementBtn.setText("Booking Management");
-        bookingManagementBtn.setFocusPainted(false);
-        bookingManagementBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookingManagementBtnActionPerformed(evt);
-            }
-        });
-
         recordsBtn.setBackground(new java.awt.Color(255, 255, 255));
         recordsBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         recordsBtn.setText("Records");
@@ -144,8 +120,7 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(carManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookingManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(carManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                     .addComponent(recordsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(companyReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(46, Short.MAX_VALUE))
@@ -155,8 +130,6 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(168, 168, 168)
                 .addComponent(carManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bookingManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(recordsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -171,7 +144,7 @@ public class AdminMenu extends javax.swing.JFrame {
         adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         adminDashboardTitle.setText("Admin Menu");
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        adminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -182,7 +155,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(table);
+        jScrollPane1.setViewportView(adminTable);
 
         addBtn.setBackground(new java.awt.Color(255, 255, 255));
         addBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -298,29 +271,34 @@ public class AdminMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carManagementBtnActionPerformed
+        carManagementBtnActivated();
+    }                                                
+
+    private void carManagementBtnActivated() {
         JBtnActivator.activateBtn(carManagementBtn);
         recordsComboBox.setVisible(false);
         addBtn.setVisible(true);
+        editBtn.setVisible(true);
+        deleteBtn.setVisible(true);
         admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
-
-    private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed
-        JBtnActivator.activateBtn(bookingManagementBtn);
-        recordsComboBox.setVisible(false);
-        addBtn.setVisible(false);
-    }//GEN-LAST:event_bookingManagementBtnActionPerformed
 
     private void recordsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsBtnActionPerformed
         JBtnActivator.activateBtn(recordsBtn);
         recordsComboBox.setVisible(true);
         addBtn.setVisible(false);
+        editBtn.setVisible(false);
+        deleteBtn.setVisible(false);
         admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsBtnActionPerformed
 
     private void companyReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyReportBtnActionPerformed
-        JBtnActivator.activateBtn(companyReportBtn);
         recordsComboBox.setVisible(false);
         addBtn.setVisible(false);
+        editBtn.setVisible(false);
+        deleteBtn.setVisible(false);
+        dispose();
+        admin.viewCompanyReport();
     }//GEN-LAST:event_companyReportBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
@@ -334,15 +312,30 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         try {
-            new EditCarForm(admin, getSelectedCar()).setVisible(true);
-        } catch (NullPointerException e) {
+            String[] carRecord = JTableSelector.selectRow(adminTable);
+            new EditCarForm(admin, new Car(carRecord[0])).setVisible(true);
+            dispose();
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to edit.");
         }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         try {
-            new EditCarForm(admin, getSelectedCar()).setVisible(true);
+            String plateNum = JTableSelector.selectRow(adminTable)[0];
+            String confirmMsg = "Are you sure to delete car (" + plateNum + ")";
+            int response = JOptionPane.showConfirmDialog(
+                    rootPane, 
+                    confirmMsg, 
+                    "Confirm",
+                    JOptionPane.YES_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (response == JOptionPane.YES_OPTION) {
+                admin.deleteCar(new Car(plateNum));
+                JOptionPane.showMessageDialog(rootPane, "Car deleted successfully.");
+                admin.viewRecord("car");
+            }
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to delete.");
         }
@@ -388,7 +381,7 @@ public class AdminMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JLabel adminDashboardTitle;
-    private javax.swing.JButton bookingManagementBtn;
+    private static javax.swing.JTable adminTable;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JButton companyReportBtn;
     private javax.swing.JButton deleteBtn;
@@ -401,6 +394,5 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton recordsBtn;
     private javax.swing.JComboBox<String> recordsComboBox;
-    private static javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

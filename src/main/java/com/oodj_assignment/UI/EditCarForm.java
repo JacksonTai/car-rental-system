@@ -228,7 +228,7 @@ public class EditCarForm extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        admin.viewMenu();
+        new AdminMenu(admin).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
@@ -241,7 +241,7 @@ public class EditCarForm extends javax.swing.JFrame {
             admin.editCar(selectedCar);
             JOptionPane.showMessageDialog(rootPane, "Car edited successfully");
             dispose();
-            admin.viewMenu();  
+            new AdminMenu(admin).setVisible(true);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -277,9 +277,7 @@ public class EditCarForm extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+ 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -65,7 +65,7 @@
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="backBtn" min="-2" pref="107" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="378" max="-2" attributes="0"/>
-                              <Component id="nextBtn" min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="bookBtn" min="-2" pref="107" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -90,17 +90,14 @@
                                   <Component id="jSeparator4" alignment="0" min="-2" pref="561" max="-2" attributes="0"/>
                                   <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                              <Component id="pickupDateChooser" max="32767" attributes="0"/>
+                                              <Component id="pickupDateChooser" min="-2" pref="160" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                           <Component id="returnDateChooser" min="-2" pref="160" max="-2" attributes="0"/>
@@ -168,7 +165,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="backBtn" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="nextBtn" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Component id="bookBtn" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                       </Group>
@@ -233,7 +230,7 @@
             <Property name="text" type="java.lang.String" value="Book Car"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="nextBtn">
+        <Component class="javax.swing.JButton" name="bookBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -241,10 +238,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Next"/>
+            <Property name="text" type="java.lang.String" value="Book"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bookBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
@@ -286,6 +283,9 @@
               <Border info="null"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="modelTfActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="carPlateNumTf">
           <Properties>

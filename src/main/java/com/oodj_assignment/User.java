@@ -4,69 +4,75 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.helper.InfoContainer;
-import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.validation.UserValidator;
 
 /**
  *
  * @author Jackson
  */
-public abstract class User {
+public abstract class User implements UserValidator {
     
     protected String userID;
     protected String email;
     protected String password;
     
+    public User() {
+        this.userID = null;
+        this.email = null;
+        this.password = null; 
+    }
+    
     public void setUserID(String userID) {
+        if (null != userID) {
+            throw new IllegalArgumentException("User ID has been set.");
+        }
         this.userID = userID;
     }
     
     public String getUserID() {
-        return this.userID;
+        return userID;
     }
         
     public void setEmail(String email) {
+        try {
+            validateEmail(email.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.email = email;
     }
     
     public String getEmail() {
-        return this.email;
+        return email;
     }
     
     public void setPassword(String password) {
+        try {
+            validatePassword(password.trim());
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
         this.password = password;
     }
     
     public String getPassword() {
-        return this.password;
+        return password;
     }
     
     public abstract void viewMenu();
     
-    public static InfoContainer login(String email, String password){
-        email = email.trim();
-        password = password.trim();
-        InfoContainer loginInfo = new InfoContainer();
-        String errMsg;
-        if (email.isEmpty() && password.isEmpty()) {
-            errMsg = "Please fill in the credentials.";
-        } else if (email.isEmpty()) {
-            errMsg = "Email is a required field.";
-        } else if (password.isEmpty()) {
-            errMsg = "Password is a required field.";
-        } else {
-            // Check credentials.
-            String [][] usersInfo = RecordReader.readFile("user.txt");
-            for (String[] userInfo : usersInfo) {
-                if (userInfo[1].equals(email) && userInfo[4].equals(password)) { 
-                    loginInfo.set("userInfo", userInfo);
-                    return loginInfo;
-                }
-            }
-            errMsg = "Invalid credentials";
+    public static User login(String email, String password) throws Exception {
+        try {
+            String[] userInfo = UserValidator.validateCredential(email, password);
+            String userID = userInfo[0];
+            return switch(userID.substring(0, 3)) {
+                case "ctm" -> new Customer(userID);
+                case "adm" -> new Admin();
+                default -> null;
+            };
+        } catch (Exception e) {
+            throw e;
         }
-        loginInfo.set("errMsg", errMsg);
-        return loginInfo;
     }
     
 }

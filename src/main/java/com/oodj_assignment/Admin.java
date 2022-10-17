@@ -5,6 +5,7 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.UI.AdminMenu;
+import com.oodj_assignment.UI.CompanyReportForm;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
@@ -18,9 +19,14 @@ import javax.swing.JTable;
  */
 public class Admin extends User {
 
-    public Admin(String[] adminInfo) {
-        this.email = adminInfo[1];
-        this.password = adminInfo[4];
+    public Admin(){
+        super();
+    }
+    
+    public Admin(String email, String password) {
+        super();
+        this.email = email;
+        this.password = password;
     }
     
     @Override
@@ -31,17 +37,16 @@ public class Admin extends User {
     public void viewRecord(String type) {
         String[] fields = switch (type) {
             case "payment" -> new String[] {
-                "Payment ID", "Booking ID", "Customer ID", "Paid"
+                "Payment ID", "Booking ID", "Payment date", "Total paid (RM)"
             };
             case "booking" -> new String[] {
-                "Booking ID", "Customer ID", "Car number", "Start date", "Return date", "Duration",
-                "Price/day", "Total price"
+                "Booking ID", "Customer ID", "Plate number", "Pick-up date", "Return date",
             };
             case "customer" -> new String[] {
-                "Customer ID", "Email", "Username", "Phone Number"
+                "Customer ID", "Email", "Username", "Phone number"
             };
             case "car" -> new String[] {
-                "Plate Number", "Model", "Colour", "Price/Day", "Status"
+                "Plate number", "Model", "Colour", "Price/Day", "Status"
             };
             default -> null;
         };
@@ -62,6 +67,10 @@ public class Admin extends User {
         }    
     }
     
+    public void viewCompanyReport(){
+        new CompanyReportForm().setVisible(true);
+    }
+    
     public void addCar(Car newCar) {
         RecordWriter.write(new String[] {
             newCar.getPlateNum(), 
@@ -80,6 +89,17 @@ public class Admin extends User {
             String.valueOf(selectedCar.getPricePerDay()), 
             selectedCar.getStatus()
         }, "car.txt");
+        
+    }
+    
+    public void deleteCar(Car selectedCar) {
+        String[][] cars = RecordReader.readFile("car.txt");
+        for (String[] car : cars) {        
+           if (car[0].equals(selectedCar.getPlateNum())) {
+                cars = ArrayUtils.removeElement(cars, car);
+           }
+        } 
+        RecordWriter.write(cars, "car.txt", true);
     }
     
 }

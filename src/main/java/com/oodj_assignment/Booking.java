@@ -5,49 +5,63 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.helper.IdGenerator;
+import com.oodj_assignment.helper.RecordReader;
+import com.oodj_assignment.validation.BookingValidator;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
  *
  * @author KJ
  */
-public class Booking 
+public class Booking implements BookingValidator
 {
-    private final String bookingID;
+    private String bookingID;
+    private Customer customer;
+    private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
-    private Car selectedCar;
-    private final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy");
     
-    public Booking() {
+    public Booking(Customer customer, Car selectedCar) {
         this.bookingID = IdGenerator.generate("bkg-");
-    }
-    
-    public String getBookingID() {
-        return this.bookingID;
-    }
-    
-    public void setSelectedCar(Car selectedCar) {
+        this.customer = customer;
         if (selectedCar == null) {
             throw new NullPointerException("Car cannot be null.");
         }
         this.selectedCar = selectedCar;
     }
     
-    public Car getSelectedCar() {
-        return this.selectedCar;
+    public Booking (String bookingID) {
+        String[][] bookings = RecordReader.readFile("booking.txt");
+        for (String[] booking : bookings) {
+            if (bookingID.equals(booking[0])) {
+                this.bookingID = booking[0];
+                customer = new Customer(booking[1]);
+                selectedCar = new Car(booking[2]);
+                pickupDate = LocalDate.parse(booking[3]);
+                returnDate = LocalDate.parse(booking[4]);
+                break;
+            }
+        }
     }
     
-    public void setPickupDate(String pickupDate) throws Exception { 
+    public String getBookingID() {
+        return bookingID;
+    }
+    
+    public Customer getCustomer() {
+        return customer;
+    }
+    
+    public Car getSelectedCar() {
+        return selectedCar;
+    }
+    
+    public void setPickupDate(String pickupDate) { 
         try {
-            this.pickupDate = LocalDate.parse(pickupDate, DTF);
-        } catch (Exception e) {
-            throw new Exception("Invalid format of pick-up date."); 
-        }
-        if (ChronoUnit.DAYS.between(LocalDate.now(), this.pickupDate) < 0) {
-            throw new Exception("Pick-up date must be no earlier than today.");
+            this.pickupDate = validatePickupDate(pickupDate);
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
     
@@ -55,14 +69,12 @@ public class Booking
         return pickupDate;
     }
     
-    public void setReturnDate(String returnDate) throws Exception {
+    public void setReturnDate(String returnDate) {
         try {
-            this.returnDate = LocalDate.parse(returnDate, DTF);
-        } catch (Exception e) {
-             throw new Exception("Invalid format of return date.");
-        }
-        if (getRentDuration() < 1) {
-            throw new Exception("Return date must be no earlier than pick-up date.");
+            
+            this.returnDate = validateReturnDate(returnDate, pickupDate);
+        } catch (IllegalArgumentException e) {
+            throw e;
         }
     }
     
@@ -74,7 +86,4 @@ public class Booking
         return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
     }
     
-    public float getTotalPrice(){
-        return selectedCar.getPricePerDay() * getRentDuration();
-    }
 }
