@@ -14,8 +14,8 @@ import java.time.temporal.ChronoUnit;
  *
  * @author KJ
  */
-public class Booking implements BookingValidator
-{
+public class Booking implements BookingValidator {
+    
     private String bookingID;
     private Customer customer;
     private Car selectedCar;

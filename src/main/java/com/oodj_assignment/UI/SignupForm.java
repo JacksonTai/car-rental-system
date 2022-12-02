@@ -228,7 +228,7 @@ public class SignupForm extends javax.swing.JFrame {
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
         try { 
-            newCustomer.signup(
+            newCustomer.signUp(
                 emailTf.getText(), 
                 usernameTf.getText(), 
                 phoneNumTf.getText(),

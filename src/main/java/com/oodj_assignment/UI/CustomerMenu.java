@@ -246,7 +246,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         JBtnActivator.activateBtn(bookHistoryBtn);
         bookCarHintLabel.setVisible(false);
         nextBtn.setVisible(false);
-        customer.viewbookingHistory();
+        customer.viewBookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed

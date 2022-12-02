@@ -72,11 +72,11 @@ public class Customer extends User {
     }
 
     @Override
-        public void viewMenu() {
+    public void viewMenu() {
         new CustomerMenu(this).setVisible(true);
     }
     
-    public void signup(String email, String username, String phoneNum, String password, 
+    public void signUp(String email, String username, String phoneNum, String password, 
             String confirmPassword) throws Exception {
         try {
             validateEmail(email);
@@ -113,7 +113,7 @@ public class Customer extends User {
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
     
-    public void viewbookingHistory() {
+    public void viewBookingHistory() {
         String[] bookingHistoryField = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
             "Duration(Day)", "Price/Day", "Total price"};
         String[][] bookingRecords = RecordReader.readFile("booking.txt");
