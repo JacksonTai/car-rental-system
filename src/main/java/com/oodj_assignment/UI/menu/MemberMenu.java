@@ -1,33 +1,34 @@
-package com.oodj_assignment.UI;
+package com.oodj_assignment.UI.menu;
  
 import com.oodj_assignment.Car;
-import com.oodj_assignment.Customer;
+import com.oodj_assignment.Member;
+import com.oodj_assignment.UI.form.BookingForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-public class CustomerMenu extends javax.swing.JFrame {
+public class MemberMenu extends javax.swing.JFrame {
 
-    Customer customer;
+    Member member;
     JButtonActivator JBtnActivator;
     
-    public CustomerMenu() {
+    public MemberMenu() {
         initComponents();
     }
     
-    public CustomerMenu(Customer customer) {
+    public MemberMenu(Member member) {
         this();
-        this.customer = customer;
-        adminDashboardTitle.setText("Welcome " + customer.getUsername() + "!");  
+        this.member = member;
+        adminDashboardTitle.setText("Welcome " + member.getFullName()+ "!");  
         JBtnActivator = new JButtonActivator(new JButton[] {bookCarBtn, bookHistoryBtn});
         JBtnActivator.activateBtn(bookCarBtn);
-        customer.viewCar();
+        member.viewCar();
     }
     
     public static JTable getTable() {
-        return customerTable;
+        return memberTable;
     }
 
     @SuppressWarnings("unchecked")
@@ -42,7 +43,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         bookHistoryBtn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        customerTable = new javax.swing.JTable();
+        memberTable = new javax.swing.JTable();
         adminDashboardTitle = new javax.swing.JLabel();
         nextBtn = new javax.swing.JButton();
         bookCarHintLabel = new javax.swing.JLabel();
@@ -125,7 +126,7 @@ public class CustomerMenu extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
-        customerTable.setModel(new javax.swing.table.DefaultTableModel(
+        memberTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,12 +145,12 @@ public class CustomerMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(customerTable);
-        if (customerTable.getColumnModel().getColumnCount() > 0) {
-            customerTable.getColumnModel().getColumn(0).setResizable(false);
-            customerTable.getColumnModel().getColumn(1).setResizable(false);
-            customerTable.getColumnModel().getColumn(2).setResizable(false);
-            customerTable.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane1.setViewportView(memberTable);
+        if (memberTable.getColumnModel().getColumnCount() > 0) {
+            memberTable.getColumnModel().getColumn(0).setResizable(false);
+            memberTable.getColumnModel().getColumn(1).setResizable(false);
+            memberTable.getColumnModel().getColumn(2).setResizable(false);
+            memberTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
         adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -239,20 +240,20 @@ public class CustomerMenu extends javax.swing.JFrame {
         JBtnActivator.activateBtn(bookCarBtn);
         bookCarHintLabel.setVisible(true);
         nextBtn.setVisible(true);
-        customer.viewCar();
+        member.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
     
     private void bookHistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookHistoryBtnActionPerformed
         JBtnActivator.activateBtn(bookHistoryBtn);
         bookCarHintLabel.setVisible(false);
         nextBtn.setVisible(false);
-        customer.viewbookingHistory();
+        member.viewBookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
         try {
-            String[] carRecord = JTableSelector.selectRow(customerTable);
-            new BookingForm(customer, new Car(carRecord[0])).setVisible(true);
+            String[] carRecord = JTableSelector.selectRow(memberTable);
+            new BookingForm(member, new Car(carRecord[0])).setVisible(true);
             dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
@@ -260,8 +261,7 @@ public class CustomerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_nextBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        dispose();
-        new MainMenu().show();
+        member.logout(this);
     }//GEN-LAST:event_logoutBtnActionPerformed
     
     public static void main(String args[]) {
@@ -278,13 +278,13 @@ public class CustomerMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MemberMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -292,7 +292,7 @@ public class CustomerMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerMenu().setVisible(true);
+                new MemberMenu().setVisible(true);
             }
         });
     }
@@ -302,13 +302,13 @@ public class CustomerMenu extends javax.swing.JFrame {
     private javax.swing.JButton bookCarBtn;
     private javax.swing.JLabel bookCarHintLabel;
     private javax.swing.JButton bookHistoryBtn;
-    private static javax.swing.JTable customerTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
+    private static javax.swing.JTable memberTable;
     private javax.swing.JButton nextBtn;
     // End of variables declaration//GEN-END:variables
 }

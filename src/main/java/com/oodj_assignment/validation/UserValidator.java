@@ -45,19 +45,17 @@ public interface UserValidator extends Validator {
         }
     }
     
-    default void validateUsername(String username) {
-        username = username.trim();
-        if (username.isEmpty()) {
-            throwErr("Please enter your username.");
-        } else if (username.length() < 6 || username.length() > 20) {
-            throwErr("Username must contain 6 to 20 characters, please retry.");
-        } else if (username.contains(" ")) {
-            throwErr("Username must not contain spaces, please retry.");
+    default void validateFullName(String fullName) {
+        fullName = fullName.trim();
+        if (fullName.isEmpty()) {
+            throwErr("Please enter your full name.");
+        } else if (fullName.length() < 6 || fullName.length() > 20) {
+            throwErr("Full name must contain 6 to 20 characters, please retry.");
         } else {
             String[][] users = RecordReader.readFile("user.txt");
             for (String[] user : users) {
-                if (user[2].equals(username)) {
-                    throwErr("Username has been taken, please try another one.");
+                if (user[2].equals(fullName)) {
+                    throwErr("This name has been registered. Please retry");
                 }
             }   
         }
@@ -87,8 +85,14 @@ public interface UserValidator extends Validator {
         } else {
             String [][] usersInfo = RecordReader.readFile("user.txt");
             for (String[] userInfo : usersInfo) {
-                if (userInfo[1].equals(email) && userInfo[4].equals(password)) {
-                    return userInfo;
+                // Admin login using userID and customer login using email.
+                String userID = userInfo[0];
+                String userIDPrefix = userID.substring(0, 3);
+                if ("adm".equals(userIDPrefix) && email.equals(userID) ||
+                        "ctm".equals(userIDPrefix) && email.equals(userInfo[1])) {
+                    if (password.equals(userInfo[4])) {
+                        return userInfo;
+                    }
                 }
             }
             errMsg = "Invalid credentials";

@@ -1,7 +1,9 @@
-package com.oodj_assignment.UI;
+package com.oodj_assignment.UI.menu;
  
 import com.oodj_assignment.Admin;
 import com.oodj_assignment.Car;
+import com.oodj_assignment.UI.form.AddCarForm;
+import com.oodj_assignment.UI.form.EditCarForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 import javax.swing.JButton;
@@ -342,8 +344,7 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        dispose();
-        new MainMenu().show();
+        admin.logout(this);
     }//GEN-LAST:event_logoutBtnActionPerformed
     
     public static void main(String args[]) {

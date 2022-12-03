@@ -23,13 +23,9 @@ public class Payment {
             }
         }
     }
-    
+          
     public String getPaymentID() {
         return paymentID;
-    }
-
-    public Customer getCustomer() {
-        return booking.getCustomer();
     }
 
     public Booking getBooking() {

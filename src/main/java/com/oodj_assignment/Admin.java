@@ -4,29 +4,25 @@
  */
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.AdminMenu;
+import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.CompanyReport;
+import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 
 /**
  *
  * @author Jackson
  */
-public class Admin extends User {
+public class Admin extends User implements Logoutable {
 
-    public Admin(){
-        super();
-    }
-    
-    public Admin(String email, String password) {
-        super();
-        this.email = email;
-        this.password = password;
+    public Admin(String userID) {
+        super(userID);
     }
     
     @Override
@@ -100,6 +96,12 @@ public class Admin extends User {
            }
         } 
         RecordWriter.write(cars, "car.txt", true);
+    }
+   
+    @Override
+    public void logout(JFrame adminMenu) {
+        adminMenu.dispose();
+        new MainMenu().setVisible(true);
     }
     
 }

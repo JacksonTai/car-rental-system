@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.oodj_assignment.UI;
+package com.oodj_assignment.UI.form;
 
 import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
-import com.oodj_assignment.Customer;
+import com.oodj_assignment.Member;
 import com.oodj_assignment.Payment;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class PaymentForm extends javax.swing.JFrame {
 
-    Customer customer;
+    Member member;
+    Car selectedCar;
     Booking booking;
     Payment payment;
-    Car selectedCar;
     LocalDate pickupDate;
     LocalDate returnDate;
     
@@ -29,9 +29,9 @@ public class PaymentForm extends javax.swing.JFrame {
         initComponents();
     };
     
-    public PaymentForm(Customer customer, Booking booking) {
+    public PaymentForm(Member member, Booking booking) {
         this();
-        this.customer = customer;
+        this.member = member;
         this.booking = booking;
         this.payment = new Payment(booking);
         this.selectedCar = booking.getSelectedCar();
@@ -44,9 +44,9 @@ public class PaymentForm extends javax.swing.JFrame {
     }
     
     private void previewUserDetails() {
-        usernameTf.setText(customer.getUsername());
-        phoneNumTf.setText(customer.getPhoneNum());
-        emailTf.setText(customer.getEmail());
+        fullNameTf.setText(member.getFullName());
+        phoneNumTf.setText(member.getPhoneNum());
+        emailTf.setText(member.getEmail());
     }
     
     private void previewCarDetails() {
@@ -65,11 +65,9 @@ public class PaymentForm extends javax.swing.JFrame {
     }
     
     private void previewPaymentDetails() {
-        float pricePerDay = selectedCar.getPricePerDay();
-        pricePerDayTf.setText("RM" + String.valueOf(pricePerDay));
+        pricePerDayTf.setText("RM" + String.valueOf(selectedCar.getPricePerDay()));
         dayRentingTf.setText(String.valueOf(booking.getRentDuration()));
-        float totalPrice = payment.getTotalPrice();
-        totalPriceTf.setText("RM" + totalPrice);
+        totalPriceTf.setText("RM" + payment.getTotalPrice());
     }
 
     @SuppressWarnings("unchecked")
@@ -93,7 +91,7 @@ public class PaymentForm extends javax.swing.JFrame {
         pricePerDayTf = new javax.swing.JTextField();
         totalPriceTf = new javax.swing.JTextField();
         emailTf = new javax.swing.JTextField();
-        usernameTf = new javax.swing.JTextField();
+        fullNameTf = new javax.swing.JTextField();
         phoneNumTf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -146,7 +144,7 @@ public class PaymentForm extends javax.swing.JFrame {
         jLabel5.setText("Email:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel3.setText("Username:");
+        jLabel3.setText("Full name:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel7.setText("Phone number:");
@@ -195,12 +193,12 @@ public class PaymentForm extends javax.swing.JFrame {
         emailTf.setText("email@gmail.com");
         emailTf.setBorder(null);
 
-        usernameTf.setEditable(false);
-        usernameTf.setBackground(new java.awt.Color(255, 255, 255));
-        usernameTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        usernameTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        usernameTf.setText("username");
-        usernameTf.setBorder(null);
+        fullNameTf.setEditable(false);
+        fullNameTf.setBackground(new java.awt.Color(255, 255, 255));
+        fullNameTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        fullNameTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        fullNameTf.setText("username");
+        fullNameTf.setBorder(null);
 
         phoneNumTf.setEditable(false);
         phoneNumTf.setBackground(new java.awt.Color(255, 255, 255));
@@ -301,7 +299,7 @@ public class PaymentForm extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(phoneNumTf, javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(emailTf, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
-                                        .addComponent(usernameTf)))
+                                        .addComponent(fullNameTf)))
                                 .addComponent(jLabel4)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6)
@@ -365,7 +363,7 @@ public class PaymentForm extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(usernameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fullNameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -454,15 +452,15 @@ public class PaymentForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
-        customer.makeBooking(booking);
-        customer.makePayment(payment);
+        member.makeBooking(booking);
+        member.makePayment(payment);
         JOptionPane.showMessageDialog(rootPane, "Booking Successfull!\nEnjoy your driving :)");
         dispose();
-        customer.viewMenu();
+        member.viewMenu();
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        new BookingForm(customer, selectedCar, pickupDate, returnDate).setVisible(true);
+        new BookingForm(member, selectedCar, pickupDate, returnDate).setVisible(true);
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
@@ -507,6 +505,7 @@ public class PaymentForm extends javax.swing.JFrame {
     private javax.swing.JTextField colourTf;
     private javax.swing.JTextField dayRentingTf;
     private javax.swing.JTextField emailTf;
+    private javax.swing.JTextField fullNameTf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -538,6 +537,5 @@ public class PaymentForm extends javax.swing.JFrame {
     private javax.swing.JTextField rentDurationTf;
     private javax.swing.JTextField returnDateTf;
     private javax.swing.JTextField totalPriceTf;
-    private javax.swing.JTextField usernameTf;
     // End of variables declaration//GEN-END:variables
 }
