@@ -5,7 +5,10 @@ import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
+import com.oodj_assignment.helper.RegexHelper;
 import com.oodj_assignment.helper.UI.JTableInserter;
+import com.oodj_assignment.validation.Field;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,15 @@ public class Member extends Customer implements Logoutable {
 
     protected String email;
     protected String phoneNum;
+    
+    enum MemberField implements Field {
+        EMAIL,
+        PHONENUM,
+    }
+    
+    public Member() {
+        super();
+    }
     
     public Member(String userID) {
         super(userID);
@@ -31,7 +43,7 @@ public class Member extends Customer implements Logoutable {
  
     public void setEmail(String email) {
         try {
-            validateEmail(email.trim());
+            //validateEmail(email.trim());
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -44,7 +56,7 @@ public class Member extends Customer implements Logoutable {
     
     public void setPhoneNum(String phoneNum) {
         try {
-            validatePhoneNum(phoneNum.trim());
+            validate(MemberField.PHONENUM, phoneNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -121,5 +133,38 @@ public class Member extends Customer implements Logoutable {
         memberMenu.dispose();
         new MainMenu().setVisible(true);
     }
+    
+    @Override
+    public <T> T validate(Field field, T value) {
+        if (field.equals(MemberField.EMAIL)) {
+            String email = String.valueOf(value).trim();
+            if (email.isEmpty()) {
+                throwErr("Please enter your email.");
+            } else if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+"
+                    + "$")) {
+                // Regex source: https://www.baeldung.com/java-email-validation-regex
+                throwErr("Invalid format of email."); 
+            } else {
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[1].equals(email)) {
+                        throwErr("Email has been taken, please try another one."); 
+                    }
+                }   
+            }
+        } else if (field.equals(MemberField.PHONENUM)) {
+            String phoneNum = String.valueOf(value).trim();
+            if (phoneNum.isEmpty()) {
+                throwErr("Please enter your phone number.");
+            } else if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
+                phoneNum.contains(" ")) {
+                // Regex source: https://stackoverflow.com/a/45406682/13367914
+                throwErr("Invalid phone number.");
+            }
+        } else {
+            super.validate(field, value);
+        }   
+        return value;
+    }    
     
 }

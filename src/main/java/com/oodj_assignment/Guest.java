@@ -1,5 +1,6 @@
 package com.oodj_assignment;
 
+import com.oodj_assignment.Member.MemberField;
 import com.oodj_assignment.UI.menu.GuestMenu;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordWriter;
@@ -11,27 +12,23 @@ public class Guest extends Customer {
         new GuestMenu().setVisible(true);
     }
     
-    public void signUp(String fullName, String email, String phoneNum, String password, 
+    public Member signUp(String fullName, String email, String phoneNum, String password, 
             String confirmPassword) throws Exception {
-        try {
-            validateFullName(fullName);
-            validateEmail(email);
-            validatePhoneNum(phoneNum);
-            validatePassword(password); 
-            if (null != userID) {
-                throw new Exception("This user has been signed up");
-            } else if (confirmPassword.trim().isEmpty()) { 
-                throw new Exception("Please confirm your password.");
-            } else if (!confirmPassword.trim().equals(password.trim())) {
-                throw new Exception("Password do not match.");
-            }
-        } catch (Exception e) {
-            throw e;
+        Member newMember = new Member();
+        newMember.validate(CustomerField.FULLNAME, fullName);
+        newMember.validate(MemberField.EMAIL, email);
+        newMember.validate(MemberField.PHONENUM, phoneNum);
+        newMember.validate(UserField.PASSWORD, password);
+        if (null != userID) {
+            throw new Exception("This user has been signed up");
+        } else if (confirmPassword.trim().isEmpty()) { 
+            throw new Exception("Please confirm your password.");
+        } else if (!confirmPassword.trim().equals(password.trim())) {
+            throw new Exception("Password do not match.");
         }
-        this.userID = IdGenerator.generate("ctm-");
-        this.fullName = fullName;
-        this.password = password; 
+        String userID = IdGenerator.generate("ctm-");
         RecordWriter.write(new String[] {userID, email, fullName, phoneNum, password,}, "user.txt");
+        return new Member(userID);
     }
    
 }

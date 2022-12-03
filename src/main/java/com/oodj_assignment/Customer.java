@@ -9,6 +9,8 @@ import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.UI.JTableInserter;
+import com.oodj_assignment.validation.Field;
+
 import javax.swing.JTable;
 
 /**
@@ -18,6 +20,10 @@ import javax.swing.JTable;
 public abstract class Customer extends User {
     
     protected String fullName;
+    
+    enum CustomerField implements Field {
+        FULLNAME
+    }
     
     public Customer() {
         super();
@@ -36,7 +42,7 @@ public abstract class Customer extends User {
 
     public void setFullName(String fullName) {
         try {
-            validateFullName(fullName.trim());
+            validate(CustomerField.FULLNAME, fullName);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -58,5 +64,27 @@ public abstract class Customer extends User {
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
-       
+    
+    @Override
+    public <T> T validate(Field field, T value) {
+        if (field.equals(CustomerField.FULLNAME)) {
+            String fullName = String.valueOf(value).trim();
+            if (fullName.isEmpty()) {
+                throwErr("Please enter your full name.");
+            } else if (fullName.length() < 6 || fullName.length() > 20) {
+                throwErr("Full name must contain 6 to 20 characters, please retry.");
+            } else {
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[2].equals(fullName)) {
+                        throwErr("This name has been registered. Please retry");
+                    }
+                }   
+            }
+        } else {
+            super.validate(field, value);
+        }   
+        return value;
+    }    
+    
 }
