@@ -327,7 +327,7 @@ public class BookingForm extends javax.swing.JFrame {
             booking.setReturnDate(returnDate);
             new PaymentForm(member, booking).setVisible(true);
             dispose();
-        } catch (NullPointerException e) {   
+        } catch (IllegalArgumentException | NullPointerException e ) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_bookBtnActionPerformed
