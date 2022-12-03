@@ -1,6 +1,6 @@
 package com.oodj_assignment;
 
-import com.oodj_assignment.UI.MainMenu;
+import com.oodj_assignment.UI.menu.MainMenu;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

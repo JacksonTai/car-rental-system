@@ -4,6 +4,7 @@
  */
 package com.oodj_assignment;
 
+import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.validation.UserValidator;
 
 /**
@@ -13,39 +14,28 @@ import com.oodj_assignment.validation.UserValidator;
 public abstract class User implements UserValidator {
     
     protected String userID;
-    protected String email;
     protected String password;
     
     public User() {
         this.userID = null;
-        this.email = null;
         this.password = null; 
     }
     
-    public void setUserID(String userID) {
-        if (null != userID) {
-            throw new IllegalArgumentException("User ID has been set.");
+    public User(String userID) {
+        String[][] users = RecordReader.readFile("user.txt");
+        for (String[] user : users) {
+            if (user[0].equals(userID)) {
+                this.userID = userID;
+                this.password = user[4]; 
+                break;
+            }
         }
-        this.userID = userID;
     }
     
     public String getUserID() {
         return userID;
     }
         
-    public void setEmail(String email) {
-        try {
-            validateEmail(email.trim());
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
-        this.email = email;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-    
     public void setPassword(String password) {
         try {
             validatePassword(password.trim());
@@ -58,21 +48,21 @@ public abstract class User implements UserValidator {
     public String getPassword() {
         return password;
     }
-    
-    public abstract void viewMenu();
-    
+        
     public static User login(String email, String password) throws Exception {
         try {
             String[] userInfo = UserValidator.validateCredential(email, password);
             String userID = userInfo[0];
             return switch(userID.substring(0, 3)) {
-                case "ctm" -> new Customer(userID);
-                case "adm" -> new Admin();
+                case "ctm" -> new Member(userID);
+                case "adm" -> new Admin(userID);
                 default -> null;
             };
         } catch (Exception e) {
             throw e;
         }
     }
+     
+    public abstract void viewMenu();
     
 }

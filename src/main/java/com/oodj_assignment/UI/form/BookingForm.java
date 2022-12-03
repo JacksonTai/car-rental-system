@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.oodj_assignment.UI;
+package com.oodj_assignment.UI.form;
 
 import com.oodj_assignment.Booking;
 import com.oodj_assignment.Car;
-import com.oodj_assignment.Customer;
+import com.oodj_assignment.Member;
 import com.toedter.calendar.IDateEditor;
 import com.toedter.calendar.JDateChooser;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  */
 public class BookingForm extends javax.swing.JFrame {
 
-    Customer customer;
+    Member member;
     Car selectedCar;
     LocalDate prevPickupDate = null;
     LocalDate prevReturnDate = null;
@@ -33,17 +33,17 @@ public class BookingForm extends javax.swing.JFrame {
         returnDateChooser.getJCalendar().setMinSelectableDate(date);
     };
     
-    public BookingForm(Customer customer, Car selectedCar) {
+    public BookingForm(Member member, Car selectedCar) {
         this();
-        this.customer = customer;
+        this.member = member;
         this.selectedCar = selectedCar;
         previewBookingDetails();
     }
     
-    public BookingForm(Customer customer, Car selectedCar, LocalDate prevPickupDate, 
+    public BookingForm(Member member, Car selectedCar, LocalDate prevPickupDate, 
         LocalDate prevReturnDate) {
-        this(customer, selectedCar);
-        if (customer == null || selectedCar == null) {
+        this(member, selectedCar);
+        if (member == null || selectedCar == null) {
             throw new NullPointerException();
         }
         this.prevPickupDate = prevPickupDate;
@@ -309,7 +309,7 @@ public class BookingForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        customer.viewMenu();
+        member.viewMenu();
         dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
@@ -322,12 +322,12 @@ public class BookingForm extends javax.swing.JFrame {
             } else if (returnDate.isEmpty()) {
                 throw new NullPointerException("Return date is a required field");
             }
-            Booking booking = new Booking(customer, selectedCar);
+            Booking booking = new Booking(member, selectedCar);
             booking.setPickupDate(pickupDate);
             booking.setReturnDate(returnDate);
-            new PaymentForm(customer, booking).setVisible(true);
+            new PaymentForm(member, booking).setVisible(true);
             dispose();
-        } catch (Exception e) {   
+        } catch (NullPointerException e) {   
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_bookBtnActionPerformed

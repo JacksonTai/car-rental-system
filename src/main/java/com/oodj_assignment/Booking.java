@@ -17,14 +17,14 @@ import java.time.temporal.ChronoUnit;
 public class Booking implements BookingValidator {
     
     private String bookingID;
-    private Customer customer;
+    private Member member;
     private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
     
-    public Booking(Customer customer, Car selectedCar) {
+    public Booking(Member member, Car selectedCar) {
         this.bookingID = IdGenerator.generate("bkg-");
-        this.customer = customer;
+        this.member = member;
         if (selectedCar == null) {
             throw new NullPointerException("Car cannot be null.");
         }
@@ -36,7 +36,7 @@ public class Booking implements BookingValidator {
         for (String[] booking : bookings) {
             if (bookingID.equals(booking[0])) {
                 this.bookingID = booking[0];
-                customer = new Customer(booking[1]);
+                member = new Member(booking[1]);
                 selectedCar = new Car(booking[2]);
                 pickupDate = LocalDate.parse(booking[3]);
                 returnDate = LocalDate.parse(booking[4]);
@@ -44,13 +44,13 @@ public class Booking implements BookingValidator {
             }
         }
     }
-    
+           
     public String getBookingID() {
         return bookingID;
     }
     
-    public Customer getCustomer() {
-        return customer;
+    public Member getMember() {
+        return member;
     }
     
     public Car getSelectedCar() {
@@ -71,7 +71,6 @@ public class Booking implements BookingValidator {
     
     public void setReturnDate(String returnDate) {
         try {
-            
             this.returnDate = validateReturnDate(returnDate, pickupDate);
         } catch (IllegalArgumentException e) {
             throw e;
