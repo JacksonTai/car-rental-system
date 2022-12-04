@@ -1,7 +1,7 @@
 package com.oodj_assignment.UI.menu;
  
-import com.oodj_assignment.Car;
-import com.oodj_assignment.Member;
+import com.oodj_assignment.entity.Car;
+import com.oodj_assignment.entity.Member;
 import com.oodj_assignment.UI.form.BookingForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;

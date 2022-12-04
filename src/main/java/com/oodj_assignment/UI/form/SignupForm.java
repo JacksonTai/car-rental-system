@@ -6,8 +6,8 @@ package com.oodj_assignment.UI.form;
  */
 
 import com.oodj_assignment.UI.menu.MainMenu;
-import com.oodj_assignment.Guest;
-import com.oodj_assignment.Member;
+import com.oodj_assignment.entity.Guest;
+import com.oodj_assignment.entity.Member;
 
 import javax.swing.JOptionPane;
 

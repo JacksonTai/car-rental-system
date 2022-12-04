@@ -4,7 +4,7 @@
  */
 package com.oodj_assignment.UI.menu;
 
-import com.oodj_assignment.Guest;
+import com.oodj_assignment.entity.Guest;
 import com.oodj_assignment.UI.form.SignupForm;
 import javax.swing.JTable;
 

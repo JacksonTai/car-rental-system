@@ -1,7 +1,7 @@
 package com.oodj_assignment.UI.form;
 
-import com.oodj_assignment.Admin;
-import com.oodj_assignment.Car;
+import com.oodj_assignment.entity.Admin;
+import com.oodj_assignment.entity.Car;
 import javax.swing.JOptionPane;
 
 public class AddCarForm extends javax.swing.JFrame {

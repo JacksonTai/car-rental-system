@@ -1,4 +1,4 @@
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordReader;

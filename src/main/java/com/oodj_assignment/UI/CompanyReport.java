@@ -5,7 +5,7 @@
 
 package com.oodj_assignment.UI;
 
-import com.oodj_assignment.Admin;
+import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.helper.RecordReader;
 
 /**

@@ -1,5 +1,6 @@
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
+import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.RecordReader;

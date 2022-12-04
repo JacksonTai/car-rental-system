@@ -1,6 +1,6 @@
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
-import com.oodj_assignment.Member.MemberField;
+import com.oodj_assignment.entity.Member.MemberField;
 import com.oodj_assignment.UI.menu.GuestMenu;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordWriter;

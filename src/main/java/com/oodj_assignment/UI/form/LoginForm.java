@@ -6,7 +6,7 @@ package com.oodj_assignment.UI.form;
  */
 
 import com.oodj_assignment.UI.menu.MainMenu;
-import com.oodj_assignment.User;
+import com.oodj_assignment.entity.User;
 import javax.swing.JOptionPane;
 
 /**
