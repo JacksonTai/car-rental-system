@@ -4,10 +4,10 @@
  */
 package com.oodj_assignment.UI.form;
 
-import com.oodj_assignment.Booking;
-import com.oodj_assignment.Car;
-import com.oodj_assignment.Member;
-import com.oodj_assignment.Payment;
+import com.oodj_assignment.entity.Booking;
+import com.oodj_assignment.entity.Car;
+import com.oodj_assignment.entity.Member;
+import com.oodj_assignment.entity.Payment;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;

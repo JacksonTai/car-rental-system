@@ -1,11 +1,14 @@
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
+import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
+import com.oodj_assignment.helper.RegexHelper;
 import com.oodj_assignment.helper.UI.JTableInserter;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,10 @@ public class Member extends Customer implements Logoutable {
 
     protected String email;
     protected String phoneNum;
+
+    public Member() {
+        super();
+    }
     
     public Member(String userID) {
         super(userID);
@@ -31,11 +38,11 @@ public class Member extends Customer implements Logoutable {
  
     public void setEmail(String email) {
         try {
-            validateEmail(email.trim());
+            validate("email", email);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.email = email;
+        this.email = email.trim();
     }
     
     public String getEmail() {
@@ -44,11 +51,11 @@ public class Member extends Customer implements Logoutable {
     
     public void setPhoneNum(String phoneNum) {
         try {
-            validatePhoneNum(phoneNum.trim());
+            validate("phoneNum", phoneNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.phoneNum = phoneNum;
+        this.phoneNum = phoneNum.trim();
     }
     
     public String getPhoneNum() {
@@ -121,5 +128,37 @@ public class Member extends Customer implements Logoutable {
         memberMenu.dispose();
         new MainMenu().setVisible(true);
     }
+    
+    @Override
+    public <T> void validate(String field, T value) {
+        switch (field) {
+            case "email" -> {
+                String email = String.valueOf(value).trim();
+                if (email.isEmpty()) {
+                    throwErr("Please enter your email.");
+                }   
+                if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+                    throwErr("Invalid format of email.");
+                }   
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[1].equals(email)) {
+                        throwErr("Email has been taken, please try another one.");
+                    }
+                }
+            }
+            case "phoneNum" -> {
+                String phoneNum = String.valueOf(value).trim();
+                if (phoneNum.isEmpty()) {
+                    throwErr("Please enter your phone number.");
+                }  
+                if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
+                        phoneNum.contains(" ")) {
+                    throwErr("Invalid phone number.");
+                }
+            }
+            default -> super.validate(field, value);
+        }
+    }    
     
 }

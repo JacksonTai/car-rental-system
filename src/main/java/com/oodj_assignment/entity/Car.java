@@ -2,23 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.CarValidator;
+import com.oodj_assignment.Validatable;
 
 /**
  *
  * @author Jackson
  */
-public class Car implements CarValidator {
+public class Car implements Validatable {
     
     private String plateNum;
     private String model;
     private String colour;
     private float pricePerDay;
     private String status; 
-
+    
     public Car() {
         this.plateNum = "N/A";
         this.model = "N/A";
@@ -43,11 +43,11 @@ public class Car implements CarValidator {
     
     public void setPlateNum(String plateNum) {
         try {
-            validatePlateNum(plateNum);
+            validate("plateNum", plateNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.plateNum = plateNum;
+        this.plateNum = plateNum.trim();
     }
     
     public String getPlateNum() {
@@ -56,11 +56,11 @@ public class Car implements CarValidator {
     
     public void setModel(String model) {
         try { 
-            validateModel(model);
+            validate("model", model);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.model = model;
+        this.model = model.trim();
     }
     
     public String getModel() {
@@ -69,11 +69,11 @@ public class Car implements CarValidator {
        
     public void setColour(String colour) {
         try {
-            validateColour(colour);
+            validate("colour", colour);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.colour = colour;
+        this.colour = colour.trim();
     }
     
     public String getColour() {
@@ -82,10 +82,13 @@ public class Car implements CarValidator {
     
     public void setPricePerDay(String pricePerDay) {
         try {
-            this.pricePerDay = validatePricePerDay(pricePerDay);
+            validate("pricePerDay", pricePerDay);
+        } catch (NumberFormatException e) {
+            throwErr("Invalid format of price.");
         } catch (IllegalArgumentException e) {
             throw e;
         }
+        this.pricePerDay = Float.parseFloat(pricePerDay);
     }
     
     public float getPricePerDay() {
@@ -99,5 +102,41 @@ public class Car implements CarValidator {
     public String getStatus() {
         return status;
     } 
+
+    @Override
+    public <T> void validate(String field, T value) {
+        switch (field) {
+            case "plateNum" -> {
+                String plateNum = String.valueOf(value).trim();
+                if (plateNum.isEmpty()) {
+                    throwErr("Please enter the car's plate number.");
+                }   
+                if (plateNum.contains(" ")) {
+                    throwErr("Plate number must not contain spaces, please retry.");
+                }
+            }
+            case "model" -> {
+                String model = String.valueOf(value).trim();
+                if (model.trim().isEmpty()) {
+                    throwErr("Please enter the car model.");
+                }
+            }
+            case "colour" -> {
+                String colour = String.valueOf(value).trim();
+                if (colour.trim().isEmpty()) {
+                    throwErr("Please enter colour of the car.");
+                }
+            }
+            case "pricePerDay" -> {
+                if (String.valueOf(value).trim().isEmpty()) {
+                    throwErr("Please enter price of the car.");
+                }   float pricePerDay = Float.parseFloat((String) value);
+                if (pricePerDay < 0) {
+                    throwErr("Price cannot be a negative number.");
+                }
+            }
+            default -> throwFieldErr(field);
+        }
+    }
     
 }

@@ -5,10 +5,10 @@ package com.oodj_assignment.UI.form;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-import com.oodj_assignment.Admin;
 import com.oodj_assignment.UI.menu.MainMenu;
-import com.oodj_assignment.Guest;
-import com.oodj_assignment.Member;
+import com.oodj_assignment.entity.Guest;
+import com.oodj_assignment.entity.Member;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
  * @author Jackson
  */
 public class SignupForm extends javax.swing.JFrame {
-
-    Guest guest = new Guest();
 
     public SignupForm() {
         initComponents();
@@ -241,15 +239,10 @@ public class SignupForm extends javax.swing.JFrame {
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
         try { 
-            guest.signUp(
-                fullNameTf.getText(), 
-                emailTf.getText(),
-                phoneNumTf.getText(),
-                passwordTf.getText(),
-                confirmPasswordTf.getText()
-            );
+            Member newMember = new Guest().signUp(fullNameTf.getText(), emailTf.getText(), 
+                    phoneNumTf.getText(), passwordTf.getText(), confirmPasswordTf.getText());
             dispose();
-            new Member(guest.getUserID()).viewMenu();
+            newMember.viewMenu();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         } 

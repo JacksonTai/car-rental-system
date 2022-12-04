@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
 import com.oodj_assignment.UI.menu.GuestMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.UI.JTableInserter;
+
 import javax.swing.JTable;
 
 /**
@@ -36,11 +37,11 @@ public abstract class Customer extends User {
 
     public void setFullName(String fullName) {
         try {
-            validateFullName(fullName.trim());
+            validate("fullName", fullName);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.fullName = fullName;
+        this.fullName = fullName.trim();
     }
         
     public String getFullName() {
@@ -58,5 +59,26 @@ public abstract class Customer extends User {
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
-       
+    
+    @Override
+    public <T> void validate(String field, T value) {
+        if (field.equals("fullName")) {
+            String fullName = String.valueOf(value).trim();
+            if (fullName.isEmpty()) {
+                throwErr("Please enter your full name.");
+            } 
+            if (fullName.length() < 6 || fullName.length() > 20) {
+                throwErr("Full name must contain 6 to 20 characters, please retry.");
+            }  
+            String[][] users = RecordReader.readFile("user.txt");
+            for (String[] user : users) {
+                if (user[2].equals(fullName)) {
+                    throwErr("This name has been registered. Please retry");
+                }
+            }
+        } else {
+            super.validate(field, value);
+        }
+    }    
+    
 }

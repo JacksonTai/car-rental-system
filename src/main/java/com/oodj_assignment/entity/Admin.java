@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.oodj_assignment;
+package com.oodj_assignment.entity;
 
+
+import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.CompanyReport;
 import com.oodj_assignment.UI.menu.MainMenu;

@@ -1,7 +1,7 @@
 package com.oodj_assignment.UI.menu;
  
-import com.oodj_assignment.Admin;
-import com.oodj_assignment.Car;
+import com.oodj_assignment.entity.Admin;
+import com.oodj_assignment.entity.Car;
 import com.oodj_assignment.UI.form.AddCarForm;
 import com.oodj_assignment.UI.form.EditCarForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
