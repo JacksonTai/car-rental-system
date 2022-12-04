@@ -14,7 +14,7 @@ public interface Validatable {
     
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
     
-    <T> void validate(ValidatableField field, T value);
+    <T> void validate(String field, T value);
     
     default void throwErr(String errMsg) {
         if (null != errMsg) {
@@ -22,7 +22,7 @@ public interface Validatable {
         }
     }
     
-    default void throwFieldErr(ValidatableField field) {
+    default void throwFieldErr(String field) {
         throw new IllegalArgumentException('"' + getClass().getSimpleName() + '"' + " do not have " 
                 + field + " Field."
         );

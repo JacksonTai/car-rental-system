@@ -4,6 +4,7 @@
  */
 package com.oodj_assignment.entity;
 
+
 import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.CompanyReport;

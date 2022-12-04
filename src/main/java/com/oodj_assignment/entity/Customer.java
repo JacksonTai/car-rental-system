@@ -11,7 +11,6 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.UI.JTableInserter;
 
 import javax.swing.JTable;
-import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
@@ -20,10 +19,6 @@ import com.oodj_assignment.validation.ValidatableField;
 public abstract class Customer extends User {
     
     protected String fullName;
-    
-    protected enum CustomerField implements ValidatableField {
-        FULLNAME
-    }
     
     public Customer() {
         super();
@@ -42,7 +37,7 @@ public abstract class Customer extends User {
 
     public void setFullName(String fullName) {
         try {
-            validate(CustomerField.FULLNAME, fullName);
+            validate("fullName", fullName);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -66,8 +61,8 @@ public abstract class Customer extends User {
     }
     
     @Override
-    public <T> void validate(ValidatableField field, T value) {
-        if (field.equals(CustomerField.FULLNAME)) {
+    public <T> void validate(String field, T value) {
+        if (field.equals("fullName")) {
             String fullName = String.valueOf(value).trim();
             if (fullName.isEmpty()) {
                 throwErr("Please enter your full name.");

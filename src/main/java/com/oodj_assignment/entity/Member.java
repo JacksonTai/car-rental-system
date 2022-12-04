@@ -14,18 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import com.oodj_assignment.validation.ValidatableField;
 
 public class Member extends Customer implements Logoutable {
 
     protected String email;
     protected String phoneNum;
-    
-    protected enum MemberField implements ValidatableField {
-        EMAIL,
-        PHONENUM,
-    }
-    
+
     public Member() {
         super();
     }
@@ -44,7 +38,7 @@ public class Member extends Customer implements Logoutable {
  
     public void setEmail(String email) {
         try {
-            validate(MemberField.EMAIL, email);
+            validate("email", email);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -57,7 +51,7 @@ public class Member extends Customer implements Logoutable {
     
     public void setPhoneNum(String phoneNum) {
         try {
-            validate(MemberField.PHONENUM, phoneNum);
+            validate("phoneNum", phoneNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -136,32 +130,34 @@ public class Member extends Customer implements Logoutable {
     }
     
     @Override
-    public <T> void validate(ValidatableField field, T value) {
-        if (field.equals(MemberField.EMAIL)) {
-            String email = String.valueOf(value).trim();
-            if (email.isEmpty()) {
-                throwErr("Please enter your email.");
-            } 
-            if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
-                throwErr("Invalid format of email."); 
-            } 
-            String[][] users = RecordReader.readFile("user.txt");
-            for (String[] user : users) {
-                if (user[1].equals(email)) {
-                    throwErr("Email has been taken, please try another one."); 
+    public <T> void validate(String field, T value) {
+        switch (field) {
+            case "email" -> {
+                String email = String.valueOf(value).trim();
+                if (email.isEmpty()) {
+                    throwErr("Please enter your email.");
+                }   
+                if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+                    throwErr("Invalid format of email.");
+                }   
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[1].equals(email)) {
+                        throwErr("Email has been taken, please try another one.");
+                    }
                 }
             }
-        } else if (field.equals(MemberField.PHONENUM)) {
-            String phoneNum = String.valueOf(value).trim();
-            if (phoneNum.isEmpty()) {
-                throwErr("Please enter your phone number.");
-            } 
-            if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
-                phoneNum.contains(" ")) { 
-                throwErr("Invalid phone number.");
+            case "phoneNum" -> {
+                String phoneNum = String.valueOf(value).trim();
+                if (phoneNum.isEmpty()) {
+                    throwErr("Please enter your phone number.");
+                }  
+                if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
+                        phoneNum.contains(" ")) {
+                    throwErr("Invalid phone number.");
+                }
             }
-        } else {
-            super.validate(field, value);
+            default -> super.validate(field, value);
         }
     }    
     

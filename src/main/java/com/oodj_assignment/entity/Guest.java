@@ -1,6 +1,5 @@
 package com.oodj_assignment.entity;
 
-import com.oodj_assignment.entity.Member.MemberField;
 import com.oodj_assignment.UI.menu.GuestMenu;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordWriter;
@@ -15,10 +14,10 @@ public class Guest extends Customer {
     public Member signUp(String fullName, String email, String phoneNum, String password, 
             String confirmPassword) throws Exception {
         Member newMember = new Member();
-        newMember.validate(CustomerField.FULLNAME, fullName);
-        newMember.validate(MemberField.EMAIL, email);
-        newMember.validate(MemberField.PHONENUM, phoneNum);
-        newMember.validate(UserField.PASSWORD, password);
+        newMember.validate("fullName", fullName);
+        newMember.validate("email", email);
+        newMember.validate("phoneNum", phoneNum);
+        newMember.validate("password", password);
         if (null != userID) {
             throw new Exception("This user has been signed up");
         } else if (confirmPassword.trim().isEmpty()) { 

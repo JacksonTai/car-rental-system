@@ -7,7 +7,6 @@ package com.oodj_assignment.entity;
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.validation.Validatable;
-import com.oodj_assignment.validation.ValidatableField;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -24,11 +23,6 @@ public class Booking implements Validatable {
     private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
-    
-    protected enum BookingField implements ValidatableField {
-        PICKUPDATE,
-        RETURNDATE,
-    }
     
     public Booking(Member member, Car selectedCar) {
         if (selectedCar == null) {
@@ -70,7 +64,7 @@ public class Booking implements Validatable {
     
     public void setPickupDate(String pickupDate) { 
         try {
-            validate(BookingField.PICKUPDATE, pickupDate);
+            validate("pickupDate", pickupDate);
         } catch (DateTimeParseException e) {
             throwErr("Invalid format of pick-up date.");
         } catch (IllegalArgumentException e) {
@@ -85,7 +79,7 @@ public class Booking implements Validatable {
     
     public void setReturnDate(String returnDate) {
         try {
-            validate(BookingField.RETURNDATE, returnDate);
+            validate("returnDate", returnDate);
         } catch (DateTimeParseException e) {
             throwErr("Invalid format of return date.");
         } catch (IllegalArgumentException e) {
@@ -103,21 +97,23 @@ public class Booking implements Validatable {
     }
 
     @Override
-    public <T> void validate(ValidatableField field, T value) {
-        if (field.equals(BookingField.PICKUPDATE)) {
-            String pickupDate = String.valueOf(value).trim();
-            LocalDate pickupDateObj = LocalDate.parse(pickupDate, dateTimeFormatter);
-            if (ChronoUnit.DAYS.between(LocalDate.now(), pickupDateObj) < 0) {
-                throwErr("Pick-up date must be no earlier than today.");
+    public <T> void validate(String field, T value) {
+        switch (field) {
+            case "pickupDate" -> {
+                String pickupDate = String.valueOf(value).trim();
+                LocalDate pickupDateObj = LocalDate.parse(pickupDate, dateTimeFormatter);
+                if (ChronoUnit.DAYS.between(LocalDate.now(), pickupDateObj) < 0) {
+                    throwErr("Pick-up date must be no earlier than today.");
+                }                      
             }
-        } else if (field.equals(BookingField.RETURNDATE)) {
-            String returnDate = String.valueOf(value).trim();
-            LocalDate returnDateObj = LocalDate.parse(returnDate, dateTimeFormatter);
-            if (ChronoUnit.DAYS.between(pickupDate, returnDateObj) < 0) {
-                throwErr("Return date must be no earlier than pick-up date.");
+            case "returnDate" -> {
+                String returnDate = String.valueOf(value).trim();
+                LocalDate returnDateObj = LocalDate.parse(returnDate, dateTimeFormatter);
+                if (ChronoUnit.DAYS.between(pickupDate, returnDateObj) < 0) {
+                    throwErr("Return date must be no earlier than pick-up date.");
+                }
             }
-        } else {
-            throwFieldErr(field);
+            default -> throwFieldErr(field);
         }
     }
     

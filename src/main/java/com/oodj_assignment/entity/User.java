@@ -6,7 +6,6 @@ package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.validation.Validatable;
-import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
@@ -16,11 +15,6 @@ public abstract class User implements Validatable {
     
     protected String userID;
     protected String password;
-    
-    protected enum UserField implements ValidatableField {
-        USERID,
-        PASSWORD,
-    }
     
     public User() {
     }
@@ -42,7 +36,7 @@ public abstract class User implements Validatable {
         
     public void setPassword(String password) {
         try {
-            validate(UserField.PASSWORD, password);
+            validate("password", password);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -87,8 +81,8 @@ public abstract class User implements Validatable {
     public abstract void viewMenu();
 
     @Override
-    public <T> void validate(ValidatableField field, T value) {
-        if (field.equals(UserField.PASSWORD)) {
+    public <T> void validate(String field, T value) {
+        if (field.equals("password")) {
             String password = String.valueOf(value).trim();
             if (password.isEmpty()) {
                 throwErr("Please enter your password.");

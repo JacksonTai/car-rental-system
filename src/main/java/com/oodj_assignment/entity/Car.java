@@ -6,7 +6,6 @@ package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.validation.Validatable;
-import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
@@ -19,13 +18,6 @@ public class Car implements Validatable {
     private String colour;
     private float pricePerDay;
     private String status; 
-
-    protected enum CarField implements ValidatableField {
-        PLATENUM,
-        MODEL,
-        COLOUR,
-        PRICEPERDAY
-    }
     
     public Car() {
         this.plateNum = "N/A";
@@ -51,7 +43,7 @@ public class Car implements Validatable {
     
     public void setPlateNum(String plateNum) {
         try {
-            validate(CarField.PLATENUM, plateNum);
+            validate("plateNum", plateNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -64,7 +56,7 @@ public class Car implements Validatable {
     
     public void setModel(String model) {
         try { 
-            validate(CarField.MODEL, model);
+            validate("model", model);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -77,7 +69,7 @@ public class Car implements Validatable {
        
     public void setColour(String colour) {
         try {
-            validate(CarField.COLOUR, colour);
+            validate("colour", colour);
         } catch (IllegalArgumentException e) {
             throw e;
         }
@@ -90,7 +82,7 @@ public class Car implements Validatable {
     
     public void setPricePerDay(String pricePerDay) {
         try {
-            validate(CarField.PRICEPERDAY, pricePerDay);
+            validate("pricePerDay", pricePerDay);
         } catch (NumberFormatException e) {
             throwErr("Invalid format of price.");
         } catch (IllegalArgumentException e) {
@@ -112,35 +104,38 @@ public class Car implements Validatable {
     } 
 
     @Override
-    public <T> void validate(ValidatableField field, T value) {
-        if (field.equals(CarField.PLATENUM)) {
-            String plateNum = String.valueOf(value).trim();
-            if (plateNum.isEmpty()) {
-                throwErr("Please enter the car's plate number.");
+    public <T> void validate(String field, T value) {
+        switch (field) {
+            case "plateNum" -> {
+                String plateNum = String.valueOf(value).trim();
+                if (plateNum.isEmpty()) {
+                    throwErr("Please enter the car's plate number.");
+                }   
+                if (plateNum.contains(" ")) {
+                    throwErr("Plate number must not contain spaces, please retry.");
+                }
             }
-            if (plateNum.contains(" ")) {
-                throwErr("Plate number must not contain spaces, please retry.");
+            case "model" -> {
+                String model = String.valueOf(value).trim();
+                if (model.trim().isEmpty()) {
+                    throwErr("Please enter the car model.");
+                }
             }
-        } else if (field.equals(CarField.MODEL)) {
-            String model = String.valueOf(value).trim();
-            if (model.trim().isEmpty()) {
-                throwErr("Please enter the car model.");
+            case "colour" -> {
+                String colour = String.valueOf(value).trim();
+                if (colour.trim().isEmpty()) {
+                    throwErr("Please enter colour of the car.");
+                }
             }
-        } else if (field.equals(CarField.COLOUR)) {
-            String colour = String.valueOf(value).trim();
-            if (colour.trim().isEmpty()) {
-                throwErr("Please enter colour of the car.");
-            } 
-        } else if (field.equals(CarField.PRICEPERDAY)) {
-            if (String.valueOf(value).trim().isEmpty()) {
-                throwErr("Please enter price of the car.");
+            case "pricePerDay" -> {
+                if (String.valueOf(value).trim().isEmpty()) {
+                    throwErr("Please enter price of the car.");
+                }   float pricePerDay = Float.parseFloat((String) value);
+                if (pricePerDay < 0) {
+                    throwErr("Price cannot be a negative number.");
+                }
             }
-            float pricePerDay = Float.parseFloat((String) value);
-            if (pricePerDay < 0) {
-                throwErr("Price cannot be a negative number.");
-            }
-        } else {
-            throwFieldErr(field);
+            default -> throwFieldErr(field);
         }
     }
     
