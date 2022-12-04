@@ -9,9 +9,9 @@ import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.UI.JTableInserter;
-import com.oodj_assignment.validation.Field;
 
 import javax.swing.JTable;
+import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
@@ -21,7 +21,7 @@ public abstract class Customer extends User {
     
     protected String fullName;
     
-    enum CustomerField implements Field {
+    protected enum CustomerField implements ValidatableField {
         FULLNAME
     }
     
@@ -46,7 +46,7 @@ public abstract class Customer extends User {
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.fullName = fullName;
+        this.fullName = fullName.trim();
     }
         
     public String getFullName() {
@@ -66,25 +66,24 @@ public abstract class Customer extends User {
     }
     
     @Override
-    public <T> T validate(Field field, T value) {
+    public <T> void validate(ValidatableField field, T value) {
         if (field.equals(CustomerField.FULLNAME)) {
             String fullName = String.valueOf(value).trim();
             if (fullName.isEmpty()) {
                 throwErr("Please enter your full name.");
-            } else if (fullName.length() < 6 || fullName.length() > 20) {
+            } 
+            if (fullName.length() < 6 || fullName.length() > 20) {
                 throwErr("Full name must contain 6 to 20 characters, please retry.");
-            } else {
-                String[][] users = RecordReader.readFile("user.txt");
-                for (String[] user : users) {
-                    if (user[2].equals(fullName)) {
-                        throwErr("This name has been registered. Please retry");
-                    }
-                }   
+            }  
+            String[][] users = RecordReader.readFile("user.txt");
+            for (String[] user : users) {
+                if (user[2].equals(fullName)) {
+                    throwErr("This name has been registered. Please retry");
+                }
             }
         } else {
             super.validate(field, value);
-        }   
-        return value;
+        }
     }    
     
 }

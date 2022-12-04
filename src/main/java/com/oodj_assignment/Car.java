@@ -5,13 +5,14 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.CarValidator;
+import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
  * @author Jackson
  */
-public class Car implements CarValidator {
+public class Car implements Validatable {
     
     private String plateNum;
     private String model;
@@ -19,6 +20,13 @@ public class Car implements CarValidator {
     private float pricePerDay;
     private String status; 
 
+    protected enum CarField implements ValidatableField {
+        PLATENUM,
+        MODEL,
+        COLOUR,
+        PRICEPERDAY
+    }
+    
     public Car() {
         this.plateNum = "N/A";
         this.model = "N/A";
@@ -43,11 +51,11 @@ public class Car implements CarValidator {
     
     public void setPlateNum(String plateNum) {
         try {
-            validatePlateNum(plateNum);
+            validate(CarField.PLATENUM, plateNum);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.plateNum = plateNum;
+        this.plateNum = plateNum.trim();
     }
     
     public String getPlateNum() {
@@ -56,11 +64,11 @@ public class Car implements CarValidator {
     
     public void setModel(String model) {
         try { 
-            validateModel(model);
+            validate(CarField.MODEL, model);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.model = model;
+        this.model = model.trim();
     }
     
     public String getModel() {
@@ -69,11 +77,11 @@ public class Car implements CarValidator {
        
     public void setColour(String colour) {
         try {
-            validateColour(colour);
+            validate(CarField.COLOUR, colour);
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.colour = colour;
+        this.colour = colour.trim();
     }
     
     public String getColour() {
@@ -82,10 +90,13 @@ public class Car implements CarValidator {
     
     public void setPricePerDay(String pricePerDay) {
         try {
-            this.pricePerDay = validatePricePerDay(pricePerDay);
+            validate(CarField.PRICEPERDAY, pricePerDay);
+        } catch (NumberFormatException e) {
+            throwErr("Invalid format of price.");
         } catch (IllegalArgumentException e) {
             throw e;
         }
+        this.pricePerDay = Float.parseFloat(pricePerDay);
     }
     
     public float getPricePerDay() {
@@ -99,5 +110,38 @@ public class Car implements CarValidator {
     public String getStatus() {
         return status;
     } 
+
+    @Override
+    public <T> void validate(ValidatableField field, T value) {
+        if (field.equals(CarField.PLATENUM)) {
+            String plateNum = String.valueOf(value).trim();
+            if (plateNum.isEmpty()) {
+                throwErr("Please enter the car's plate number.");
+            }
+            if (plateNum.contains(" ")) {
+                throwErr("Plate number must not contain spaces, please retry.");
+            }
+        } else if (field.equals(CarField.MODEL)) {
+            String model = String.valueOf(value).trim();
+            if (model.trim().isEmpty()) {
+                throwErr("Please enter the car model.");
+            }
+        } else if (field.equals(CarField.COLOUR)) {
+            String colour = String.valueOf(value).trim();
+            if (colour.trim().isEmpty()) {
+                throwErr("Please enter colour of the car.");
+            } 
+        } else if (field.equals(CarField.PRICEPERDAY)) {
+            if (String.valueOf(value).trim().isEmpty()) {
+                throwErr("Please enter price of the car.");
+            }
+            float pricePerDay = Float.parseFloat((String) value);
+            if (pricePerDay < 0) {
+                throwErr("Price cannot be a negative number.");
+            }
+        } else {
+            throwFieldErr(field);
+        }
+    }
     
 }

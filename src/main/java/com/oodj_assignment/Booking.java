@@ -6,15 +6,18 @@ package com.oodj_assignment;
 
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.BookingValidator;
+import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.validation.ValidatableField;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 /**
  *
  * @author KJ
  */
-public class Booking implements BookingValidator {
+public class Booking implements Validatable {
     
     private String bookingID;
     private Member member;
@@ -22,12 +25,20 @@ public class Booking implements BookingValidator {
     private LocalDate pickupDate; 
     private LocalDate returnDate;
     
+    protected enum BookingField implements ValidatableField {
+        PICKUPDATE,
+        RETURNDATE,
+    }
+    
     public Booking(Member member, Car selectedCar) {
+        if (selectedCar == null) {
+            throw new NullPointerException("\"selectedCar\" cannot be null.");
+        }
+        if (member == null) {
+            throw new NullPointerException("\"member\" cannot be null.");
+        }
         this.bookingID = IdGenerator.generate("bkg-");
         this.member = member;
-        if (selectedCar == null) {
-            throw new NullPointerException("Car cannot be null.");
-        }
         this.selectedCar = selectedCar;
     }
     
@@ -59,10 +70,13 @@ public class Booking implements BookingValidator {
     
     public void setPickupDate(String pickupDate) { 
         try {
-            this.pickupDate = validatePickupDate(pickupDate);
+            validate(BookingField.PICKUPDATE, pickupDate);
+        } catch (DateTimeParseException e) {
+            throwErr("Invalid format of pick-up date.");
         } catch (IllegalArgumentException e) {
             throw e;
         }
+        this.pickupDate = LocalDate.parse(pickupDate, dateTimeFormatter);
     }
     
     public LocalDate getPickupDate() {
@@ -71,10 +85,13 @@ public class Booking implements BookingValidator {
     
     public void setReturnDate(String returnDate) {
         try {
-            this.returnDate = validateReturnDate(returnDate, pickupDate);
+            validate(BookingField.RETURNDATE, returnDate);
+        } catch (DateTimeParseException e) {
+            throwErr("Invalid format of return date.");
         } catch (IllegalArgumentException e) {
             throw e;
         }
+        this.returnDate = LocalDate.parse(returnDate, dateTimeFormatter);
     }
     
     public LocalDate getReturnDate() {
@@ -83,6 +100,25 @@ public class Booking implements BookingValidator {
     
     public int getRentDuration() {
         return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
+    }
+
+    @Override
+    public <T> void validate(ValidatableField field, T value) {
+        if (field.equals(BookingField.PICKUPDATE)) {
+            String pickupDate = String.valueOf(value).trim();
+            LocalDate pickupDateObj = LocalDate.parse(pickupDate, dateTimeFormatter);
+            if (ChronoUnit.DAYS.between(LocalDate.now(), pickupDateObj) < 0) {
+                throwErr("Pick-up date must be no earlier than today.");
+            }
+        } else if (field.equals(BookingField.RETURNDATE)) {
+            String returnDate = String.valueOf(value).trim();
+            LocalDate returnDateObj = LocalDate.parse(returnDate, dateTimeFormatter);
+            if (ChronoUnit.DAYS.between(pickupDate, returnDateObj) < 0) {
+                throwErr("Return date must be no earlier than pick-up date.");
+            }
+        } else {
+            throwFieldErr(field);
+        }
     }
     
 }

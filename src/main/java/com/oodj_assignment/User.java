@@ -5,8 +5,8 @@
 package com.oodj_assignment;
 
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.Field;
 import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.validation.ValidatableField;
 
 /**
  *
@@ -17,7 +17,7 @@ public abstract class User implements Validatable {
     protected String userID;
     protected String password;
     
-    enum UserField implements Field {
+    protected enum UserField implements ValidatableField {
         USERID,
         PASSWORD,
     }
@@ -46,7 +46,7 @@ public abstract class User implements Validatable {
         } catch (IllegalArgumentException e) {
             throw e;
         }
-        this.password = password;
+        this.password = password.trim();
     }
     
     public String getPassword() {
@@ -87,20 +87,21 @@ public abstract class User implements Validatable {
     public abstract void viewMenu();
 
     @Override
-    public <T> T validate(Field field, T value) {
+    public <T> void validate(ValidatableField field, T value) {
         if (field.equals(UserField.PASSWORD)) {
             String password = String.valueOf(value).trim();
             if (password.isEmpty()) {
                 throwErr("Please enter your password.");
-            } else if (password.length() < 8 || password.length() > 64) {
+            } 
+            if (password.length() < 8 || password.length() > 64) {
                 throwErr("Password must contain 8 to 64 characters, please retry.");
-            } else if (password.contains(" ")) {
+            } 
+            if (password.contains(" ")) {
                 throwErr("Password must not contain spaces, please retry.");
             }
         } else {
-            throwErr("Field not found!");
-        }   
-        return value;
+            throwFieldErr(field);
+        }
     }
 
 }

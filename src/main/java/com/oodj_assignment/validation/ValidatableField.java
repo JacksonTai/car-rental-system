@@ -8,6 +8,6 @@ package com.oodj_assignment.validation;
  *
  * @author Jackson
  */
-public interface Field {
+public interface ValidatableField {
     
 }
