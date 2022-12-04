@@ -6,7 +6,7 @@ package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.IdGenerator;
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.Validatable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

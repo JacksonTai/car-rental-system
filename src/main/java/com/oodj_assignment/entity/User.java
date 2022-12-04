@@ -5,7 +5,7 @@
 package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.validation.Validatable;
+import com.oodj_assignment.Validatable;
 
 /**
  *
