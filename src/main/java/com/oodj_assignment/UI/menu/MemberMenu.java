@@ -22,7 +22,8 @@ public class MemberMenu extends javax.swing.JFrame {
         this();
         this.member = member;
         adminDashboardTitle.setText("Welcome " + member.getFullName()+ "!");  
-        JBtnActivator = new JButtonActivator(new JButton[] {bookCarBtn, bookHistoryBtn});
+        JButton[] memberMenuBtns = new JButton[] {bookCarBtn, myBookingBtn, bookHistoryBtn};
+        JBtnActivator = new JButtonActivator(memberMenuBtns);
         JBtnActivator.activateBtn(bookCarBtn);
         member.viewCar();
     }
@@ -41,6 +42,7 @@ public class MemberMenu extends javax.swing.JFrame {
         bookCarBtn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         bookHistoryBtn = new javax.swing.JButton();
+        myBookingBtn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         memberTable = new javax.swing.JTable();
@@ -97,6 +99,16 @@ public class MemberMenu extends javax.swing.JFrame {
             }
         });
 
+        myBookingBtn.setBackground(new java.awt.Color(255, 255, 255));
+        myBookingBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        myBookingBtn.setText("My Booking");
+        myBookingBtn.setFocusPainted(false);
+        myBookingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myBookingBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -105,7 +117,8 @@ public class MemberMenu extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(bookCarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookHistoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bookHistoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(myBookingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,9 +130,11 @@ public class MemberMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(168, 168, 168)
                 .addComponent(bookCarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bookHistoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(myBookingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(bookHistoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
         );
@@ -263,6 +278,10 @@ public class MemberMenu extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         member.logout(this);
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void myBookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myBookingBtnActionPerformed
+        JBtnActivator.activateBtn(myBookingBtn);
+    }//GEN-LAST:event_myBookingBtnActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -309,6 +328,7 @@ public class MemberMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
     private static javax.swing.JTable memberTable;
+    private javax.swing.JButton myBookingBtn;
     private javax.swing.JButton nextBtn;
     // End of variables declaration//GEN-END:variables
 }

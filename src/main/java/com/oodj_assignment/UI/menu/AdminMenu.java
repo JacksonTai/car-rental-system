@@ -23,7 +23,8 @@ public class AdminMenu extends javax.swing.JFrame {
         this();
         this.admin = admin;
         recordsComboBox.setVisible(false);
-        JBtnActivator = new JButtonActivator(new JButton [] {carManagementBtn, recordsBtn,});
+        JButton[] adminMenuBtns = new JButton [] {carManagementBtn, bookingManagementBtn,recordsBtn};
+        JBtnActivator = new JButtonActivator(adminMenuBtns);
         JBtnActivator.activateBtn(carManagementBtn);
         admin.viewRecord("car");
     }
@@ -43,6 +44,7 @@ public class AdminMenu extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         recordsBtn = new javax.swing.JButton();
         companyReportBtn = new javax.swing.JButton();
+        bookingManagementBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         adminDashboardTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -111,6 +113,16 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
+        bookingManagementBtn.setBackground(new java.awt.Color(255, 255, 255));
+        bookingManagementBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        bookingManagementBtn.setText("Booking Management");
+        bookingManagementBtn.setFocusPainted(false);
+        bookingManagementBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingManagementBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -121,22 +133,26 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(carManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(recordsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(companyReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(carManagementBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(recordsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(companyReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bookingManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(168, 168, 168)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(carManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(bookingManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addComponent(recordsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(companyReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(73, 73, 73)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -346,6 +362,10 @@ public class AdminMenu extends javax.swing.JFrame {
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         admin.logout(this);
     }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void bookingManagementBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingManagementBtnActionPerformed
+        JBtnActivator.activateBtn(bookingManagementBtn);
+    }//GEN-LAST:event_bookingManagementBtnActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -383,6 +403,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JButton addBtn;
     private javax.swing.JLabel adminDashboardTitle;
     private static javax.swing.JTable adminTable;
+    private javax.swing.JButton bookingManagementBtn;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JButton companyReportBtn;
     private javax.swing.JButton deleteBtn;
