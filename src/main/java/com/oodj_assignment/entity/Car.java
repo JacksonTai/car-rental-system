@@ -11,18 +11,17 @@ import com.oodj_assignment.Validatable;
  *
  * @author Jackson
  */
-public class Car implements Validatable {
+public class Car extends Vehicle implements Validatable {
     
     private String plateNum;
     private String model;
-    private String colour;
     private float pricePerDay;
     private String status; 
     
     public Car() {
+        super("N/A");
         this.plateNum = "N/A";
         this.model = "N/A";
-        this.colour = "N/A";
         this.pricePerDay = 0;
         this.status = "Available";
     }
@@ -66,19 +65,6 @@ public class Car implements Validatable {
     public String getModel() {
         return model;
     }
-       
-    public void setColour(String colour) {
-        try {
-            validate("colour", colour);
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
-        this.colour = colour.trim();
-    }
-    
-    public String getColour() {
-        return colour;
-    }
     
     public void setPricePerDay(String pricePerDay) {
         try {
@@ -121,21 +107,16 @@ public class Car implements Validatable {
                     throwErr("Please enter the car model.");
                 }
             }
-            case "colour" -> {
-                String colour = String.valueOf(value).trim();
-                if (colour.trim().isEmpty()) {
-                    throwErr("Please enter colour of the car.");
-                }
-            }
             case "pricePerDay" -> {
                 if (String.valueOf(value).trim().isEmpty()) {
                     throwErr("Please enter price of the car.");
-                }   float pricePerDay = Float.parseFloat((String) value);
+                }   
+                float pricePerDay = Float.parseFloat((String) value);
                 if (pricePerDay < 0) {
                     throwErr("Price cannot be a negative number.");
                 }
             }
-            default -> throwFieldErr(field);
+            default -> super.validate(field, value);
         }
     }
     

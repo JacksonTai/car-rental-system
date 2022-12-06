@@ -7,6 +7,8 @@ package com.oodj_assignment.helper;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Helper class for writing records into text file.
@@ -14,7 +16,7 @@ import java.io.IOException;
 public class RecordWriter {
     
     /**
-     * Write records to specified text file.
+     * Write array of string records to specified text file.
      * @param records records to store in text file.
      * @param fileName text file in which the records will be stored.
      */
@@ -27,12 +29,12 @@ public class RecordWriter {
             bw.write("\n");
             bw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(RecordWriter.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     
     /**
-     * Write records to specified text file.
+     * Write multidimensional array of string records to specified text file.
      * @param records records to overwrite to the text file.
      * @param fileName text file in which the records will be stored.
      */
@@ -41,12 +43,12 @@ public class RecordWriter {
     }
     
     /**
-     * Write records to specified text file.
+     * Write array of string records to specified text file.
      * @param records records to store in text file.
      * @param fileName text file in which the records will be stored.
      * @param overwrite true = replace all existing records with the records.
      */
-    public static void write(String[][] records, String fileName, boolean overwrite) {
+    public static void write(String[][] records, String fileName, boolean overwrite){
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileName, !overwrite));
             for (String [] record : records) {
@@ -57,7 +59,7 @@ public class RecordWriter {
             }
             bw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(RecordWriter.class.getName()).log(Level.SEVERE, null, e);
         }
     }
     

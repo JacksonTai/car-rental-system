@@ -6,7 +6,6 @@ import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
-import com.oodj_assignment.helper.RegexHelper;
 import com.oodj_assignment.helper.UI.JTableInserter;
 
 import java.time.LocalDate;
@@ -136,8 +135,8 @@ public class Member extends Customer implements Logoutable {
                 String email = String.valueOf(value).trim();
                 if (email.isEmpty()) {
                     throwErr("Please enter your email.");
-                }   
-                if (!RegexHelper.check(email, "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+                }
+                if (!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
                     throwErr("Invalid format of email.");
                 }   
                 String[][] users = RecordReader.readFile("user.txt");
@@ -151,9 +150,8 @@ public class Member extends Customer implements Logoutable {
                 String phoneNum = String.valueOf(value).trim();
                 if (phoneNum.isEmpty()) {
                     throwErr("Please enter your phone number.");
-                }  
-                if (!RegexHelper.check(phoneNum, "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") ||
-                        phoneNum.contains(" ")) {
+                }
+                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") || phoneNum.contains(" ")) {
                     throwErr("Invalid phone number.");
                 }
             }
