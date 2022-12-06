@@ -130,7 +130,8 @@ public class Car implements Validatable {
             case "pricePerDay" -> {
                 if (String.valueOf(value).trim().isEmpty()) {
                     throwErr("Please enter price of the car.");
-                }   float pricePerDay = Float.parseFloat((String) value);
+                }   
+                float pricePerDay = Float.parseFloat((String) value);
                 if (pricePerDay < 0) {
                     throwErr("Price cannot be a negative number.");
                 }
