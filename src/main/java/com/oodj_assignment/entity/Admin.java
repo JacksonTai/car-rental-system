@@ -87,7 +87,6 @@ public class Admin extends User implements Logoutable {
             String.valueOf(selectedCar.getPricePerDay()), 
             selectedCar.getStatus()
         }, "car.txt");
-        
     }
     
     public void deleteCar(Car selectedCar) {
