@@ -88,6 +88,7 @@ public class GuestMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        guestTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(guestTable);
 
         backBtn1.setBackground(new java.awt.Color(255, 255, 255));

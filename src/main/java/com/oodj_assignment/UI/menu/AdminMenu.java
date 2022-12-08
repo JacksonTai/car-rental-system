@@ -161,6 +161,7 @@ public class AdminMenu extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        adminTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(adminTable);
 
         addBtn.setBackground(new java.awt.Color(255, 255, 255));

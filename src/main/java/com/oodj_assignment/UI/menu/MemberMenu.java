@@ -151,6 +151,7 @@ public class MemberMenu extends javax.swing.JFrame {
             }
         });
         memberTable.setMinimumSize(new java.awt.Dimension(642, 64));
+        memberTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(memberTable);
         if (memberTable.getColumnModel().getColumnCount() > 0) {
             memberTable.getColumnModel().getColumn(0).setResizable(false);
