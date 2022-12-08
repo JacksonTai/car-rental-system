@@ -77,9 +77,9 @@ public abstract class Customer extends User {
     }
        
     @Override
-    public <T> void validate(String field, T value) {
+    public void validate(String field, String value) {
         if (field.equals("fullName")) {
-            String fullName = String.valueOf(value).trim();
+            String fullName = value.trim();
             if (fullName.isEmpty()) {
                 throwErr("Please enter your full name.");
             } 

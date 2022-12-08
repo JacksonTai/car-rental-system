@@ -90,10 +90,10 @@ public class Car extends Vehicle implements Validatable {
     } 
 
     @Override
-    public <T> void validate(String field, T value) {
+    public void validate(String field, String value) {
         switch (field) {
             case "plateNum" -> {
-                String plateNum = String.valueOf(value).trim();
+                String plateNum = value.trim();
                 if (plateNum.isEmpty()) {
                     throwErr("Please enter the car's plate number.");
                 }   
@@ -102,19 +102,19 @@ public class Car extends Vehicle implements Validatable {
                 }
             }
             case "model" -> {
-                String model = String.valueOf(value).trim();
+                String model = value.trim();
                 if (model.trim().isEmpty()) {
                     throwErr("Please enter the car model.");
                 }
             }
             case "pricePerDay" -> {
-                if (String.valueOf(value).trim().isEmpty()) {
+                if (value.trim().isEmpty()) {
                     throwErr("Please enter price of the car.");
                 }   
-                if (!String.valueOf(value).trim().matches("^\\d{0,8}(\\.\\d{1,2})?$")) {
+                if (!value.trim().matches("^\\d{0,8}(\\.\\d{1,2})?$")) {
                     throwErr("Invalid price format, please retry.");
                 }
-                float pricePerDay = Float.parseFloat((String) value);
+                float pricePerDay = Float.parseFloat(value);
                 if (pricePerDay < 0) {
                     throwErr("Price cannot be a negative number.");
                 }

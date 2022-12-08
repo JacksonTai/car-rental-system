@@ -28,9 +28,9 @@ public class Vehicle implements Validatable {
     }
     
     @Override
-    public <T> void validate(String field, T value) {
+    public void validate(String field, String value) {
         if (field.equals("colour")) {
-            String colour = String.valueOf(value).trim();
+            String colour = value.trim();
             if (colour.trim().isEmpty()) {
                 throwErr("Please enter colour of the car.");
             }
