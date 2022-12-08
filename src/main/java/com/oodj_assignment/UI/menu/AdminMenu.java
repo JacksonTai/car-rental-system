@@ -331,6 +331,9 @@ public class AdminMenu extends javax.swing.JFrame {
     private void recordsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsBtnActionPerformed
         JBtnActivator.activateBtn(recordsBtn);
         recordsComboBox.setVisible(true); 
+        searchTf.setVisible(false);
+        clearBtn.setVisible(false);
+        searchBtn.setVisible(false);
         addBtn.setVisible(false);
         manageBtn.setVisible(false);
         admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
