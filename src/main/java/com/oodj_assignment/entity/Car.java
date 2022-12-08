@@ -111,6 +111,9 @@ public class Car extends Vehicle implements Validatable {
                 if (String.valueOf(value).trim().isEmpty()) {
                     throwErr("Please enter price of the car.");
                 }   
+                if (!String.valueOf(value).trim().matches("^\\d{0,8}(\\.\\d{1,2})?$")) {
+                    throwErr("Invalid price format, please retry.");
+                }
                 float pricePerDay = Float.parseFloat((String) value);
                 if (pricePerDay < 0) {
                     throwErr("Price cannot be a negative number.");
