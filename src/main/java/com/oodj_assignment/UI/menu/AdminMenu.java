@@ -3,7 +3,6 @@ package com.oodj_assignment.UI.menu;
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.entity.Car;
 import com.oodj_assignment.UI.form.AddCarForm;
-import com.oodj_assignment.UI.form.EditCarForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
@@ -308,20 +307,26 @@ public class AdminMenu extends javax.swing.JFrame {
     private void carManagementBtnActivated() {
         JBtnActivator.activateBtn(carManagementBtn);
         recordsComboBox.setVisible(false);
+        searchTf.setVisible(true);
+        clearBtn.setVisible(true);
+        searchBtn.setVisible(true);
         addBtn.setVisible(true);    
+        manageBtn.setVisible(true);
         admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
 
     private void recordsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordsBtnActionPerformed
         JBtnActivator.activateBtn(recordsBtn);
         recordsComboBox.setVisible(true); 
+        searchTf.setVisible(false);
+        clearBtn.setVisible(false);
+        searchBtn.setVisible(false);
         addBtn.setVisible(false);
+        manageBtn.setVisible(false);
         admin.viewRecord(String.valueOf(recordsComboBox.getSelectedItem()));
     }//GEN-LAST:event_recordsBtnActionPerformed
 
     private void companyReportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyReportBtnActionPerformed
-        recordsComboBox.setVisible(false);
-        addBtn.setVisible(false);
         dispose();
         admin.viewCompanyReport();
     }//GEN-LAST:event_companyReportBtnActionPerformed
