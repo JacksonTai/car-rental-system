@@ -4,7 +4,6 @@
  */
 package com.oodj_assignment.entity;
 
-
 import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.CompanyReport;
@@ -14,6 +13,8 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JTable;
@@ -66,8 +67,34 @@ public class Admin extends User implements Logoutable {
         }    
     }
     
-    public void viewCompanyReport(){
+    public void viewCompanyReport() {
         new CompanyReport(this).setVisible(true);
+    }
+    
+    public void viewBookingRequest() {
+        String[] field = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
+            "Duration(Day)", "Price/Day", "Total price", "Status"};
+        String[][] bookingRecords = RecordReader.readFile("booking.txt");
+        List<String[]> bookingRequests = new ArrayList();
+        if (bookingRecords.length > 0) {
+            for (String[] bookingRecord : bookingRecords) {
+                if (bookingRecord[5].equals(Booking.Status.PENDING.name())) {
+                    Booking booking = new Booking(bookingRecord[0]);
+                    bookingRequests.add(new String[] {
+                        booking.getBookingID(),
+                        booking.getSelectedCar().getPlateNum(),
+                        booking.getPickupDate().toString(),
+                        booking.getReturnDate().toString(),
+                        String.valueOf(booking.getRentDuration()),
+                        String.valueOf(booking.getSelectedCar().getPricePerDay()),
+                        String.valueOf(booking.getTotalPrice()),
+                        booking.getStatus().name()
+                    });
+                }
+            }    
+        }
+        JTable adminTable = AdminMenu.getTable();
+        JTableInserter.insert(field, bookingRequests.toArray(new String[0][]), adminTable); 
     }
     
     public void addCar(Car newCar) {

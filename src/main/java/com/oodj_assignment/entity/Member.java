@@ -114,14 +114,14 @@ public class Member extends Customer implements Logoutable {
         String[] field = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
             "Duration(Day)", "Price/Day", "Total price", "Status"};
         String[][] bookingRecords = RecordReader.readFile("booking.txt");
-        List<String[]> bookingHistories = new ArrayList();
+        List<String[]> bookingRequests = new ArrayList();
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
                 if (bookingRecord[1].equals(userID) && 
                         bookingRecord[5].equals(Status.PENDING.name()) || 
                         bookingRecord[5].equals(Status.APPROVED.name())) {
                     Booking booking = new Booking(bookingRecord[0]);
-                    bookingHistories.add(new String[] {
+                    bookingRequests.add(new String[] {
                         booking.getBookingID(),
                         booking.getSelectedCar().getPlateNum(),
                         booking.getPickupDate().toString(),
@@ -135,7 +135,7 @@ public class Member extends Customer implements Logoutable {
             }    
         }
         JTable memberTable = MemberMenu.getTable();
-        JTableInserter.insert(field, bookingHistories.toArray(new String[0][]), memberTable); 
+        JTableInserter.insert(field, bookingRequests.toArray(new String[0][]), memberTable); 
     }
     
     public void viewBookingHistory() {

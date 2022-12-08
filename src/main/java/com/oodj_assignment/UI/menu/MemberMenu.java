@@ -6,10 +6,12 @@ import com.oodj_assignment.entity.Member;
 import com.oodj_assignment.UI.form.BookingForm;
 import com.oodj_assignment.UI.form.PaymentForm;
 import com.oodj_assignment.entity.Booking;
+import com.oodj_assignment.entity.Booking.Status;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -387,8 +389,13 @@ public class MemberMenu extends javax.swing.JFrame {
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         try {
             String[] bookingRecord = JTableSelector.selectRow(memberTable);
-            dispose();
-            new PaymentForm(member, new Booking(bookingRecord[0])).setVisible(true);
+            Booking selectedBooking = new Booking(bookingRecord[0]);
+            if (Status.APPROVED == selectedBooking.getStatus()) {
+                dispose();
+                new PaymentForm(member, selectedBooking).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Kindly wait for the booking to be approved.");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Please select the booking in table to pay.");
         }
