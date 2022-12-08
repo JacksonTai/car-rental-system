@@ -1,3 +1,5 @@
-JI1230|Myvi|grey|203.5|N/A|
+JI1230|Myvi|grey|203.5|Available|
 WE1231|BMW|blue|342.0|Available|
-JU1231B|Axia|yellow|145.67|N/A|
+JU1231B|Axia|yellow|145.67|Available|
+WU1932B|Axia|red|150.99|Available|
+PK2236B|Axia|grey|145.50|Available|

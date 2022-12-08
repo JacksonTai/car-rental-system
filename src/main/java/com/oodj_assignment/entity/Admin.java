@@ -14,6 +14,7 @@ import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
 import com.oodj_assignment.helper.UI.JTableInserter;
+
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -98,6 +99,24 @@ public class Admin extends User implements Logoutable {
         } 
         RecordWriter.write(cars, "car.txt", true);
     }
+    
+    @Override
+    public void searchCar(String keyword) {
+        keyword = keyword.trim().toUpperCase();
+        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day", "Status"};
+        String[][] carsInfo = RecordReader.readFile("car.txt");
+        if (!"E.G. AXIA/(PLATE NUMBER)".equals(keyword)) {
+            for (String[] carInfo : carsInfo) {
+                String plateNum = carInfo[0].toUpperCase();
+                String model = carInfo[1].toUpperCase();
+                if (!model.contains(keyword) || !plateNum.contains(keyword)) {
+                    carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
+                }
+            }
+        }
+        JTable adminTable = AdminMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, adminTable);
+    }    
    
     @Override
     public void logout(JFrame adminMenu) {

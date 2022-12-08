@@ -59,7 +59,24 @@ public abstract class Customer extends User {
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
-    
+
+    @Override
+    public void searchCar(String keyword) {
+        keyword = keyword.trim().toUpperCase();
+        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
+        String[][] carsInfo = RecordReader.readFile("car.txt");
+        if (!"E.G. AXIA".equals(keyword)) {
+            for (String[] carInfo : carsInfo) {
+                String model = carInfo[1].toUpperCase();
+                if (!model.contains(keyword)) {
+                    carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
+                }
+            }
+        }
+        JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, customerTable);
+    }
+       
     @Override
     public <T> void validate(String field, T value) {
         if (field.equals("fullName")) {

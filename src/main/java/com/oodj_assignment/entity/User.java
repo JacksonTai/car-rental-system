@@ -80,6 +80,8 @@ public abstract class User implements Validatable {
      
     public abstract void viewMenu();
 
+    public abstract void searchCar(String keyword);
+    
     @Override
     public <T> void validate(String field, T value) {
         if (field.equals("password")) {
