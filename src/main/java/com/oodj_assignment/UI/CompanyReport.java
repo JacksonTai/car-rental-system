@@ -52,15 +52,17 @@ public class CompanyReport extends javax.swing.JFrame {
         String[][] bookings = RecordReader.readFile("booking.txt");
         int totalBooking = bookings.length;
         totalBookingTf.setText(String.valueOf(totalBooking));
-        float totalProfit = 0;
+        double totalProfit = 0;
         String[][] payments = RecordReader.readFile("payment.txt");
         for (String[] payment : payments) {
             totalProfit += Float.parseFloat(payment[3]);
         }
+        totalProfit = (double) Math.round(totalProfit * 100) / 100;
         totalProfitTf.setText("RM" + String.valueOf(totalProfit));
-        averageProfitTf.setText("RM" + String.valueOf(totalProfit / totalBooking));
+        double averageProfit = (double) Math.round((totalProfit / totalBooking) * 100) / 100;
+        averageProfitTf.setText("RM" + String.valueOf(averageProfit));
     }
-    
+            
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +89,7 @@ public class CompanyReport extends javax.swing.JFrame {
         averageProfitTf = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        backBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,14 +183,13 @@ public class CompanyReport extends javax.swing.JFrame {
 
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        backBtn.setBackground(new java.awt.Color(255, 255, 255));
-        backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        backBtn.setText("Back");
-        backBtn.setBorder(null);
-        backBtn.setFocusPainted(false);
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setBackground(new java.awt.Color(255, 255, 255));
+        logoutBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        logoutBtn.setText("Back");
+        logoutBtn.setFocusPainted(false);
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
 
@@ -234,8 +235,8 @@ public class CompanyReport extends javax.swing.JFrame {
                         .addGap(242, 242, 242)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(362, 362, 362)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(351, 351, 351)
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -283,9 +284,9 @@ public class CompanyReport extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(averageProfitTf)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(29, 29, 29)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -308,10 +309,10 @@ public class CompanyReport extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         dispose();
         admin.viewMenu();
-    }//GEN-LAST:event_backBtnActionPerformed
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -351,7 +352,6 @@ public class CompanyReport extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField averageProfitTf;
-    private javax.swing.JButton backBtn;
     private javax.swing.JTextField carAvailableTf;
     private javax.swing.JTextField carRentedOutTf;
     private javax.swing.JLabel jLabel1;
@@ -369,6 +369,7 @@ public class CompanyReport extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton logoutBtn;
     private javax.swing.JTextField totalBookingTf;
     private javax.swing.JTextField totalCarTf;
     private javax.swing.JTextField totalCustomerTf;

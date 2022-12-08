@@ -6,6 +6,7 @@ package com.oodj_assignment.UI.menu;
 
 import com.oodj_assignment.entity.Guest;
 import com.oodj_assignment.UI.form.SignupForm;
+import java.awt.Color;
 import javax.swing.JTable;
 
 /**
@@ -36,6 +37,9 @@ public class GuestMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         guestTable = new javax.swing.JTable();
         backBtn1 = new javax.swing.JButton();
+        searchTf = new javax.swing.JTextField();
+        clearBtn = new javax.swing.JButton();
+        searchBtn = new javax.swing.JButton();
 
         backBtn.setBackground(new java.awt.Color(255, 255, 255));
         backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -84,6 +88,7 @@ public class GuestMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        guestTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(guestTable);
 
         backBtn1.setBackground(new java.awt.Color(255, 255, 255));
@@ -97,40 +102,85 @@ public class GuestMenu extends javax.swing.JFrame {
             }
         });
 
+        searchTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        searchTf.setForeground(new java.awt.Color(153, 153, 153));
+        searchTf.setText("   e.g. Axia");
+        searchTf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTfFocusLost(evt);
+            }
+        });
+
+        clearBtn.setBackground(new java.awt.Color(255, 255, 255));
+        clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        clearBtn.setText("Clear");
+        clearBtn.setFocusPainted(false);
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
+        searchBtn.setBackground(new java.awt.Color(255, 255, 255));
+        searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        searchBtn.setText("Search");
+        searchBtn.setFocusPainted(false);
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(232, 232, 232)
-                .addComponent(rentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                .addContainerGap(161, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title)
+                .addGap(218, 218, 218))
+            .addGroup(backgroundLayout.createSequentialGroup()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                        .addComponent(title)
-                        .addGap(218, 218, 218))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(137, 137, 137))))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 215, 215)
+                        .addComponent(rentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(searchTf)
+                                .addGap(18, 18, 18)
+                                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addContainerGap(375, Short.MAX_VALUE)
-                .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
-            .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(rentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addComponent(backBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addComponent(rentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,7 +191,9 @@ public class GuestMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,6 +208,32 @@ public class GuestMenu extends javax.swing.JFrame {
         dispose();
         new MainMenu().show();
     }//GEN-LAST:event_backBtn1ActionPerformed
+
+    private void searchTfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTfFocusGained
+        if ("   e.g. Axia".equals(searchTf.getText())) {
+            searchTf.setText("");
+            searchTf.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_searchTfFocusGained
+
+    private void searchTfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTfFocusLost
+        if ("".equals(searchTf.getText().trim())) {
+            searchTf.setText("   e.g. Axia");
+            searchTf.setForeground(new Color(153, 153, 153));
+        } else {
+            searchTf.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_searchTfFocusLost
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        searchTf.setText("   e.g. Axia");
+        searchTf.setForeground(new Color(153, 153, 153));
+        guest.searchCar(searchTf.getText());
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        guest.searchCar(searchTf.getText());
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,9 +275,12 @@ public class GuestMenu extends javax.swing.JFrame {
     private javax.swing.JButton backBtn;
     private javax.swing.JButton backBtn1;
     private javax.swing.JPanel background;
+    private javax.swing.JButton clearBtn;
     private static javax.swing.JTable guestTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton rentBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchTf;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

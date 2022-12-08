@@ -5,6 +5,8 @@ import com.oodj_assignment.entity.Member;
 import com.oodj_assignment.UI.form.BookingForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
+
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -47,6 +49,9 @@ public class MemberMenu extends javax.swing.JFrame {
         adminDashboardTitle = new javax.swing.JLabel();
         nextBtn = new javax.swing.JButton();
         bookCarHintLabel = new javax.swing.JLabel();
+        searchTf = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
+        clearBtn = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(58, 63, 84));
 
@@ -145,6 +150,8 @@ public class MemberMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        memberTable.setMinimumSize(new java.awt.Dimension(642, 64));
+        memberTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(memberTable);
         if (memberTable.getColumnModel().getColumnCount() > 0) {
             memberTable.getColumnModel().getColumn(0).setResizable(false);
@@ -169,25 +176,60 @@ public class MemberMenu extends javax.swing.JFrame {
         bookCarHintLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bookCarHintLabel.setText("# Click the one of the row in the table to select your desired car  : ) ");
 
+        searchTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        searchTf.setForeground(new java.awt.Color(153, 153, 153));
+        searchTf.setText("   e.g. Axia");
+        searchTf.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTfFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTfFocusLost(evt);
+            }
+        });
+
+        searchBtn.setBackground(new java.awt.Color(255, 255, 255));
+        searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        searchBtn.setText("Search");
+        searchBtn.setFocusPainted(false);
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+
+        clearBtn.setBackground(new java.awt.Color(255, 255, 255));
+        clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        clearBtn.setText("Clear");
+        clearBtn.setFocusPainted(false);
+        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(adminDashboardTitle)
-                .addGap(385, 385, 385))
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adminDashboardTitle)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(bookCarHintLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
-                            .addComponent(bookCarHintLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(299, 299, 299)
-                        .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(327, 327, 327))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,11 +238,16 @@ public class MemberMenu extends javax.swing.JFrame {
                 .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookCarHintLabel)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -224,9 +271,7 @@ public class MemberMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,6 +284,9 @@ public class MemberMenu extends javax.swing.JFrame {
     private void bookCarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookCarBtnActionPerformed
         JBtnActivator.activateBtn(bookCarBtn);
         bookCarHintLabel.setVisible(true);
+        searchTf.setVisible(true);
+        clearBtn.setVisible(true);
+        searchBtn.setVisible(true);
         nextBtn.setVisible(true);
         member.viewCar();
     }//GEN-LAST:event_bookCarBtnActionPerformed
@@ -246,9 +294,42 @@ public class MemberMenu extends javax.swing.JFrame {
     private void bookHistoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookHistoryBtnActionPerformed
         JBtnActivator.activateBtn(bookHistoryBtn);
         bookCarHintLabel.setVisible(false);
+        searchTf.setVisible(false);
+        clearBtn.setVisible(false);
+        searchBtn.setVisible(false);
         nextBtn.setVisible(false);
         member.viewBookingHistory();
     }//GEN-LAST:event_bookHistoryBtnActionPerformed
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        member.logout(this);
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
+        searchTf.setText("   e.g. Axia");
+        searchTf.setForeground(new Color(153, 153, 153));
+        member.searchCar(searchTf.getText());
+    }//GEN-LAST:event_clearBtnActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        member.searchCar(searchTf.getText());
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void searchTfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTfFocusLost
+        if ("".equals(searchTf.getText().trim())) {
+            searchTf.setText("   e.g. Axia");
+            searchTf.setForeground(new Color(153, 153, 153));
+        }  else {
+            searchTf.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_searchTfFocusLost
+
+    private void searchTfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTfFocusGained
+        if ("   e.g. Axia".equals(searchTf.getText())) {
+            searchTf.setText("");
+            searchTf.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_searchTfFocusGained
 
     private void nextBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextBtnActionPerformed
         try {
@@ -259,10 +340,6 @@ public class MemberMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
         }
     }//GEN-LAST:event_nextBtnActionPerformed
-
-    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        member.logout(this);
-    }//GEN-LAST:event_logoutBtnActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -302,6 +379,7 @@ public class MemberMenu extends javax.swing.JFrame {
     private javax.swing.JButton bookCarBtn;
     private javax.swing.JLabel bookCarHintLabel;
     private javax.swing.JButton bookHistoryBtn;
+    private javax.swing.JButton clearBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -310,5 +388,7 @@ public class MemberMenu extends javax.swing.JFrame {
     private javax.swing.JButton logoutBtn;
     private static javax.swing.JTable memberTable;
     private javax.swing.JButton nextBtn;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchTf;
     // End of variables declaration//GEN-END:variables
 }

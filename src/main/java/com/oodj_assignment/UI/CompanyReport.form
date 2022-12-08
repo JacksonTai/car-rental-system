@@ -98,8 +98,8 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="362" max="-2" attributes="0"/>
-                          <Component id="backBtn" min="-2" pref="91" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="351" max="-2" attributes="0"/>
+                          <Component id="logoutBtn" min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -158,9 +158,9 @@
                       <Component id="averageProfitTf" alignment="3" max="32767" attributes="0"/>
                       <Component id="jLabel20" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="backBtn" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="logoutBtn" min="-2" pref="43" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -399,7 +399,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="backBtn">
+        <Component class="javax.swing.JButton" name="logoutBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -408,13 +408,10 @@
               <Font name="Segoe UI" size="16" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Back"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoutBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

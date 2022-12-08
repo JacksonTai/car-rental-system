@@ -97,17 +97,17 @@ public class Booking implements Validatable {
     }
 
     @Override
-    public <T> void validate(String field, T value) {
+    public void validate(String field, String value) {
         switch (field) {
             case "pickupDate" -> {
-                String pickupDate = String.valueOf(value).trim();
+                String pickupDate = value.trim();
                 LocalDate pickupDateObj = LocalDate.parse(pickupDate, dateTimeFormatter);
                 if (ChronoUnit.DAYS.between(LocalDate.now(), pickupDateObj) < 0) {
                     throwErr("Pick-up date must be no earlier than today.");
                 }                      
             }
             case "returnDate" -> {
-                String returnDate = String.valueOf(value).trim();
+                String returnDate = value.trim();
                 LocalDate returnDateObj = LocalDate.parse(returnDate, dateTimeFormatter);
                 if (ChronoUnit.DAYS.between(pickupDate, returnDateObj) < 0) {
                     throwErr("Return date must be no earlier than pick-up date.");

@@ -129,10 +129,10 @@ public class Member extends Customer implements Logoutable {
     }
     
     @Override
-    public <T> void validate(String field, T value) {
+    public void validate(String field, String value) {
         switch (field) {
             case "email" -> {
-                String email = String.valueOf(value).trim();
+                String email = value.trim();
                 if (email.isEmpty()) {
                     throwErr("Please enter your email.");
                 }

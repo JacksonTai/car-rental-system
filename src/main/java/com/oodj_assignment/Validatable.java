@@ -14,7 +14,7 @@ public interface Validatable {
     
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
     
-    <T> void validate(String field, T value);
+    void validate(String field, String value);
     
     default void throwErr(String errMsg) {
         if (null != errMsg) {

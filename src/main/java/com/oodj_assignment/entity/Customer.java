@@ -59,11 +59,27 @@ public abstract class Customer extends User {
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
-    
+
     @Override
-    public <T> void validate(String field, T value) {
+    public void searchCar(String keyword) {
+        keyword = keyword.trim().toUpperCase();
+        String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
+        String[][] carsInfo = RecordReader.readFile("car.txt");
+        for (String[] carInfo : carsInfo) {
+            String model = carInfo[1].toUpperCase();
+            if ("N/A".equals(carInfo[4]) || 
+                    !"E.G. AXIA".equals(keyword) && !model.contains(keyword)) {
+                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
+            }
+        }
+        JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
+        JTableInserter.insert(carFields, carsInfo, customerTable);
+    }
+       
+    @Override
+    public void validate(String field, String value) {
         if (field.equals("fullName")) {
-            String fullName = String.valueOf(value).trim();
+            String fullName = value.trim();
             if (fullName.isEmpty()) {
                 throwErr("Please enter your full name.");
             } 
