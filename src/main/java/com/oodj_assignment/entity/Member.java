@@ -3,6 +3,7 @@ package com.oodj_assignment.entity;
 import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
+import com.oodj_assignment.entity.Booking.Status;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
@@ -76,61 +77,93 @@ public class Member extends Customer implements Logoutable {
         String[] bookingRecord = new String[]{bookingID, userID, plateNum, pickupDate, returnDate, 
                                                 status};
         RecordWriter.write(bookingRecord, "booking.txt");
+    }
+    
+    public void makePayment(Payment payment) {
+        Booking booking = payment.getBooking();
+        Car selectedCar = booking.getSelectedCar();  
+        String paymentID = payment.getPaymentID();
+        String bookingID = booking.getBookingID();
+        String paymentDate = LocalDate.now().toString();
+        String totalPrice = String.valueOf(booking.getTotalPrice());
+        String[] paymentRecord = new String[]{paymentID, bookingID, paymentDate, totalPrice};
+        RecordWriter.write(paymentRecord, "payment.txt");
         
         // Update car status.
         selectedCar.setStatus("N/A");
+        String plateNum = selectedCar.getPlateNum();
         String model = selectedCar.getModel();
         String colour = selectedCar.getColour();
         String pricePerDay = String.valueOf(selectedCar.getPricePerDay());
         String carStatus = selectedCar.getStatus();
         String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, carStatus};
         RecordUpdater.update(carRecord, "car.txt");
-    }
-    
-    public void makePayment(Payment payment) {
-        String paymentID = payment.getPaymentID();
-        String bookingID = payment.getBooking().getBookingID();
-        String paymentDate = LocalDate.now().toString();
-        String totalPrice = String.valueOf(payment.getTotalPrice());
-        String[] paymentRecord = new String[]{paymentID, bookingID, paymentDate, totalPrice};
-        RecordWriter.write(paymentRecord, "payment.txt");
-    }
-    
-    public void viewBookingStatus() {
         
-    }
-
-    public void viewBookingStatus(Booking booking) {
-        
+        // Update booking status.
+        String customerID = booking.getMember().getUserID();
+        booking.setStatus(Status.PAID);
+        String bookingStatus = booking.getStatus().name();
+        String pickupDate = booking.getPickupDate().toString();
+        String returnDate = booking.getReturnDate().toString();
+        String[] bookingRecord = new String[] {bookingID, customerID, plateNum, pickupDate, 
+            returnDate, bookingStatus};
+        RecordUpdater.update(bookingRecord, "booking.txt");
     }
     
-    public void viewBookingHistory() {
-        String[] bookingHistoryField = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
+    public void viewBookingRequest() {
+        String[] field = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
             "Duration(Day)", "Price/Day", "Total price", "Status"};
         String[][] bookingRecords = RecordReader.readFile("booking.txt");
-        String[][] paymentRecords = RecordReader.readFile("payment.txt");
         List<String[]> bookingHistories = new ArrayList();
         if (bookingRecords.length > 0) {
-            for (int i = 0; i < bookingRecords.length; i++) {
-            if (bookingRecords[i][1].equals(userID)) {
-                Booking booking = new Booking(bookingRecords[i][0]);
-                Payment payment = new Payment(paymentRecords[i][0]);
-                bookingHistories.add(new String[] {
-                    booking.getBookingID(),
-                    booking.getSelectedCar().getPlateNum(),
-                    booking.getPickupDate().toString(),
-                    booking.getReturnDate().toString(),
-                    String.valueOf(booking.getRentDuration()),
-                    String.valueOf(booking.getSelectedCar().getPricePerDay()),
-                    String.valueOf(payment.getTotalPrice()),
-                    booking.getStatus().name()
+            for (String[] bookingRecord : bookingRecords) {
+                if (bookingRecord[1].equals(userID) && 
+                        bookingRecord[5].equals(Status.PENDING.name()) || 
+                        bookingRecord[5].equals(Status.APPROVED.name())) {
+                    Booking booking = new Booking(bookingRecord[0]);
+                    bookingHistories.add(new String[] {
+                        booking.getBookingID(),
+                        booking.getSelectedCar().getPlateNum(),
+                        booking.getPickupDate().toString(),
+                        booking.getReturnDate().toString(),
+                        String.valueOf(booking.getRentDuration()),
+                        String.valueOf(booking.getSelectedCar().getPricePerDay()),
+                        String.valueOf(booking.getTotalPrice()),
+                        booking.getStatus().name()
                     });
                 }
             }    
         }
-        JTable customerTable = MemberMenu.getTable();
-        JTableInserter.insert(bookingHistoryField, bookingHistories.toArray(new String[0][]),
-                customerTable); 
+        JTable memberTable = MemberMenu.getTable();
+        JTableInserter.insert(field, bookingHistories.toArray(new String[0][]), memberTable); 
+    }
+    
+    public void viewBookingHistory() {
+        String[] field = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
+            "Duration(Day)", "Price/Day", "Total price", "Status"};
+        String[][] bookingRecords = RecordReader.readFile("booking.txt");
+        List<String[]> bookingHistories = new ArrayList();
+        if (bookingRecords.length > 0) {
+            for (String[] bookingRecord : bookingRecords) {
+                if (bookingRecord[1].equals(userID) && 
+                        bookingRecord[5].equals(Status.PAID.name()) || 
+                        bookingRecord[5].equals(Status.REJECTED.name())) {
+                    Booking booking = new Booking(bookingRecord[0]);
+                    bookingHistories.add(new String[] {
+                        booking.getBookingID(),
+                        booking.getSelectedCar().getPlateNum(),
+                        booking.getPickupDate().toString(),
+                        booking.getReturnDate().toString(),
+                        String.valueOf(booking.getRentDuration()),
+                        String.valueOf(booking.getSelectedCar().getPricePerDay()),
+                        String.valueOf(booking.getTotalPrice()),
+                        booking.getStatus().name()
+                    });
+                }
+            }    
+        }
+        JTable memberTable = MemberMenu.getTable();
+        JTableInserter.insert(field, bookingHistories.toArray(new String[0][]), memberTable); 
     }
    
     @Override

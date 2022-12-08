@@ -1,8 +1,8 @@
 JI1230|Perodua Myvi|grey|203.5|Available|
-WE1231|BMW x5|blue|342.0|Available|
+WE1231|BMW x5|blue|342.0|N/A|
 JU1231B|Perodua Axia|yellow|145.67|Available|
-WU1932B|Perodua Axia|red|150.99|Available|
-PK2236B|Perodua Axia|grey|145.5|Available|
-WJU8902|Proton X50|Red|190.45|Available|
+WU1932B|Perodua Axia|red|150.99|N/A|
+PK2236B|Perodua Axia|grey|145.5|N/A|
+WJU8902|Proton X50|Red|190.45|N/A|
 WH2636B|Honda Jazz|Grey|200.9|Available|
 JH8012L|BMW 330E|SkyBlue|420.23|Available|

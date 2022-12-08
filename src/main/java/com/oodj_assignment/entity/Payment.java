@@ -32,8 +32,4 @@ public class Payment {
         return booking;
     }
     
-    public float getTotalPrice(){
-        return booking.getSelectedCar().getPricePerDay() * booking.getRentDuration();
-    }
-    
 }
