@@ -25,12 +25,8 @@ public class PaymentForm extends javax.swing.JFrame {
     LocalDate pickupDate;
     LocalDate returnDate;
     
-    public PaymentForm(){
-        initComponents();
-    };
-    
     public PaymentForm(Member member, Booking booking) {
-        this();
+        initComponents();
         this.member = member;
         this.booking = booking;
         this.payment = new Payment(booking);
@@ -495,7 +491,7 @@ public class PaymentForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PaymentForm().setVisible(true);
+                
             }
         });
     }

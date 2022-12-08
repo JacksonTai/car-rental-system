@@ -19,7 +19,7 @@ public class Car extends Vehicle implements Validatable {
     private String status; 
     
     public Car() {
-        super("N/A");
+        super();
         this.plateNum = "N/A";
         this.model = "N/A";
         this.pricePerDay = 0;

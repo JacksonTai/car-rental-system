@@ -11,7 +11,7 @@ public class EditCarForm extends javax.swing.JFrame {
     
     Admin admin;
     Car selectedCar;
-    
+
     public EditCarForm(Admin admin, Car selectedCar) {
         initComponents();
         this.admin = admin;

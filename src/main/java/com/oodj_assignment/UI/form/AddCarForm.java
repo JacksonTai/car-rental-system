@@ -8,12 +8,8 @@ public class AddCarForm extends javax.swing.JFrame {
     
     Admin admin;
     
-    public AddCarForm() {
-        initComponents();
-    }
-    
     public AddCarForm(Admin admin) {
-        this();
+        initComponents();
         this.admin = admin;
     }
 
@@ -264,7 +260,7 @@ public class AddCarForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddCarForm().setVisible(true);
+                
             }
         });
     }
