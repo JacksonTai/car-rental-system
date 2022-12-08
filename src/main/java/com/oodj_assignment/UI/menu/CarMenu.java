@@ -1,26 +1,25 @@
-package com.oodj_assignment.UI.form;
+package com.oodj_assignment.UI.menu;
 
-import com.oodj_assignment.UI.menu.AdminMenu;
-import com.oodj_assignment.UI.menu.CarMenu;
+import com.oodj_assignment.UI.form.*;
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.entity.Car;
 
 import javax.swing.JOptionPane;
 
-public class EditCarForm extends javax.swing.JFrame {
+public class CarMenu extends javax.swing.JFrame {
     
     Admin admin;
     Car selectedCar;
     
-    public EditCarForm(Admin admin, Car selectedCar) {
+    public CarMenu(Admin admin, Car selectedCar) {
         initComponents();
         this.admin = admin;
         this.selectedCar = selectedCar;
-        plateNumTf.setText(selectedCar.getPlateNum());
         modelTf.setText(selectedCar.getModel());
+        plateNumTf.setText(selectedCar.getPlateNum());
         colourTf.setText(selectedCar.getColour());
-        pricePerDayTf.setText(Float.toString(selectedCar.getPricePerDay()));
-        statusComboBox.setSelectedItem(selectedCar.getStatus());
+        pricePerDayTf.setText("RM" + String.valueOf(selectedCar.getPricePerDay()));
+        statusTf.setText(selectedCar.getStatus());
     }
 
     @SuppressWarnings("unchecked")
@@ -40,10 +39,10 @@ public class EditCarForm extends javax.swing.JFrame {
         colourLabel = new javax.swing.JLabel();
         pricePerDayTf = new javax.swing.JTextField();
         pricePerDayLabel = new javax.swing.JLabel();
-        confirmBtn = new javax.swing.JButton();
-        clearBtn = new javax.swing.JButton();
-        statusComboBox = new javax.swing.JComboBox<>();
+        deleteBtn = new javax.swing.JButton();
+        editBtn = new javax.swing.JButton();
         statusLabel = new javax.swing.JLabel();
+        statusTf = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(58, 63, 84));
 
@@ -65,7 +64,7 @@ public class EditCarForm extends javax.swing.JFrame {
         addCarPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         AddCarTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        AddCarTitle.setText("Edit Car");
+        AddCarTitle.setText("Manage Car");
 
         backBtn.setBackground(new java.awt.Color(255, 255, 255));
         backBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -87,59 +86,59 @@ public class EditCarForm extends javax.swing.JFrame {
         modelLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         modelLabel.setText("Model");
 
+        modelTf.setEditable(false);
         modelTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
+        colourTf.setEditable(false);
         colourTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         colourLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         colourLabel.setText("Colour");
 
+        pricePerDayTf.setEditable(false);
         pricePerDayTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         pricePerDayLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         pricePerDayLabel.setText("Price/Day (RM)");
 
-        confirmBtn.setBackground(new java.awt.Color(255, 255, 255));
-        confirmBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        confirmBtn.setText("Confirm");
-        confirmBtn.setFocusPainted(false);
-        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
+        deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setText("Delete");
+        deleteBtn.setFocusPainted(false);
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmBtnActionPerformed(evt);
+                deleteBtnActionPerformed(evt);
             }
         });
 
-        clearBtn.setBackground(new java.awt.Color(255, 255, 255));
-        clearBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        clearBtn.setText("Clear");
-        clearBtn.setFocusPainted(false);
-        clearBtn.addActionListener(new java.awt.event.ActionListener() {
+        editBtn.setBackground(new java.awt.Color(255, 255, 255));
+        editBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        editBtn.setText("Edit");
+        editBtn.setFocusPainted(false);
+        editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearBtnActionPerformed(evt);
+                editBtnActionPerformed(evt);
             }
         });
-
-        statusComboBox.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "N/A" }));
 
         statusLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         statusLabel.setText("Status");
+
+        statusTf.setEditable(false);
+        statusTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         javax.swing.GroupLayout addCarPanelLayout = new javax.swing.GroupLayout(addCarPanel);
         addCarPanel.setLayout(addCarPanelLayout);
         addCarPanelLayout.setHorizontalGroup(
             addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addCarPanelLayout.createSequentialGroup()
-                .addGap(272, 272, 272)
-                .addComponent(AddCarTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addCarPanelLayout.createSequentialGroup()
                 .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(addCarPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(addCarPanelLayout.createSequentialGroup()
                         .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(addCarPanelLayout.createSequentialGroup()
@@ -149,8 +148,8 @@ public class EditCarForm extends javax.swing.JFrame {
                                     .addComponent(plateNumTf, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(colourTf, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(colourLabel)
-                                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statusLabel)))
+                                    .addComponent(statusLabel)
+                                    .addComponent(statusTf, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(addCarPanelLayout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -161,13 +160,17 @@ public class EditCarForm extends javax.swing.JFrame {
                             .addComponent(modelLabel)
                             .addComponent(modelTf, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(141, 141, 141))
+            .addGroup(addCarPanelLayout.createSequentialGroup()
+                .addGap(250, 250, 250)
+                .addComponent(AddCarTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addCarPanelLayout.setVerticalGroup(
             addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addCarPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(41, 41, 41)
                 .addComponent(AddCarTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(addCarPanelLayout.createSequentialGroup()
                         .addComponent(plateNumLabel)
@@ -190,11 +193,10 @@ public class EditCarForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(statusLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(addCarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
@@ -227,30 +229,27 @@ public class EditCarForm extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        new CarMenu(admin, selectedCar).setVisible(true);
+        new AdminMenu(admin).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        try {
-            selectedCar.setPlateNum(plateNumTf.getText());
-            selectedCar.setModel(modelTf.getText());
-            selectedCar.setColour(colourTf.getText());
-            selectedCar.setPricePerDay(pricePerDayTf.getText());
-            selectedCar.setStatus(String.valueOf(statusComboBox.getSelectedItem()));
-            admin.editCar(selectedCar);
-            JOptionPane.showMessageDialog(rootPane, "Car edited successfully");
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        String confirmTitle = "Delete Car";
+        String confirmMsg = "Are you sure to delete this car?";
+        int response = JOptionPane.showConfirmDialog(rootPane, confirmMsg, confirmTitle, 
+                JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE
+        );
+        if (response == JOptionPane.YES_OPTION) {
+            admin.deleteCar(new Car(selectedCar.getPlateNum()));
+            JOptionPane.showMessageDialog(rootPane, "Car deleted successfully.");
             dispose();
-            new CarMenu(admin, selectedCar).setVisible(true);
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            new AdminMenu(admin).setVisible(true);
         }
-    }//GEN-LAST:event_confirmBtnActionPerformed
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
-    private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
-        modelTf.setText("");
-        colourTf.setText("");
-        pricePerDayTf.setText("");
-    }//GEN-LAST:event_clearBtnActionPerformed
+    private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        dispose();
+        new EditCarForm(admin, selectedCar).setVisible(true);
+    }//GEN-LAST:event_editBtnActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -266,14 +265,16 @@ public class EditCarForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditCarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditCarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditCarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditCarForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CarMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
  
@@ -289,10 +290,10 @@ public class EditCarForm extends javax.swing.JFrame {
     private javax.swing.JLabel AddCarTitle;
     private javax.swing.JPanel addCarPanel;
     private javax.swing.JButton backBtn;
-    private javax.swing.JButton clearBtn;
     private javax.swing.JLabel colourLabel;
     private javax.swing.JTextField colourTf;
-    private javax.swing.JButton confirmBtn;
+    private javax.swing.JButton deleteBtn;
+    private javax.swing.JButton editBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel modelLabel;
@@ -301,7 +302,7 @@ public class EditCarForm extends javax.swing.JFrame {
     private javax.swing.JTextField plateNumTf;
     private javax.swing.JLabel pricePerDayLabel;
     private javax.swing.JTextField pricePerDayTf;
-    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JTextField statusTf;
     // End of variables declaration//GEN-END:variables
 }

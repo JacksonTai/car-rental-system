@@ -219,7 +219,7 @@ public class GuestMenu extends javax.swing.JFrame {
         if ("".equals(searchTf.getText().trim())) {
             searchTf.setText("   e.g. Axia");
             searchTf.setForeground(new Color(153, 153, 153));
-        }  else {
+        } else {
             searchTf.setForeground(new Color(0, 0, 0));
         }
     }//GEN-LAST:event_searchTfFocusLost

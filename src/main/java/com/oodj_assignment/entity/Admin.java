@@ -109,7 +109,7 @@ public class Admin extends User implements Logoutable {
             for (String[] carInfo : carsInfo) {
                 String plateNum = carInfo[0].toUpperCase();
                 String model = carInfo[1].toUpperCase();
-                if (!model.contains(keyword) || !plateNum.contains(keyword)) {
+                if (!model.contains(keyword) && !plateNum.contains(keyword)) {
                     carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
                 }
             }

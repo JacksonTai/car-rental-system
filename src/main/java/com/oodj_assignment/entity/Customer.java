@@ -65,12 +65,11 @@ public abstract class Customer extends User {
         keyword = keyword.trim().toUpperCase();
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
         String[][] carsInfo = RecordReader.readFile("car.txt");
-        if (!"E.G. AXIA".equals(keyword)) {
-            for (String[] carInfo : carsInfo) {
-                String model = carInfo[1].toUpperCase();
-                if (!model.contains(keyword)) {
-                    carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
-                }
+        for (String[] carInfo : carsInfo) {
+            String model = carInfo[1].toUpperCase();
+            if ("N/A".equals(carInfo[4]) || 
+                    !"E.G. AXIA".equals(keyword) && !model.contains(keyword)) {
+                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
             }
         }
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
