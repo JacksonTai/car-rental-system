@@ -9,13 +9,9 @@ public class EditCarForm extends javax.swing.JFrame {
     
     Admin admin;
     Car selectedCar;
-    
-    public EditCarForm(){
-        initComponents();
-    };
-    
+
     public EditCarForm(Admin admin, Car selectedCar) {
-        this();
+        initComponents();
         this.admin = admin;
         this.selectedCar = selectedCar;
         plateNumTf.setText(selectedCar.getPlateNum());
@@ -282,7 +278,7 @@ public class EditCarForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditCarForm().setVisible(true);
+                
             }
         });
     }

@@ -72,7 +72,9 @@ public class Member extends Customer implements Logoutable {
         String plateNum = selectedCar.getPlateNum();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
-        String[] bookingRecord = new String[]{bookingID, userID, plateNum, pickupDate, returnDate};
+        String status = booking.getStatus().name();
+        String[] bookingRecord = new String[]{bookingID, userID, plateNum, pickupDate, returnDate, 
+                                                status};
         RecordWriter.write(bookingRecord, "booking.txt");
         
         // Update car status.
@@ -80,8 +82,8 @@ public class Member extends Customer implements Logoutable {
         String model = selectedCar.getModel();
         String colour = selectedCar.getColour();
         String pricePerDay = String.valueOf(selectedCar.getPricePerDay());
-        String status = selectedCar.getStatus();
-        String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, status};
+        String carStatus = selectedCar.getStatus();
+        String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, carStatus};
         RecordUpdater.update(carRecord, "car.txt");
     }
     
@@ -94,9 +96,17 @@ public class Member extends Customer implements Logoutable {
         RecordWriter.write(paymentRecord, "payment.txt");
     }
     
+    public void viewBookingStatus() {
+        
+    }
+
+    public void viewBookingStatus(Booking booking) {
+        
+    }
+    
     public void viewBookingHistory() {
         String[] bookingHistoryField = {"Booking ID", "Plate number", "Pick-up date", "Return date", 
-            "Duration(Day)", "Price/Day", "Total price"};
+            "Duration(Day)", "Price/Day", "Total price", "Status"};
         String[][] bookingRecords = RecordReader.readFile("booking.txt");
         String[][] paymentRecords = RecordReader.readFile("payment.txt");
         List<String[]> bookingHistories = new ArrayList();
@@ -112,7 +122,8 @@ public class Member extends Customer implements Logoutable {
                     booking.getReturnDate().toString(),
                     String.valueOf(booking.getRentDuration()),
                     String.valueOf(booking.getSelectedCar().getPricePerDay()),
-                    String.valueOf(payment.getTotalPrice())
+                    String.valueOf(payment.getTotalPrice()),
+                    booking.getStatus().name()
                     });
                 }
             }    

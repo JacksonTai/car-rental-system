@@ -14,13 +14,9 @@ public class AdminMenu extends javax.swing.JFrame {
 
     Admin admin;
     JButtonActivator JBtnActivator;
-    
-    public AdminMenu() {
-        initComponents();
-    }
-    
+
     public AdminMenu(Admin admin) {
-        this();
+         initComponents();
         this.admin = admin;
         recordsComboBox.setVisible(false);
         JButton[] adminMenuBtns = new JButton [] {carManagementBtn, bookingManagementBtn,recordsBtn};
@@ -394,7 +390,7 @@ public class AdminMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMenu().setVisible(true);
+               
             }
         });
     }

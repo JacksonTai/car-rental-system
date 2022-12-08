@@ -23,6 +23,14 @@ public class Booking implements Validatable {
     private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
+    private Status status;
+    
+    public enum Status {
+        PENDING,
+        APPROVED,
+        REJECTED,
+        PAID
+    }
     
     public Booking(Member member, Car selectedCar) {
         if (selectedCar == null) {
@@ -34,6 +42,7 @@ public class Booking implements Validatable {
         this.bookingID = IdGenerator.generate("bkg-");
         this.member = member;
         this.selectedCar = selectedCar;
+        this.status = Status.PENDING;
     }
     
     public Booking (String bookingID) {
@@ -45,6 +54,7 @@ public class Booking implements Validatable {
                 selectedCar = new Car(booking[2]);
                 pickupDate = LocalDate.parse(booking[3]);
                 returnDate = LocalDate.parse(booking[4]);
+                status = Status.valueOf(booking[5]);
                 break;
             }
         }
@@ -91,9 +101,21 @@ public class Booking implements Validatable {
     public LocalDate getReturnDate() {
         return returnDate;
     }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
     
     public int getRentDuration() {
         return (int) ChronoUnit.DAYS.between(pickupDate, returnDate) + 1;
+    }
+    
+    public float getTotalPrice(){
+        return selectedCar.getPricePerDay() * getRentDuration();
     }
 
     @Override
