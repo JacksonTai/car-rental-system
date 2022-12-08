@@ -52,13 +52,15 @@ public class CompanyReport extends javax.swing.JFrame {
         String[][] bookings = RecordReader.readFile("booking.txt");
         int totalBooking = bookings.length;
         totalBookingTf.setText(String.valueOf(totalBooking));
-        float totalProfit = 0;
+        double totalProfit = 0;
         String[][] payments = RecordReader.readFile("payment.txt");
         for (String[] payment : payments) {
             totalProfit += Float.parseFloat(payment[3]);
         }
+        totalProfit = (double) Math.round(totalProfit * 100) / 100;
         totalProfitTf.setText("RM" + String.valueOf(totalProfit));
-        averageProfitTf.setText("RM" + String.valueOf(totalProfit / totalBooking));
+        double averageProfit = (double) Math.round((totalProfit / totalBooking) * 100) / 100;
+        averageProfitTf.setText("RM" + String.valueOf(averageProfit));
     }
             
     @SuppressWarnings("unchecked")
