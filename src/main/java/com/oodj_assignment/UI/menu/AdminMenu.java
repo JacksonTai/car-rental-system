@@ -19,7 +19,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     Admin admin;
     JButtonActivator JBtnActivator;
-    String currentTab;
+    String currentTab = "carManagement";
 
     public AdminMenu(Admin admin) {
         initComponents();
