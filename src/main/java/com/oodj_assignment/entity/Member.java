@@ -117,9 +117,11 @@ public class Member extends Customer implements Logoutable {
         List<String[]> bookingRequests = new ArrayList();
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
-                if (bookingRecord[1].equals(userID) && 
+                if (bookingRecord[1].equals(userID) && (
                         bookingRecord[5].equals(Status.PENDING.name()) || 
-                        bookingRecord[5].equals(Status.APPROVED.name())) {
+                        bookingRecord[5].equals(Status.APPROVED.name())
+                        )
+                    ) {
                     Booking booking = new Booking(bookingRecord[0]);
                     bookingRequests.add(new String[] {
                         booking.getBookingID(),
@@ -145,9 +147,11 @@ public class Member extends Customer implements Logoutable {
         List<String[]> bookingHistories = new ArrayList();
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
-                if (bookingRecord[1].equals(userID) && 
+                if (bookingRecord[1].equals(userID) && (
                         bookingRecord[5].equals(Status.PAID.name()) || 
-                        bookingRecord[5].equals(Status.REJECTED.name())) {
+                        bookingRecord[5].equals(Status.REJECTED.name())
+                        )
+                    ) {
                     Booking booking = new Booking(bookingRecord[0]);
                     bookingHistories.add(new String[] {
                         booking.getBookingID(),
