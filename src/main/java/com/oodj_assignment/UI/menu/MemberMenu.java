@@ -1,6 +1,5 @@
 package com.oodj_assignment.UI.menu;
  
-import com.oodj_assignment.UI.BookingStatus;
 import com.oodj_assignment.entity.Car;
 import com.oodj_assignment.entity.Member;
 import com.oodj_assignment.UI.form.BookingForm;
@@ -11,7 +10,7 @@ import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
 import java.awt.Color;
-import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -30,6 +29,10 @@ public class MemberMenu extends javax.swing.JFrame {
         JBtnActivator.activateBtn(bookCarBtn);
         payBtn.setVisible(false);
         member.viewCar();
+    }
+    
+    public void actionPerformed(ActionEvent evt) {
+        this.bookingRequestBtnActionPerformed(evt);
     }
     
     public static JTable getTable() {
@@ -371,7 +374,7 @@ public class MemberMenu extends javax.swing.JFrame {
             new BookingForm(member, new Car(carRecord[0])).setVisible(true);
             dispose();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to book.");
+            JOptionPane.showMessageDialog(rootPane, "Please select the car in the table to book.");
         }
     }//GEN-LAST:event_nextBtnActionPerformed
 
@@ -397,7 +400,7 @@ public class MemberMenu extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Kindly wait for the booking to be approved.");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Please select the booking in table to pay.");
+            JOptionPane.showMessageDialog(rootPane, "Please select the booking in the table to pay.");
         }
     }//GEN-LAST:event_payBtnActionPerformed
     

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Jackson
  */
-public class BookingReqest extends javax.swing.JFrame {
+public class BookingConfirmation extends javax.swing.JFrame {
     
     Booking booking;
     Car selectedCar;
@@ -25,7 +25,7 @@ public class BookingReqest extends javax.swing.JFrame {
     LocalDate returnDate;
     Member member;
  
-    public BookingReqest(Booking booking) {
+    public BookingConfirmation(Booking booking) {
         initComponents();
         this.booking = booking;
         this.selectedCar = booking.getSelectedCar();
@@ -45,7 +45,7 @@ public class BookingReqest extends javax.swing.JFrame {
         modelTf.setText(selectedCar.getModel());
         plateNumTf.setText(selectedCar.getPlateNum());
         colourTf.setText(selectedCar.getColour());
-        pricePerDayTf.setText(String.valueOf(selectedCar.getPricePerDay()));
+        pricePerDayTf.setText("RM" + String.valueOf(selectedCar.getPricePerDay()));
     }
 
     private void previewBookingDetails(){
@@ -371,13 +371,13 @@ public class BookingReqest extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookingReqest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingConfirmation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookingReqest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingConfirmation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookingReqest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingConfirmation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookingReqest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingConfirmation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

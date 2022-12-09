@@ -4,7 +4,7 @@
  */
 package com.oodj_assignment.UI.form;
 
-import com.oodj_assignment.UI.BookingReqest;
+import com.oodj_assignment.UI.BookingConfirmation;
 import com.oodj_assignment.entity.Booking;
 import com.oodj_assignment.entity.Car;
 import com.oodj_assignment.entity.Member;
@@ -327,7 +327,7 @@ public class BookingForm extends javax.swing.JFrame {
             booking.setPickupDate(pickupDate);
             booking.setReturnDate(returnDate);
             dispose();
-            new BookingReqest(booking).setVisible(true);
+            new BookingConfirmation(booking).setVisible(true);
             // new PaymentForm(member, booking).setVisible(true);
         } catch (IllegalArgumentException | NullPointerException e ) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());

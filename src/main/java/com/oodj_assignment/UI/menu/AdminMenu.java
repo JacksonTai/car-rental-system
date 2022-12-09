@@ -1,13 +1,16 @@
 package com.oodj_assignment.UI.menu;
  
-import com.oodj_assignment.UI.BookingManagement;
+
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.entity.Car;
+import com.oodj_assignment.entity.Booking;
+import com.oodj_assignment.UI.BookingManagement;
 import com.oodj_assignment.UI.form.AddCarForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -26,6 +29,10 @@ public class AdminMenu extends javax.swing.JFrame {
         JBtnActivator = new JButtonActivator(adminMenuBtns);
         JBtnActivator.activateBtn(carManagementBtn);
         admin.viewRecord("car");
+    }
+    
+    public void actionPerformed(ActionEvent evt) {
+        this.bookingRequestBtnActionPerformed(evt);
     }
     
     public static JTable getTable() {
@@ -275,13 +282,13 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -323,6 +330,9 @@ public class AdminMenu extends javax.swing.JFrame {
     private void carManagementBtnActivated() {
         JBtnActivator.activateBtn(carManagementBtn);
         recordsComboBox.setVisible(false);
+        searchTf.setVisible(true);
+        clearBtn.setVisible(true);
+        searchBtn.setVisible(true);
         addBtn.setVisible(true);   
         manageBtn.setVisible(true);
         currentTab = "carManagement";
@@ -392,16 +402,18 @@ public class AdminMenu extends javax.swing.JFrame {
                     dispose();
                     new CarMenu(admin, new Car(carRecord[0])).setVisible(true);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "Please select the car in table to manage.");
+                    JOptionPane.showMessageDialog(rootPane, "Please select the car in the table to "
+                            + "manage.");
                 }
             } 
             case "bookingRequest" -> {
                 try {
                     String[] bookingRecord = JTableSelector.selectRow(adminTable);
                     dispose();
-                    new CarMenu(admin, new BookingManagement(bookingRecord[0])).setVisible(true);
+                    new BookingManagement(admin, new Booking(bookingRecord[0])).setVisible(true);
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(rootPane, "Please select the car in table to manage.");
+                    JOptionPane.showMessageDialog(rootPane, "Please select the booking request in "
+                            + "the table to manage.");
                 }
             }
         }
@@ -410,11 +422,16 @@ public class AdminMenu extends javax.swing.JFrame {
 
     private void bookingRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingRequestBtnActionPerformed
         JBtnActivator.activateBtn(bookingRequestBtn);
+        recordsComboBox.setVisible(false);
+        searchTf.setVisible(false);
+        clearBtn.setVisible(false);
+        searchBtn.setVisible(false);
         addBtn.setVisible(false);
+        manageBtn.setVisible(true);
         currentTab = "bookingRequest";
         admin.viewBookingRequest();
     }//GEN-LAST:event_bookingRequestBtnActionPerformed
-    
+       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -451,7 +468,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JButton addBtn;
     private javax.swing.JLabel adminDashboardTitle;
     private static javax.swing.JTable adminTable;
-    private javax.swing.JButton bookingRequestBtn;
+    public javax.swing.JButton bookingRequestBtn;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton companyReportBtn;
