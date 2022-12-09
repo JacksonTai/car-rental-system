@@ -115,8 +115,7 @@ public class Booking implements Validatable {
     }
     
     public float getTotalPrice(){
-        float totalPrice = selectedCar.getPricePerDay() * getRentDuration();
-        return (Math.round(totalPrice) * 100) / 100;
+        return selectedCar.getPricePerDay() * getRentDuration();
     }
 
     @Override

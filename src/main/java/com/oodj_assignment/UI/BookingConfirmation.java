@@ -54,7 +54,8 @@ public class BookingConfirmation extends javax.swing.JFrame {
         returnDateTf.setText(returnDate.format(DateTimeFormatter.ofPattern(datePattern)));
         int rentDuration = booking.getRentDuration();
         rentDurationTf.setText(String.valueOf(rentDuration) + (rentDuration > 1 ? " Days" : " Day"));
-        totalPriceTf.setText("RM" + String.valueOf(booking.getTotalPrice()));
+        double totalPrice = (double) Math.round(booking.getTotalPrice() * 100) / 100;
+        totalPriceTf.setText("RM" + String.valueOf(totalPrice));
     }
     
     @SuppressWarnings("unchecked")
