@@ -63,7 +63,7 @@ public abstract class User implements Validatable {
                 String userID = userInfo[0];
                 String userIDPrefix = userID.substring(0, 3);
                 if ("adm".equals(userIDPrefix) && email.equals(userID) ||
-                        "ctm".equals(userIDPrefix) && email.equals(userInfo[1])) {
+                        "ctm".equals(userIDPrefix) && email.equalsIgnoreCase(userInfo[1])) {
                     if (password.equals(userInfo[4])) {
                         return switch(userIDPrefix) {
                             case "ctm" -> new Member(userID);

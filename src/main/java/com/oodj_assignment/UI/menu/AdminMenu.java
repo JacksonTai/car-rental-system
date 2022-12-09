@@ -1,12 +1,16 @@
 package com.oodj_assignment.UI.menu;
  
+
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.entity.Car;
+import com.oodj_assignment.entity.Booking;
+import com.oodj_assignment.UI.BookingManagement;
 import com.oodj_assignment.UI.form.AddCarForm;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -15,18 +19,20 @@ public class AdminMenu extends javax.swing.JFrame {
 
     Admin admin;
     JButtonActivator JBtnActivator;
-    
-    public AdminMenu() {
-        initComponents();
-    }
-    
+    String currentTab = "carManagement";
+
     public AdminMenu(Admin admin) {
-        this();
+        initComponents();
         this.admin = admin;
         recordsComboBox.setVisible(false);
-        JBtnActivator = new JButtonActivator(new JButton [] {carManagementBtn, recordsBtn,});
+        JButton[] adminMenuBtns = new JButton [] {carManagementBtn, bookingRequestBtn, recordsBtn};
+        JBtnActivator = new JButtonActivator(adminMenuBtns);
         JBtnActivator.activateBtn(carManagementBtn);
         admin.viewRecord("car");
+    }
+    
+    public void actionPerformed(ActionEvent evt) {
+        this.bookingRequestBtnActionPerformed(evt);
     }
     
     public static JTable getTable() {
@@ -44,6 +50,7 @@ public class AdminMenu extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         recordsBtn = new javax.swing.JButton();
         companyReportBtn = new javax.swing.JButton();
+        bookingRequestBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         adminDashboardTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -114,6 +121,16 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
+        bookingRequestBtn.setBackground(new java.awt.Color(255, 255, 255));
+        bookingRequestBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        bookingRequestBtn.setText("Booking Request");
+        bookingRequestBtn.setFocusPainted(false);
+        bookingRequestBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookingRequestBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -124,8 +141,9 @@ public class AdminMenu extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(carManagementBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(bookingRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(recordsBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(companyReportBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(46, Short.MAX_VALUE))
@@ -133,13 +151,15 @@ public class AdminMenu extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(carManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(carManagementBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(bookingRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(recordsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(companyReportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -230,21 +250,24 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adminDashboardTitle)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(manageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(manageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)))))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -259,13 +282,13 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(35, 35, 35)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manageBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -310,8 +333,9 @@ public class AdminMenu extends javax.swing.JFrame {
         searchTf.setVisible(true);
         clearBtn.setVisible(true);
         searchBtn.setVisible(true);
-        addBtn.setVisible(true);    
+        addBtn.setVisible(true);   
         manageBtn.setVisible(true);
+        currentTab = "carManagement";
         admin.viewRecord("car");
     }//GEN-LAST:event_carManagementBtnActionPerformed
 
@@ -371,15 +395,43 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void manageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageBtnActionPerformed
-        try {
-            String[] carRecord = JTableSelector.selectRow(adminTable);
-            dispose();
-            new CarMenu(admin, new Car(carRecord[0])).setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Please select the car in table to manage.");
+        switch (currentTab) {
+            case "carManagement" -> {
+                try {
+                    String[] carRecord = JTableSelector.selectRow(adminTable);
+                    dispose();
+                    new CarMenu(admin, new Car(carRecord[0])).setVisible(true);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Please select the car in the table to "
+                            + "manage.");
+                }
+            } 
+            case "bookingRequest" -> {
+                try {
+                    String[] bookingRecord = JTableSelector.selectRow(adminTable);
+                    dispose();
+                    new BookingManagement(admin, new Booking(bookingRecord[0])).setVisible(true);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Please select the booking request in "
+                            + "the table to manage.");
+                }
+            }
         }
+
     }//GEN-LAST:event_manageBtnActionPerformed
-    
+
+    private void bookingRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingRequestBtnActionPerformed
+        JBtnActivator.activateBtn(bookingRequestBtn);
+        recordsComboBox.setVisible(false);
+        searchTf.setVisible(false);
+        clearBtn.setVisible(false);
+        searchBtn.setVisible(false);
+        addBtn.setVisible(false);
+        manageBtn.setVisible(true);
+        currentTab = "bookingRequest";
+        admin.viewBookingRequest();
+    }//GEN-LAST:event_bookingRequestBtnActionPerformed
+       
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -407,7 +459,7 @@ public class AdminMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminMenu().setVisible(true);
+               
             }
         });
     }
@@ -416,6 +468,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JButton addBtn;
     private javax.swing.JLabel adminDashboardTitle;
     private static javax.swing.JTable adminTable;
+    public javax.swing.JButton bookingRequestBtn;
     private javax.swing.JButton carManagementBtn;
     private javax.swing.JButton clearBtn;
     private javax.swing.JButton companyReportBtn;
