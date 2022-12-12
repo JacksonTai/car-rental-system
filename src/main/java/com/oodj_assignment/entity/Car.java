@@ -5,13 +5,12 @@
 package com.oodj_assignment.entity;
 
 import com.oodj_assignment.helper.RecordReader;
-import com.oodj_assignment.Validatable;
 
 /**
  *
  * @author Jackson
  */
-public class Car extends Vehicle implements Validatable {
+public class Car extends Vehicle {
     
     private String plateNum;
     private String model;

@@ -1,6 +1,7 @@
 package com.oodj_assignment.entity;
 
 import com.oodj_assignment.Logoutable;
+import com.oodj_assignment.UI.MemberProfile;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.entity.Booking.Status;
@@ -170,6 +171,10 @@ public class Member extends Customer implements Logoutable {
         JTableInserter.insert(field, bookingHistories.toArray(new String[0][]), memberTable); 
     }
    
+    public void viewProfile() {
+        new MemberProfile(this).setVisible(true);
+    }
+    
     @Override
     public void logout(JFrame memberMenu) {
         memberMenu.dispose();

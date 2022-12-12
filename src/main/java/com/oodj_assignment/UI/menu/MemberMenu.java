@@ -23,7 +23,6 @@ public class MemberMenu extends javax.swing.JFrame {
     public MemberMenu(Member member) {
         initComponents();
         this.member = member;
-        adminDashboardTitle.setText("Welcome " + member.getFullName()+ "!");  
         JButton[] memberMenuBtns = new JButton[] {bookCarBtn, bookingRequestBtn, bookHistoryBtn};
         JBtnActivator = new JButtonActivator(memberMenuBtns);
         JBtnActivator.activateBtn(bookCarBtn);
@@ -50,10 +49,11 @@ public class MemberMenu extends javax.swing.JFrame {
         logoutBtn = new javax.swing.JButton();
         bookHistoryBtn = new javax.swing.JButton();
         bookingRequestBtn = new javax.swing.JButton();
+        profileBtn = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         memberTable = new javax.swing.JTable();
-        adminDashboardTitle = new javax.swing.JLabel();
+        memberMenuTitle = new javax.swing.JLabel();
         nextBtn = new javax.swing.JButton();
         bookCarHintLabel = new javax.swing.JLabel();
         searchTf = new javax.swing.JTextField();
@@ -120,34 +120,48 @@ public class MemberMenu extends javax.swing.JFrame {
             }
         });
 
+        profileBtn.setBackground(new java.awt.Color(255, 255, 255));
+        profileBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        profileBtn.setText("Profile");
+        profileBtn.setFocusPainted(false);
+        profileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bookCarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookHistoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookingRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(46, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bookCarBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bookHistoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bookingRequestBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(profileBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(168, 168, 168)
+                .addGap(91, 91, 91)
+                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(bookCarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookingRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookHistoryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(67, 67, 67))
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -181,8 +195,8 @@ public class MemberMenu extends javax.swing.JFrame {
             memberTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        adminDashboardTitle.setText("Welcome Back !");
+        memberMenuTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        memberMenuTitle.setText("Member Menu");
 
         nextBtn.setBackground(new java.awt.Color(255, 255, 255));
         nextBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -246,7 +260,7 @@ public class MemberMenu extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(adminDashboardTitle)
+                    .addComponent(memberMenuTitle)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(searchTf, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
@@ -268,7 +282,7 @@ public class MemberMenu extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(memberMenuTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bookCarHintLabel)
                 .addGap(26, 26, 26)
@@ -403,6 +417,11 @@ public class MemberMenu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Please select the booking in the table to pay.");
         }
     }//GEN-LAST:event_payBtnActionPerformed
+
+    private void profileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileBtnActionPerformed
+        dispose();
+        member.viewProfile();
+    }//GEN-LAST:event_profileBtnActionPerformed
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -438,7 +457,6 @@ public class MemberMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel adminDashboardTitle;
     private javax.swing.JButton bookCarBtn;
     private javax.swing.JLabel bookCarHintLabel;
     private javax.swing.JButton bookHistoryBtn;
@@ -450,9 +468,11 @@ public class MemberMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
+    private javax.swing.JLabel memberMenuTitle;
     private static javax.swing.JTable memberTable;
     private javax.swing.JButton nextBtn;
     private javax.swing.JButton payBtn;
+    private javax.swing.JButton profileBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JTextField searchTf;
     // End of variables declaration//GEN-END:variables

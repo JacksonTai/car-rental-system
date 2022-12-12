@@ -9,11 +9,7 @@ public class Vehicle implements Validatable {
     public Vehicle() {
         this.colour = "N/A";
     }
-    
-    public Vehicle(String colour) {
-        this.colour = colour;
-    }
-    
+
     public void setColour(String colour) {
         try {
             validate("colour", colour);

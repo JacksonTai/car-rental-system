@@ -52,7 +52,7 @@ public class AdminMenu extends javax.swing.JFrame {
         companyReportBtn = new javax.swing.JButton();
         bookingRequestBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        adminDashboardTitle = new javax.swing.JLabel();
+        adminMenuTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         adminTable = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
@@ -166,8 +166,8 @@ public class AdminMenu extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        adminDashboardTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        adminDashboardTitle.setText("Admin Menu");
+        adminMenuTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        adminMenuTitle.setText("Admin Menu");
 
         adminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -250,7 +250,7 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(adminDashboardTitle)
+                    .addComponent(adminMenuTitle)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -274,7 +274,7 @@ public class AdminMenu extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(adminDashboardTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(adminMenuTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(recordsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -466,7 +466,7 @@ public class AdminMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
-    private javax.swing.JLabel adminDashboardTitle;
+    private javax.swing.JLabel adminMenuTitle;
     private static javax.swing.JTable adminTable;
     public javax.swing.JButton bookingRequestBtn;
     private javax.swing.JButton carManagementBtn;
