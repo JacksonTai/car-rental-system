@@ -6,6 +6,10 @@ import com.oodj_assignment.helper.RecordWriter;
 
 public class Guest extends Customer {
 
+    public Guest() {
+        super(null);
+    }
+
     @Override
     public void viewMenu() {
         new GuestMenu().setVisible(true);
@@ -13,11 +17,10 @@ public class Guest extends Customer {
     
     public Member signUp(String fullName, String email, String phoneNum, String password, 
             String confirmPassword) throws Exception {
-        Member newMember = new Member();
-        newMember.validate("fullName", fullName);
-        newMember.validate("email", email);
-        newMember.validate("phoneNum", phoneNum);
-        newMember.validate("password", password);
+        validate("fullName", fullName);
+        validate("email", email);
+        validate("phoneNum", phoneNum);
+        validate("password", password);
         if (null != userID) {
             throw new Exception("This user has been signed up");
         } else if (confirmPassword.trim().isEmpty()) { 

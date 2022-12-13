@@ -21,10 +21,6 @@ public class Member extends Customer implements Logoutable {
     protected String email;
     protected String phoneNum;
 
-    public Member() {
-        super();
-    }
-    
     public Member(String userID) {
         super(userID);
         String[][] users = RecordReader.readFile("user.txt");
@@ -180,36 +176,5 @@ public class Member extends Customer implements Logoutable {
         memberMenu.dispose();
         new MainMenu().setVisible(true);
     }
-    
-    @Override
-    public void validate(String field, String value) {
-        switch (field) {
-            case "email" -> {
-                String email = value.trim();
-                if (email.isEmpty()) {
-                    throwErr("Please enter your email.");
-                }
-                if (!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
-                    throwErr("Invalid format of email.");
-                }   
-                String[][] users = RecordReader.readFile("user.txt");
-                for (String[] user : users) {
-                    if (user[1].equals(email)) {
-                        throwErr("Email has been taken, please try another one.");
-                    }
-                }
-            }
-            case "phoneNum" -> {
-                String phoneNum = String.valueOf(value).trim();
-                if (phoneNum.isEmpty()) {
-                    throwErr("Please enter your phone number.");
-                }
-                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") || phoneNum.contains(" ")) {
-                    throwErr("Invalid phone number.");
-                }
-            }
-            default -> super.validate(field, value);
-        }
-    }    
     
 }
