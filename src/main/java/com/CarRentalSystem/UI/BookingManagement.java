@@ -491,6 +491,7 @@ public class BookingManagement extends javax.swing.JFrame {
         );
         if (response == JOptionPane.YES_OPTION) {
             booking.setStatus(Booking.BookingStatus.REJECTED);
+            booking.getSelectedCar().setStatus("Available");
             admin.updateBookingRequest(booking);
             JOptionPane.showMessageDialog(rootPane, "Booking rejected.");
             dispose();
