@@ -4,7 +4,7 @@ import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.MemberProfile;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
-import com.oodj_assignment.entity.Booking.Status;
+import com.oodj_assignment.entity.Booking.BookingStatus;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
@@ -98,7 +98,7 @@ public class Member extends Customer implements Logoutable {
         
         // Update booking status.
         String customerID = booking.getMember().getUserID();
-        booking.setStatus(Status.PAID);
+        booking.setStatus(BookingStatus.PAID);
         String bookingStatus = booking.getStatus().name();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
@@ -115,8 +115,8 @@ public class Member extends Customer implements Logoutable {
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
                 if (bookingRecord[1].equals(userID) && (
-                        bookingRecord[5].equals(Status.PENDING.name()) || 
-                        bookingRecord[5].equals(Status.APPROVED.name())
+                        bookingRecord[5].equals(BookingStatus.PENDING.name()) || 
+                        bookingRecord[5].equals(BookingStatus.APPROVED.name())
                         )
                     ) {
                     Booking booking = new Booking(bookingRecord[0]);
@@ -145,8 +145,8 @@ public class Member extends Customer implements Logoutable {
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
                 if (bookingRecord[1].equals(userID) && (
-                        bookingRecord[5].equals(Status.PAID.name()) || 
-                        bookingRecord[5].equals(Status.REJECTED.name())
+                        bookingRecord[5].equals(BookingStatus.PAID.name()) || 
+                        bookingRecord[5].equals(BookingStatus.REJECTED.name())
                         )
                     ) {
                     Booking booking = new Booking(bookingRecord[0]);

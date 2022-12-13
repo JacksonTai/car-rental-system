@@ -8,7 +8,7 @@ import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.CompanyReport;
 import com.oodj_assignment.UI.menu.MainMenu;
-import com.oodj_assignment.entity.Booking.Status;
+import com.oodj_assignment.entity.Booking.BookingStatus;
 import com.oodj_assignment.helper.ArrayUtils;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
@@ -90,7 +90,7 @@ public class Admin extends User implements Logoutable {
         List<String[]> bookingRequests = new ArrayList();
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
-                if (bookingRecord[5].equals(Booking.Status.PENDING.name())) {
+                if (bookingRecord[5].equals(Booking.BookingStatus.PENDING.name())) {
                     Booking booking = new Booking(bookingRecord[0]);
                     bookingRequests.add(new String[] {
                         booking.getBookingID(),
@@ -151,7 +151,7 @@ public class Admin extends User implements Logoutable {
         if ("booking".equals(type)) {
             for (String[] record : records) {
                 String status = record[5];
-                if (Status.PENDING.name().equals(status)) {
+                if (BookingStatus.PENDING.name().equals(status)) {
                     records = ArrayUtils.removeElement(records, record);
                 }
             }

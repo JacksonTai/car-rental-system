@@ -23,9 +23,9 @@ public class Booking implements Validatable {
     private Car selectedCar;
     private LocalDate pickupDate; 
     private LocalDate returnDate;
-    private Status status;
+    private BookingStatus status;
     
-    public enum Status {
+    public enum BookingStatus {
         PENDING,
         APPROVED,
         REJECTED,
@@ -42,7 +42,7 @@ public class Booking implements Validatable {
         this.bookingID = IdGenerator.generate("bkg-");
         this.member = member;
         this.selectedCar = selectedCar;
-        this.status = Status.PENDING;
+        this.status = BookingStatus.PENDING;
     }
     
     public Booking (String bookingID) {
@@ -54,7 +54,7 @@ public class Booking implements Validatable {
                 selectedCar = new Car(booking[2]);
                 pickupDate = LocalDate.parse(booking[3]);
                 returnDate = LocalDate.parse(booking[4]);
-                status = Status.valueOf(booking[5]);
+                status = BookingStatus.valueOf(booking[5]);
                 break;
             }
         }
@@ -102,11 +102,11 @@ public class Booking implements Validatable {
         return returnDate;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(BookingStatus status) {
         this.status = status;
     }
 
-    public Status getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
     

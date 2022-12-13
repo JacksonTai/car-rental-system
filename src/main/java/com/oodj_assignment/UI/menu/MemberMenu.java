@@ -5,7 +5,7 @@ import com.oodj_assignment.entity.Member;
 import com.oodj_assignment.UI.form.BookingForm;
 import com.oodj_assignment.UI.form.PaymentForm;
 import com.oodj_assignment.entity.Booking;
-import com.oodj_assignment.entity.Booking.Status;
+import com.oodj_assignment.entity.Booking.BookingStatus;
 import com.oodj_assignment.helper.UI.JButtonActivator;
 import com.oodj_assignment.helper.UI.JTableSelector;
 
@@ -407,7 +407,7 @@ public class MemberMenu extends javax.swing.JFrame {
         try {
             String[] bookingRecord = JTableSelector.selectRow(memberTable);
             Booking selectedBooking = new Booking(bookingRecord[0]);
-            if (Status.APPROVED == selectedBooking.getStatus()) {
+            if (BookingStatus.APPROVED == selectedBooking.getStatus()) {
                 dispose();
                 new PaymentForm(member, selectedBooking).setVisible(true);
             } else {
