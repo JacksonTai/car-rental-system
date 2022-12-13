@@ -16,17 +16,17 @@ public class Guest extends Customer {
     }
     
     public Member signUp(String fullName, String email, String phoneNum, String password, 
-            String confirmPassword) throws Exception {
+            String confirmPassword) {
         validate("fullName", fullName);
         validate("email", email);
         validate("phoneNum", phoneNum);
         validate("password", password);
         if (null != userID) {
-            throw new Exception("This user has been signed up");
+            throwErr("This user has been signed up");
         } else if (confirmPassword.trim().isEmpty()) { 
-            throw new Exception("Please confirm your password.");
+             throwErr("Please confirm your password.");
         } else if (!confirmPassword.trim().equals(password.trim())) {
-            throw new Exception("Password do not match.");
+            throwErr("Password do not match.");
         }
         String userID = IdGenerator.generate("ctm-");
         email = email.trim();
