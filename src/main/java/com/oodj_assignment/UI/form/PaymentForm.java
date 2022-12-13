@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.oodj_assignment.UI.form;
 
-import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
 import com.oodj_assignment.entity.Booking;
 import com.oodj_assignment.entity.Car;
@@ -14,10 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author KJ
- */
 public class PaymentForm extends javax.swing.JFrame {
 
     Member member;

@@ -1,7 +1,3 @@
-    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.oodj_assignment.entity;
 
 import com.oodj_assignment.UI.menu.GuestMenu;
@@ -12,10 +8,6 @@ import com.oodj_assignment.helper.UI.JTableInserter;
 
 import javax.swing.JTable;
 
-/**
- *
- * @author Jackson
- */
 public abstract class Customer extends User {
     
     protected String fullName;

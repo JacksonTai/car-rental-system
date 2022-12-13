@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.oodj_assignment.UI.form;
 
 import com.oodj_assignment.UI.BookingConfirmation;
@@ -10,16 +6,13 @@ import com.oodj_assignment.entity.Car;
 import com.oodj_assignment.entity.Member;
 import com.toedter.calendar.IDateEditor;
 import com.toedter.calendar.JDateChooser;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- *
- * @author KJ
- */
 public class BookingForm extends javax.swing.JFrame {
 
     Member member;
@@ -154,11 +147,6 @@ public class BookingForm extends javax.swing.JFrame {
         modelTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         modelTf.setText("carmodel1234");
         modelTf.setBorder(null);
-        modelTf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modelTfActionPerformed(evt);
-            }
-        });
 
         carPlateNumTf.setEditable(false);
         carPlateNumTf.setBackground(new java.awt.Color(255, 255, 255));
@@ -333,10 +321,6 @@ public class BookingForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_bookBtnActionPerformed
-
-    private void modelTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modelTfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modelTfActionPerformed
 
     /**
      * @param args the command line arguments

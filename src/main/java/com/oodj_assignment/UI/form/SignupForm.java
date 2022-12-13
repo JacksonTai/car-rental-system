@@ -1,20 +1,11 @@
 package com.oodj_assignment.UI.form;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.entity.Guest;
 import com.oodj_assignment.entity.Member;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jackson
- */
 public class SignupForm extends javax.swing.JFrame {
 
     public SignupForm() {

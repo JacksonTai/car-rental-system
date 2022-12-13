@@ -1,6 +1,5 @@
 package com.oodj_assignment.UI.form;
 
-import com.oodj_assignment.UI.menu.AdminMenu;
 import com.oodj_assignment.UI.menu.CarMenu;
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.entity.Car;

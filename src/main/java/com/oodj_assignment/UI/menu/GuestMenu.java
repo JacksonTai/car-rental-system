@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.oodj_assignment.UI.menu;
 
 import com.oodj_assignment.entity.Guest;
@@ -9,10 +5,6 @@ import com.oodj_assignment.UI.form.SignupForm;
 import java.awt.Color;
 import javax.swing.JTable;
 
-/**
- *
- * @author Jackson
- */
 public class GuestMenu extends javax.swing.JFrame {
     
     Guest guest = new Guest();
