@@ -29,8 +29,11 @@ public class Guest extends Customer {
             throw new Exception("Password do not match.");
         }
         String userID = IdGenerator.generate("ctm-");
-        RecordWriter.write(new String[] {userID, email.trim(), fullName.trim(), phoneNum.trim(), 
-            password.trim()}, "user.txt");
+        email = email.trim();
+        fullName = fullName.trim();
+        phoneNum = phoneNum.trim();
+        password = password.trim();
+        RecordWriter.write(new String[] {userID, email, fullName, phoneNum, password}, "user.txt");
         return new Member(userID);
     }
    
