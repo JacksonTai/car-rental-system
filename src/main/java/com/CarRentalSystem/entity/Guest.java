@@ -2,7 +2,6 @@ package com.CarRentalSystem.entity;
 
 import com.CarRentalSystem.UI.menu.GuestMenu;
 import com.CarRentalSystem.helper.IdGenerator;
-import com.CarRentalSystem.helper.RecordUpdater;
 import com.CarRentalSystem.helper.RecordWriter;
 
 public class Guest extends Customer {
