@@ -1,17 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.oodj_assignment.UI;
 
 import com.oodj_assignment.entity.Admin;
 import com.oodj_assignment.helper.RecordReader;
 
-/**
- *
- * @author Jackson
- */
 public class CompanyReport extends javax.swing.JFrame {
     
     Admin admin;

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.oodj_assignment.entity;
 
 import com.oodj_assignment.Logoutable;
@@ -20,10 +16,6 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
-/**
- *
- * @author Jackson
- */
 public class Admin extends User implements Logoutable {
 
     public Admin(String userID) {

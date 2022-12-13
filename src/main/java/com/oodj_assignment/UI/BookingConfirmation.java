@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.oodj_assignment.UI;
 
 import com.oodj_assignment.UI.form.BookingForm;
@@ -13,10 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jackson
- */
 public class BookingConfirmation extends javax.swing.JFrame {
     
     Booking booking;
@@ -380,12 +371,6 @@ public class BookingConfirmation extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BookingConfirmation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

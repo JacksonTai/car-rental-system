@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.oodj_assignment.UI.menu;
 
 import com.oodj_assignment.entity.Guest;
 import com.oodj_assignment.UI.form.LoginForm;
 import com.oodj_assignment.UI.form.SignupForm;
 
-/**
- *
- * @author Jackson
- */
 public class MainMenu extends javax.swing.JFrame {
 
     public MainMenu() {
