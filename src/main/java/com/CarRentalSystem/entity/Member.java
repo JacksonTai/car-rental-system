@@ -74,6 +74,15 @@ public class Member extends Customer implements Logoutable {
         String[] bookingRecord = new String[]{bookingID, userID, plateNum, pickupDate, returnDate, 
                                                 status};
         RecordWriter.write(bookingRecord, "booking.txt");
+        
+        // Update car status.
+        selectedCar.setStatus("N/A");
+        String model = selectedCar.getModel();
+        String colour = selectedCar.getColour();
+        String pricePerDay = String.valueOf(selectedCar.getPricePerDay());
+        String carStatus = selectedCar.getStatus();
+        String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, carStatus};
+        RecordUpdater.update(carRecord, "car.txt");
     }
     
     public void makePayment(Payment payment) {
@@ -86,20 +95,11 @@ public class Member extends Customer implements Logoutable {
         String[] paymentRecord = new String[]{paymentID, bookingID, paymentDate, totalPrice};
         RecordWriter.write(paymentRecord, "payment.txt");
         
-        // Update car status.
-        selectedCar.setStatus("N/A");
-        String plateNum = selectedCar.getPlateNum();
-        String model = selectedCar.getModel();
-        String colour = selectedCar.getColour();
-        String pricePerDay = String.valueOf(selectedCar.getPricePerDay());
-        String carStatus = selectedCar.getStatus();
-        String[] carRecord = new String[] {plateNum, model, colour, pricePerDay, carStatus};
-        RecordUpdater.update(carRecord, "car.txt");
-        
         // Update booking status.
         String customerID = booking.getMember().getUserID();
         booking.setStatus(BookingStatus.PAID);
         String bookingStatus = booking.getStatus().name();
+        String plateNum = selectedCar.getPlateNum();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
         String[] bookingRecord = new String[] {bookingID, customerID, plateNum, pickupDate, 
