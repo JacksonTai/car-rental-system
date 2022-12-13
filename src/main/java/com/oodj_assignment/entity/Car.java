@@ -18,10 +18,6 @@ public class Car extends Vehicle {
     private String status; 
     
     public Car() {
-        super();
-        this.plateNum = "N/A";
-        this.model = "N/A";
-        this.pricePerDay = 0;
         this.status = "Available";
     }
     
