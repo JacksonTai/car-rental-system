@@ -6,10 +6,6 @@ public class Vehicle implements Validatable {
 
     protected String colour;
 
-    public Vehicle() {
-        this.colour = "N/A";
-    }
-
     public void setColour(String colour) {
         try {
             validate("colour", colour);

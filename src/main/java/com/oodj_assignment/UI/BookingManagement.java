@@ -482,7 +482,7 @@ public class BookingManagement extends javax.swing.JFrame {
                 JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE
         );
         if (response == JOptionPane.YES_OPTION) {
-            booking.setStatus(Booking.Status.APPROVED);
+            booking.setStatus(Booking.BookingStatus.APPROVED);
             admin.updateBookingRequest(booking);
             JOptionPane.showMessageDialog(rootPane, "Booking approved.");
             dispose();
@@ -499,7 +499,7 @@ public class BookingManagement extends javax.swing.JFrame {
                 JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE
         );
         if (response == JOptionPane.YES_OPTION) {
-            booking.setStatus(Booking.Status.REJECTED);
+            booking.setStatus(Booking.BookingStatus.REJECTED);
             admin.updateBookingRequest(booking);
             JOptionPane.showMessageDialog(rootPane, "Booking rejected.");
             dispose();

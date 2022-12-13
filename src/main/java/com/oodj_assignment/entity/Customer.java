@@ -19,11 +19,7 @@ import javax.swing.JTable;
 public abstract class Customer extends User {
     
     protected String fullName;
-    
-    public Customer() {
-        super();
-    }
-    
+     
     public Customer(String userID) {
         super(userID);
         String[][] users = RecordReader.readFile("user.txt");
@@ -78,22 +74,47 @@ public abstract class Customer extends User {
        
     @Override
     public void validate(String field, String value) {
-        if (field.equals("fullName")) {
-            String fullName = value.trim();
-            if (fullName.isEmpty()) {
-                throwErr("Please enter your full name.");
-            } 
-            if (fullName.length() < 6 || fullName.length() > 20) {
-                throwErr("Full name must contain 6 to 20 characters, please retry.");
-            }  
-            String[][] users = RecordReader.readFile("user.txt");
-            for (String[] user : users) {
-                if (user[2].equals(fullName)) {
-                    throwErr("This name has been registered. Please retry");
+        switch (field) {
+            case "fullName" -> {
+                String fullName = value.trim();
+                if (fullName.isEmpty()) {
+                    throwErr("Please enter your full name.");
+                } 
+                if (fullName.length() < 6 || fullName.length() > 20) {
+                    throwErr("Full name must contain 6 to 20 characters, please retry.");
+                }  
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[2].equals(fullName)) {
+                        throwErr("This name has been registered. Please retry");
+                    }
                 }
             }
-        } else {
-            super.validate(field, value);
+            case "email" -> {
+                String email = value.trim();
+                if (email.isEmpty()) {
+                    throwErr("Please enter your email.");
+                }
+                if (!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
+                    throwErr("Invalid format of email.");
+                }   
+                String[][] users = RecordReader.readFile("user.txt");
+                for (String[] user : users) {
+                    if (user[1].equals(email)) {
+                        throwErr("Email has been taken, please try another one.");
+                    }
+                }
+            }
+            case "phoneNum" -> {
+                String phoneNum = String.valueOf(value).trim();
+                if (phoneNum.isEmpty()) {
+                    throwErr("Please enter your phone number.");
+                }
+                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") || phoneNum.contains(" ")) {
+                    throwErr("Invalid phone number.");
+                }
+            }
+            default -> super.validate(field, value);
         }
     }    
     

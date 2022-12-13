@@ -4,7 +4,7 @@ import com.oodj_assignment.Logoutable;
 import com.oodj_assignment.UI.MemberProfile;
 import com.oodj_assignment.UI.menu.MainMenu;
 import com.oodj_assignment.UI.menu.MemberMenu;
-import com.oodj_assignment.entity.Booking.Status;
+import com.oodj_assignment.entity.Booking.BookingStatus;
 import com.oodj_assignment.helper.RecordReader;
 import com.oodj_assignment.helper.RecordUpdater;
 import com.oodj_assignment.helper.RecordWriter;
@@ -21,10 +21,6 @@ public class Member extends Customer implements Logoutable {
     protected String email;
     protected String phoneNum;
 
-    public Member() {
-        super();
-    }
-    
     public Member(String userID) {
         super(userID);
         String[][] users = RecordReader.readFile("user.txt");
@@ -102,7 +98,7 @@ public class Member extends Customer implements Logoutable {
         
         // Update booking status.
         String customerID = booking.getMember().getUserID();
-        booking.setStatus(Status.PAID);
+        booking.setStatus(BookingStatus.PAID);
         String bookingStatus = booking.getStatus().name();
         String pickupDate = booking.getPickupDate().toString();
         String returnDate = booking.getReturnDate().toString();
@@ -119,8 +115,8 @@ public class Member extends Customer implements Logoutable {
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
                 if (bookingRecord[1].equals(userID) && (
-                        bookingRecord[5].equals(Status.PENDING.name()) || 
-                        bookingRecord[5].equals(Status.APPROVED.name())
+                        bookingRecord[5].equals(BookingStatus.PENDING.name()) || 
+                        bookingRecord[5].equals(BookingStatus.APPROVED.name())
                         )
                     ) {
                     Booking booking = new Booking(bookingRecord[0]);
@@ -149,8 +145,8 @@ public class Member extends Customer implements Logoutable {
         if (bookingRecords.length > 0) {
             for (String[] bookingRecord : bookingRecords) {
                 if (bookingRecord[1].equals(userID) && (
-                        bookingRecord[5].equals(Status.PAID.name()) || 
-                        bookingRecord[5].equals(Status.REJECTED.name())
+                        bookingRecord[5].equals(BookingStatus.PAID.name()) || 
+                        bookingRecord[5].equals(BookingStatus.REJECTED.name())
                         )
                     ) {
                     Booking booking = new Booking(bookingRecord[0]);
@@ -180,36 +176,5 @@ public class Member extends Customer implements Logoutable {
         memberMenu.dispose();
         new MainMenu().setVisible(true);
     }
-    
-    @Override
-    public void validate(String field, String value) {
-        switch (field) {
-            case "email" -> {
-                String email = value.trim();
-                if (email.isEmpty()) {
-                    throwErr("Please enter your email.");
-                }
-                if (!email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) {
-                    throwErr("Invalid format of email.");
-                }   
-                String[][] users = RecordReader.readFile("user.txt");
-                for (String[] user : users) {
-                    if (user[1].equals(email)) {
-                        throwErr("Email has been taken, please try another one.");
-                    }
-                }
-            }
-            case "phoneNum" -> {
-                String phoneNum = String.valueOf(value).trim();
-                if (phoneNum.isEmpty()) {
-                    throwErr("Please enter your phone number.");
-                }
-                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") || phoneNum.contains(" ")) {
-                    throwErr("Invalid phone number.");
-                }
-            }
-            default -> super.validate(field, value);
-        }
-    }    
     
 }

@@ -16,9 +16,6 @@ public abstract class User implements Validatable {
     protected String userID;
     protected String password;
     
-    public User() {
-    }
-    
     public User(String userID) {
         String[][] users = RecordReader.readFile("user.txt");
         for (String[] user : users) {
