@@ -33,7 +33,11 @@ public class Guest extends Customer {
         fullName = fullName.trim();
         phoneNum = phoneNum.trim();
         password = password.trim();
-        RecordWriter.write(new String[] {userID, email, fullName, phoneNum, password}, "user.txt");
+        Address address = new Address();
+        RecordWriter.write(new String[] {
+            userID, email, fullName, phoneNum, password, address.getStreet(), address.getCity(), 
+            address.getState(), address.getPostalCode()
+        }, "user.txt");
         return new Member(userID);
     }
    
