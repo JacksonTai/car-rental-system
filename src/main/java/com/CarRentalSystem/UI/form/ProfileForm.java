@@ -1,15 +1,16 @@
-package com.CarRentalSystem.UI;
+package com.CarRentalSystem.UI.form;
 
-import com.CarRentalSystem.UI.form.ProfileForm;
 import com.CarRentalSystem.entity.Address;
 import com.CarRentalSystem.entity.Member;
 
-public class MemberProfile extends javax.swing.JFrame {
+import javax.swing.JOptionPane;
+
+public class ProfileForm extends javax.swing.JFrame {
     
     Member member;
     Address address;
-    
-    public MemberProfile(Member member) {
+ 
+    public ProfileForm(Member member) {
         initComponents();
         this.member = member;
         this.address = member.getAddress();
@@ -30,7 +31,7 @@ public class MemberProfile extends javax.swing.JFrame {
         stateTf.setText(address.getState());
         postalCodeTf.setText(address.getPostalCode());
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,17 +49,17 @@ public class MemberProfile extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         emailTf = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        streetTf = new javax.swing.JTextField();
-        cityTf = new javax.swing.JTextField();
-        stateTf = new javax.swing.JTextField();
-        postalCodeTf = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        updateBtn = new javax.swing.JButton();
+        streetTf = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        cityTf = new javax.swing.JTextField();
+        stateTf = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        confirmBtn = new javax.swing.JButton();
+        postalCodeTf = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,113 +123,99 @@ public class MemberProfile extends javax.swing.JFrame {
             }
         });
 
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel18.setText("Postal Code:");
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel19.setText("State:");
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel20.setText("City:");
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel21.setText("Street:");
-
-        streetTf.setEditable(false);
-        streetTf.setBackground(new java.awt.Color(255, 255, 255));
-        streetTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        streetTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        streetTf.setText("N/A");
-        streetTf.setBorder(null);
-
-        cityTf.setEditable(false);
-        cityTf.setBackground(new java.awt.Color(255, 255, 255));
-        cityTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cityTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        cityTf.setText("N/A");
-        cityTf.setBorder(null);
-
-        stateTf.setEditable(false);
-        stateTf.setBackground(new java.awt.Color(255, 255, 255));
-        stateTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        stateTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        stateTf.setText("N/A");
-        stateTf.setBorder(null);
-
-        postalCodeTf.setEditable(false);
-        postalCodeTf.setBackground(new java.awt.Color(255, 255, 255));
-        postalCodeTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        postalCodeTf.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        postalCodeTf.setText("N/A");
-        postalCodeTf.setBorder(null);
-
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel22.setText("Address");
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel23.setText("User Details");
 
-        updateBtn.setBackground(new java.awt.Color(255, 255, 255));
-        updateBtn.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        updateBtn.setText("Update");
-        updateBtn.setFocusPainted(false);
-        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+        streetTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel21.setText("Street:");
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel20.setText("City:");
+
+        cityTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        stateTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel19.setText("State:");
+
+        confirmBtn.setBackground(new java.awt.Color(9, 117, 240));
+        confirmBtn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        confirmBtn.setForeground(new java.awt.Color(255, 255, 255));
+        confirmBtn.setText("Confirm");
+        confirmBtn.setBorder(null);
+        confirmBtn.setBorderPainted(false);
+        confirmBtn.setDefaultCapable(false);
+        confirmBtn.setFocusPainted(false);
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateBtnActionPerformed(evt);
+                confirmBtnActionPerformed(evt);
             }
         });
+
+        postalCodeTf.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel18.setText("Postal Code:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(293, 293, 293)
-                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(282, 282, 282)
+                .addComponent(jLabel1)
+                .addContainerGap(312, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(78, 78, 78)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(fullNameTf, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(userIDTf, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(phoneNumTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(emailTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(streetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(282, 282, 282)))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(cityTf, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(streetTf, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(stateTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(postalCodeTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(fullNameTf, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(userIDTf, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(phoneNumTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(emailTf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(258, 258, 258)
-                                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(0, 33, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(58, 58, 58))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel20)
+                                .addComponent(cityTf, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(postalCodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,28 +245,30 @@ public class MemberProfile extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(streetTf)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(streetTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel20)
+                        .addGap(7, 7, 7)
+                        .addComponent(cityTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stateTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(postalCodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(cityTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stateTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(postalCodeTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
-                .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                    .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -304,13 +293,26 @@ public class MemberProfile extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
-        member.viewMenu();
+        member.viewProfile();
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        dispose();
-        new ProfileForm(member).setVisible(true);
-    }//GEN-LAST:event_updateBtnActionPerformed
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        String confirmTitle = "Update Profile";
+        String confirmMsg = "Are you sure to update your profile?";
+        int response = JOptionPane.showConfirmDialog(rootPane, confirmMsg, confirmTitle, 
+                JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE
+        );
+        if (response == JOptionPane.YES_OPTION) {
+            String street = streetTf.getText().trim();
+            String city = cityTf.getText().trim();
+            String state = stateTf.getText().trim();
+            String postalCode = postalCodeTf.getText().trim();
+            member.updateAddress(new Address(street, city, state, postalCode));
+            JOptionPane.showMessageDialog(rootPane, "Profile updated.");
+            dispose();
+            member.viewProfile();          
+        }
+    }//GEN-LAST:event_confirmBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,13 +331,13 @@ public class MemberProfile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MemberProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MemberProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MemberProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MemberProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProfileForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -351,6 +353,7 @@ public class MemberProfile extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JTextField cityTf;
+    private javax.swing.JButton confirmBtn;
     private javax.swing.JTextField emailTf;
     private javax.swing.JTextField fullNameTf;
     private javax.swing.JLabel jLabel1;
@@ -371,7 +374,6 @@ public class MemberProfile extends javax.swing.JFrame {
     private javax.swing.JTextField postalCodeTf;
     private javax.swing.JTextField stateTf;
     private javax.swing.JTextField streetTf;
-    private javax.swing.JButton updateBtn;
     private javax.swing.JTextField userIDTf;
     // End of variables declaration//GEN-END:variables
 

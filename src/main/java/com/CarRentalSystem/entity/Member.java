@@ -20,6 +20,7 @@ public class Member extends Customer implements Logoutable {
 
     protected String email;
     protected String phoneNum;
+    protected Address address;
 
     public Member(String userID) {
         super(userID);
@@ -28,6 +29,7 @@ public class Member extends Customer implements Logoutable {
             if (user[0].equals(userID)) {
                 this.email = user[1];
                 this.phoneNum = user[3];
+                this.address = new Address(user[5], user[6], user[7], user[8]);
                 break;
             }
         }
@@ -59,6 +61,14 @@ public class Member extends Customer implements Logoutable {
         return phoneNum;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+    
+    public Address getAddress() {
+        return address;
+    }    
+    
     @Override
     public void viewMenu() {
         new MemberMenu(this).setVisible(true);
@@ -169,6 +179,14 @@ public class Member extends Customer implements Logoutable {
    
     public void viewProfile() {
         new MemberProfile(this).setVisible(true);
+    }
+    
+    public void updateAddress(Address address) {
+        this.address = address;
+        RecordUpdater.update(new String[] {
+            userID, email, fullName, phoneNum, password, address.getStreet(), address.getState(),
+            address.getCity(), address.getPostalCode()
+        }, "user.txt");
     }
     
     @Override
