@@ -5,14 +5,14 @@ import com.CarRentalSystem.UI.menu.AdminMenu;
 import com.CarRentalSystem.UI.CompanyReport;
 import com.CarRentalSystem.UI.menu.MainMenu;
 import com.CarRentalSystem.entity.Booking.BookingStatus;
-import com.CarRentalSystem.helper.ArrayUtils;
 import com.CarRentalSystem.helper.RecordReader;
 import com.CarRentalSystem.helper.RecordUpdater;
 import com.CarRentalSystem.helper.RecordWriter;
 import com.CarRentalSystem.helper.UI.JTableInserter;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 
@@ -48,29 +48,21 @@ public class Admin extends User implements Logoutable {
     }
     
     public void deleteCar(Car selectedCar) {
-        String[][] cars = RecordReader.readFile("car.txt");
-        for (String[] car : cars) {        
-           if (car[0].equals(selectedCar.getPlateNum())) {
-                cars = ArrayUtils.removeElement(cars, car);
-           }
-        } 
+        String[][] cars = Arrays.stream(RecordReader.readFile("car.txt"))
+                .filter(car -> !car[0].equals(selectedCar.getPlateNum()))
+                .toArray(String[][]::new);
         RecordWriter.write(cars, "car.txt", true);
     }
     
     @Override
-    public void searchCar(String keyword) {
-        keyword = keyword.trim().toUpperCase();
+    public void searchCar(String searchKeyword) {
+        final String keyword = searchKeyword.trim().toLowerCase();
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day", "Status"};
-        String[][] carsInfo = RecordReader.readFile("car.txt");
-        if (!"E.G. AXIA/(PLATE NUMBER)".equals(keyword)) {
-            for (String[] carInfo : carsInfo) {
-                String plateNum = carInfo[0].toUpperCase();
-                String model = carInfo[1].toUpperCase();
-                if (!model.contains(keyword) && !plateNum.contains(keyword)) {
-                    carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
-                }
-            }
-        }
+        String[][] carsInfo = Arrays.stream(RecordReader.readFile("car.txt"))
+                .filter(carInfo -> !"e.g. axia/(plate number)".equals(keyword) ? 
+                                    carInfo[0].toLowerCase().contains(keyword) || 
+                                    carInfo[1].toLowerCase().contains(keyword) : true)
+                .toArray(String[][]::new);
         JTable adminTable = AdminMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, adminTable);
     }
@@ -132,21 +124,17 @@ public class Admin extends User implements Logoutable {
         type = "customer".equals(type) ? "user" : type;  
         String[][] records = RecordReader.readFile(type + ".txt");
         
-        // Remove admin from user records to form customer records.
         if ("user".equals(type)) {
-            for (String[] record : records) {
-                if ("adm".equals(record[0].substring(0, 3))) {
-                    records = ArrayUtils.removeElement(records, record);
-                }
-            }
+            // Exclude admin to obtain customer only.
+            records = Arrays.stream(records)
+                    .filter(record -> "ctm".equals(record[0].substring(0, 3)))
+                    .toArray(String[][]::new);
         }
         if ("booking".equals(type)) {
-            for (String[] record : records) {
-                String status = record[5];
-                if (BookingStatus.PENDING.name().equals(status)) {
-                    records = ArrayUtils.removeElement(records, record);
-                }
-            }
+            // Exclude pending records from booking records.
+            records = Arrays.stream(records)
+                    .filter(record -> !BookingStatus.PENDING.name().equals(record[5]))
+                    .toArray(String[][]::new);
         }
         if (null != fields && null != records) {
             JTable adminTable = AdminMenu.getTable();
