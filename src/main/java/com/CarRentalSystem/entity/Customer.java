@@ -2,9 +2,9 @@ package com.CarRentalSystem.entity;
 
 import com.CarRentalSystem.UI.menu.GuestMenu;
 import com.CarRentalSystem.UI.menu.MemberMenu;
-import com.CarRentalSystem.helper.ArrayUtils;
 import com.CarRentalSystem.helper.RecordReader;
 import com.CarRentalSystem.helper.UI.JTableInserter;
+import java.util.Arrays;
 
 import javax.swing.JTable;
 
@@ -14,13 +14,9 @@ public abstract class Customer extends User {
      
     public Customer(String userID) {
         super(userID);
-        String[][] users = RecordReader.readFile("user.txt");
-        for (String[] user : users) {
-            if (user[0].equals(userID)) {
-                this.fullName = user[2];
-                break;
-            }
-        }
+        fullName = Arrays.stream(RecordReader.readFile("user.txt"))
+                .filter(user -> user[0].equals(userID))
+                .toArray(String[][]::new)[0][2];
     }
 
     public void setFullName(String fullName) {
@@ -38,28 +34,22 @@ public abstract class Customer extends User {
     
     public void viewCar() {
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
-        String[][] carsInfo = RecordReader.readFile("car.txt");
-        for (String[] carInfo : carsInfo) {
-            if ("N/A".equals(carInfo[4])) {
-                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
-            }
-        }
+        String[][] carsInfo = Arrays.stream(RecordReader.readFile("car.txt"))
+                .filter(car -> !"N/A".equals(car[4]))
+                .toArray(String[][]::new);
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
 
     @Override
-    public void searchCar(String keyword) {
-        keyword = keyword.trim().toUpperCase();
+    public void searchCar(String searchKeyword) {
+        final String keyword = searchKeyword.trim().toLowerCase();
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
-        String[][] carsInfo = RecordReader.readFile("car.txt");
-        for (String[] carInfo : carsInfo) {
-            String model = carInfo[1].toUpperCase();
-            if ("N/A".equals(carInfo[4]) || 
-                    !"E.G. AXIA".equals(keyword) && !model.contains(keyword)) {
-                carsInfo = ArrayUtils.removeElement(carsInfo, carInfo); 
-            }
-        }
+        String[][] carsInfo = Arrays.stream(RecordReader.readFile("car.txt"))
+                .filter(car -> !"N/A".equals(car[4]))
+                .filter(car -> !"e.g. axia".equals(keyword) ? 
+                        car[1].toLowerCase().contains(keyword) : true)
+                .toArray(String[][]::new);
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
     }
@@ -102,7 +92,8 @@ public abstract class Customer extends User {
                 if (phoneNum.isEmpty()) {
                     throwErr("Please enter your phone number.");
                 }
-                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") || phoneNum.contains(" ")) {
+                if (!phoneNum.matches("^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$") 
+                        || phoneNum.contains(" ")) {
                     throwErr("Invalid phone number.");
                 }
             }
