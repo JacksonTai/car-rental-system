@@ -46,9 +46,9 @@ public abstract class Customer extends User {
         final String keyword = searchKeyword.trim().toLowerCase();
         String[] carFields = {"Plate Number", "Model", "Colour", "Price/Day"};
         String[][] carsInfo = Arrays.stream(RecordReader.readFile("car.txt"))
-                .filter(car -> !"N/A".equals(car[4]))
-                .filter(car -> !"e.g. axia".equals(keyword) ? 
-                        car[1].toLowerCase().contains(keyword) : true)
+                .filter(carInfo -> !"N/A".equals(carInfo[4]))
+                .filter(carInfo -> !"e.g. axia".equals(keyword) ? 
+                        carInfo[1].toLowerCase().contains(keyword) : true)
                 .toArray(String[][]::new);
         JTable customerTable = getUserID() == null ? GuestMenu.getTable() : MemberMenu.getTable();
         JTableInserter.insert(carFields, carsInfo, customerTable);
