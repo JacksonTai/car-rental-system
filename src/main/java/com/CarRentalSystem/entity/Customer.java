@@ -4,8 +4,8 @@ import com.CarRentalSystem.UI.menu.GuestMenu;
 import com.CarRentalSystem.UI.menu.MemberMenu;
 import com.CarRentalSystem.helper.RecordReader;
 import com.CarRentalSystem.helper.UI.JTableInserter;
-import java.util.Arrays;
 
+import java.util.Arrays;
 import javax.swing.JTable;
 
 public abstract class Customer extends User {
