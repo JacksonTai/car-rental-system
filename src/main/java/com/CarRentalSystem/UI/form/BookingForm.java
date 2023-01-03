@@ -316,7 +316,6 @@ public class BookingForm extends javax.swing.JFrame {
             booking.setReturnDate(returnDate);
             dispose();
             new BookingConfirmation(booking).setVisible(true);
-            // new PaymentForm(member, booking).setVisible(true);
         } catch (IllegalArgumentException | NullPointerException e ) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
