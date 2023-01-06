@@ -9,6 +9,9 @@ public abstract class User implements Validatable {
     protected String password;
     
     public User(String userID) {
+        if (userID == null) {
+            return;
+        }
         String[][] users = RecordReader.readFile("user.txt");
         for (String[] user : users) {
             if (user[0].equals(userID)) {
