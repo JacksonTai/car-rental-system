@@ -14,6 +14,9 @@ public abstract class Customer extends User {
      
     public Customer(String userID) {
         super(userID);
+        if (userID == null) {
+            return;
+        }
         fullName = Arrays.stream(RecordReader.readFile("user.txt"))
                 .filter(user -> user[0].equals(userID))
                 .toArray(String[][]::new)[0][2];
